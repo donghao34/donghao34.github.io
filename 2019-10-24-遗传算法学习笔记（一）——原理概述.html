@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"donghao34.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="遗传算法  摘自：  https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;ae5157c26af9 https:&#x2F;&#x2F;blog.csdn.net&#x2F;u010451580&#x2F;article&#x2F;details&#x2F;51178225 http:&#x2F;&#x2F;geatpy.com&#x2F;index.php&#x2F;ea_introduction&#x2F;   遗传算法是一种模拟达尔文物种进化理论的算法，算法很新颖独特。 原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗传算法（一）——原理概述">
+<meta property="og:url" content="https://donghao34.github.io/2019-10-24-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0.html">
+<meta property="og:site_name" content="donghao_34&#39;s Blog">
+<meta property="og:description" content="遗传算法  摘自：  https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;ae5157c26af9 https:&#x2F;&#x2F;blog.csdn.net&#x2F;u010451580&#x2F;article&#x2F;details&#x2F;51178225 http:&#x2F;&#x2F;geatpy.com&#x2F;index.php&#x2F;ea_introduction&#x2F;   遗传算法是一种模拟达尔文物种进化理论的算法，算法很新颖独特。 原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://donghao34.github.io/images/20191024_遗传算法.jpg">
+<meta property="article:published_time" content="2019-10-24T12:47:59.000Z">
+<meta property="article:modified_time" content="2020-08-13T11:05:24.927Z">
+<meta property="article:author" content="donghao_34">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="遗传算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://donghao34.github.io/images/20191024_遗传算法.jpg">
+
+<link rel="canonical" href="https://donghao34.github.io/2019-10-24-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>遗传算法（一）——原理概述 | donghao_34's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">donghao_34's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">New way, new future.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://donghao34.github.io/2019-10-24-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="donghao_34">
+      <meta itemprop="description" content="donghao_34's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="donghao_34's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          遗传算法（一）——原理概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-24 20:47:59" itemprop="dateCreated datePublished" datetime="2019-10-24T20:47:59+08:00">2019-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 19:05:24" itemprop="dateModified" datetime="2020-08-13T19:05:24+08:00">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="遗传算法">遗传算法</h1>
+<blockquote>
+<p>摘自：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ae5157c26af9">https://www.jianshu.com/p/ae5157c26af9</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010451580/article/details/51178225">https://blog.csdn.net/u010451580/article/details/51178225</a></li>
+<li>http://geatpy.com/index.php/ea_introduction/</li>
+</ul>
+</blockquote>
+<p>遗传算法是一种模拟达尔文物种进化理论的算法，算法很新颖独特。</p>
+<h2 id="原理">原理</h2>
+<p>遗传算法模拟了自然界物竞天择的生物进化过程。</p>
+<p>它的主要过程是由代表问题的潜在解集的一个种群 (population) 开始。种群由经过基因 (gene) 编码 (coding) 的一定数目的个体 (individual) 组成。每个个体实际上是染色体 (chromosome) 带有特征的实体。</p>
+<p>随后以面为单位搜索，通过随机初始化种群，并按照适者生存、优胜劣汰的原理，主带逐代 (generation) 演化产生越来越好的近似解。在每一代中，根据个体的适应度 (fitness) 大小来选择 (selection) 个体，并借助于自然遗传学中的遗传算子 (genetic operators) 进行组合交叉 (crossover) 和变异 (mutation)，产生出新的解集的种群。</p>
+<a id="more"></a>
+<h2 id="实现过程">实现过程</h2>
+<p>遗传算法的实现过程可以由下图表示：</p>
+<figure>
+<img src="/images/20191024_遗传算法.jpg" alt="遗传算法示意图" /><figcaption aria-hidden="true">遗传算法示意图</figcaption>
+</figure>
+<h3 id="编码">编码</h3>
+<ul>
+<li><p><strong>二进制编码</strong>： 使用类似于模数转换的公式： <span class="math display">\[
+x = -1 + x^t\frac{b-a}{2^n-1}
+\]</span> 其中，<span class="math inline">\(x^t\)</span>为二进制数的十进制整数值，<span class="math inline">\(a\)</span>和<span class="math inline">\(b\)</span>表示对应浮点数区间的左右端点，<span class="math inline">\(n\)</span>为二进制数的位数。</p></li>
+<li><p><strong>浮点数编码</strong>：</p></li>
+<li><p><strong>符号编码</strong></p></li>
+</ul>
+<h3 id="适应性评分与选择函数">适应性评分与选择函数</h3>
+<ul>
+<li><strong>物竞——适应性函数</strong>：用以评判个体适应程度的函数：
+<ul>
+<li><strong>目标函数适应度</strong>： 直接使用目标函数值作为适应度数值，实现简单直接；</li>
+<li><strong>目标函数变换适应度</strong>： 使用某种变换对目标函数值进行加工，作为适应度数值；</li>
+<li><strong>基于等级划分的适应度分配计算</strong> (Rank-based fitness assignment): 将个体按照目标函数大小进行排序，之后按照顺序对个体赋予适应度评分。可以避免目标函数数值带来的放缩不当的问题。排序方法包括线性排序和非线性排序等。</li>
+</ul></li>
+<li><strong>天择——选择函数</strong>：根据适应值确定个体繁殖后代的概率：</li>
+<li><strong>轮盘赌选择</strong> (Roulette Wheel Selection, RWS)： 每个个体进入下一代的概率等于其适应度值与种群总适应度值的比例，误差较大。
+<ul>
+<li><strong>随机竞争选择</strong> (Stochastic Tournament)： 每次按轮盘赌方法选择一对个体，让两个个体进行竞争，适应度高的选中，如此反复，直到选满为止。</li>
+<li><strong>最佳保留选择</strong>： 按照轮盘赌方法选择，之后再将适应度最高的个体完整复制到下一代群体中。</li>
+<li><strong>无回放随机选择</strong>（或期望值选择，Excepted Value Selection）：
+<ul>
+<li>计算每个个体在下一代的生存期望数目；</li>
+<li>若某个体参与交叉运算，则期望数目减去0.5，若未参与交叉运算，则期望数目减去1.0；</li>
+<li>随着选择过程的进行，当个体的生存期望数目小于0时，该个体不再有机会被选中。</li>
+</ul></li>
+<li><strong>确定式选择</strong>：
+<ul>
+<li>计算每个个体在下一代的生存期望数目；</li>
+<li>用的整数部分确定个体再下一代的生存数目；</li>
+<li>用的小数部分对个体进行降序排列，顺序选取前个个体加入到下一代中。</li>
+</ul></li>
+<li><strong>无回放余数随机选择</strong>： 确保适应度大于平均值的个体能够遗传，误差较小。</li>
+<li><strong>均匀排序</strong>： 按照适应度大小排序，按照排序分配选中概率。</li>
+<li><strong>最佳保存策略</strong>： 适应度最高的个体不参与交叉和变异运算，用以代替经交叉、变异操作后适应度最低的个体。</li>
+<li><strong>随机联赛选择</strong>： 每次选取几个个体中适应度最高的一个个体遗传到下一代。</li>
+<li><strong>排挤选择</strong>： 新生的子代代替或排挤相似的旧父代个体，提高群体多样性。</li>
+</ul></li>
+</ul>
+<h2 id="遗传变异">遗传变异</h2>
+<h3 id="基因重组交叉">基因重组/交叉</h3>
+<ul>
+<li><p><strong>单点交叉</strong>：选取一点；</p></li>
+<li><p><strong>两点交叉</strong>：选取两点；</p></li>
+<li><p><strong>多点交叉</strong>：选取多点；</p></li>
+<li><p><strong>均匀交叉</strong>：概率等同；</p></li>
+<li><p><strong>算术交叉</strong>：线性组合（常用于浮点数编码）。</p></li>
+</ul>
+<p><em>（注：二进制交叉：交换位；浮点数交叉：取二者之间的随机值）</em></p>
+<h3 id="基因突变">基因突变</h3>
+<ul>
+<li><p><strong>基本位变异</strong>：选取一位或多位；</p></li>
+<li><p><strong>均匀变异</strong>：设置一个一定范围内的随机数，以一个较小的概率替换基因上的原有基因值；</p></li>
+<li><p><strong>边界变异</strong>：随机选取两个边界基因值之一替代原有基因值；</p></li>
+<li><p><strong>非均匀变异</strong>：对原基因值做随机扰动，对每位都以相同的概率进行变异运算，将扰动结果作为新基因值；</p></li>
+<li><p><strong>高斯近似变异</strong>：使用关于原基因高斯分布的一个随机数替代元基因值。</p></li>
+</ul>
+<p><em>（注：二进制变异：反转0、1；浮点数变异：增加或减少一个小的随机数（步长））</em></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>donghao_34
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://donghao34.github.io/2019-10-24-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0.html" title="遗传算法（一）——原理概述">https://donghao34.github.io/2019-10-24-遗传算法学习笔记（一）——原理概述.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+              <a href="/tags/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 遗传算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019-10-27-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%A4%8D%E4%B9%A0.html" rel="next" title="线性代数复习">
+      线性代数复习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">遗传算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81"><span class="nav-number">1.2.1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E8%AF%84%E5%88%86%E4%B8%8E%E9%80%89%E6%8B%A9%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">适应性评分与选择函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%97%E4%BC%A0%E5%8F%98%E5%BC%82"><span class="nav-number">1.3.</span> <span class="nav-text">遗传变异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9B%A0%E9%87%8D%E7%BB%84%E4%BA%A4%E5%8F%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">基因重组&#x2F;交叉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9B%A0%E7%AA%81%E5%8F%98"><span class="nav-number">1.3.2.</span> <span class="nav-text">基因突变</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="donghao_34"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">donghao_34</p>
+  <div class="site-description" itemprop="description">donghao_34's Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/donghao34" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;donghao34" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:donghao_34@sjtu.edu.cn" title="E-Mail → mailto:donghao_34@sjtu.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">donghao_34</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">37k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">34 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+
+  
+
+</body>
+</html>
