@@ -54,8 +54,8 @@
 <p>ML.NET 能够实现的功能包括：</p>
 <ul>
 <li>通过离线或在线训练的方式将机器学习集成至 .NET 应用中;</li>
-<li>提供多种机器学习模型，并提供 AutoML 自动机器学习算法，进行自动的模型筛选、训练、优化和;</li>
-<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 Tensorflow、ONNX 模型;</li>
+<li>提供多种机器学习模型，并提供 AutoML 自动机器学习算法，进行自动的模型筛选、训练、优化和部署;</li>
+<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 TensorFlow、ONNX 模型.</li>
 </ul>
 <p>ML.NET 当前可以实现的机器学习模型包括：</p>
 <ul>
@@ -243,109 +243,6 @@
         <tag>Python</tag>
         <tag>机器学习</tag>
         <tag>scikit-learn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习—— RBF 神经网络</title>
-    <url>/2019-11-17-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%20RBF%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html</url>
-    <content><![CDATA[<blockquote>
-<p>参考：</p>
-<ul>
-<li><a href="https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/">https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/</a></li>
-</ul>
-</blockquote>
-<h1 id="概念">概念</h1>
-<p><em>RBF 神经网络 (RBF Neural Network)</em> 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gaussian Radial Basis Function) 作为处理函数，如图所示：</p>
-<figure>
-<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Net.png" alt="RBF 神经网络" /><figcaption aria-hidden="true">RBF 神经网络</figcaption>
-</figure>
-<a id="more"></a>
-<h1 id="高斯径向基">高斯径向基</h1>
-<p>高斯径向基来源于高斯分布。</p>
-<blockquote>
-<p><em>高斯分布 (Gaussian Distribution)</em> 是统计学中最常见的分布模式，它可以用以下公式表示： <span class="math display">\[
-\mathcal{N}(x: \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
-\]</span> 其中<span class="math inline">\(\mu\)</span>代表分布的平均值，<span class="math inline">\(\sigma\)</span>代表分布的标准差。</p>
-</blockquote>
-<p>任何函数都可以用高斯分布的线性组合来进行近似。如图所示，使用不同平均值和标准差的高斯函数的组合可以对一条非线性函数进行回归。</p>
-<figure>
-<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/Curve-Fitting.gif" alt="高斯分布拟合非线性函数" /><figcaption aria-hidden="true">高斯分布拟合非线性函数</figcaption>
-</figure>
-<h2 id="获取平均值">获取平均值</h2>
-<p>可以使用 K-平均聚类算法获得高斯函数的平均值。</p>
-<blockquote>
-<p><em>K-平均聚类算法 (K-means Clustering)</em> 是一种对样本数据进行聚类。聚类任务将样本分为若干个子集，以便确定各个高斯分布的位置。这种聚类算法可以由以下公式表示： <span class="math display">\[
-\underset{\mathbf{S}}{\mathrm{argmin}}\sum_{i=1}^k\sum_{\mathbf{X}\in S_i}\lVert \boldsymbol{x}-\boldsymbol{\mu}_i\rVert^2
-\]</span> 其中<span class="math inline">\(\mathbf{x} = (\boldsymbol{x}_1, \boldsymbol{x}_2, \dots, \boldsymbol{x}_n)\)</span>是观测样本数据集，<span class="math inline">\(k\)</span>为聚类的总集合数，<span class="math inline">\(\boldsymbol{\mu}_i\)</span>为第<span class="math inline">\(i\)</span>个集合的所有点的平均值。</p>
-<p>K-平均聚类算法的主要过程可以表示为：</p>
-<ol type="1">
-<li>随机生成k个聚类中心点 (cluster centroids) <span class="math inline">\(\mu_1, \mu_2, \dots, \mu_k \in \Bbb{R}^n\)</span>；</li>
-<li>按照公式 <span class="math display">\[\boldsymbol{c}^{(i)} := \underset{j}{\mathrm{argmin}}\lVert \boldsymbol{x}^{(i)} - \boldsymbol{\mu}_j\rVert^2\]</span> 获取每一个样本<span class="math inline">\(i\)</span>的所属的类；</li>
-<li>按照公式 <span class="math display">\[\mu_j := \frac{\sum_{i=1}^m1\{\boldsymbol{c}^{(i)} = j\}\boldsymbol{x}^{(i)}}{\sum_{i=1}^m1\{\boldsymbol{c}^{(i)} = j\}}\]</span> 求取每一个类<span class="math inline">\(j\)</span>的新的中心；</li>
-<li>重复步骤2和步骤3，直至收敛。</li>
-</ol>
-</blockquote>
-<h2 id="标准差的确定">标准差的确定</h2>
-<p>高斯函数的标准差的确定有两种方法：</p>
-<ul>
-<li>使用每个聚类各自的标准差；</li>
-<li>使用整体标准差<span class="math inline">\(\sigma = \frac{d_{\max}}{\sqrt{2k}}\)</span> 其中<span class="math inline">\(d_{\max}\)</span>表示两个聚类中心间的最大距离，<span class="math inline">\(k\)</span>表示聚类中心的个数。</li>
-</ul>
-<h1 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h1>
-<p>对于每一个输入<span class="math inline">\(\boldsymbol{x}\)</span>，RBF 神经网络的输出为 <span class="math display">\[
-F(\boldsymbol{x}) = \sum_{j=1}^k\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c_j}) + b
-\]</span> 式中<span class="math inline">\(\omega_j\)</span>表示权重，<span class="math inline">\(b\)</span>表示偏置，<span class="math inline">\(k\)</span>表示聚类数，<span class="math inline">\(\phi_j(\cdot)\)</span>是高斯 RBF 函数： <span class="math display">\[
-\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) = \exp(\frac{-\lVert\boldsymbol{x - c}_j\rVert^2}{2\sigma^2_j})
-\]</span></p>
-<p>代价函数： <span class="math display">\[
-C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
-\]</span></p>
-<p><span class="math inline">\(\boldsymbol{\omega}_j\)</span>的更新方法： <span class="math display">\[
-\begin{aligned}
-    &amp;\begin{aligned}
-        \frac{\partial C}{\partial\omega_j} &amp;= \frac{\partial C}{\partial F}\frac{\partial F}{\partial\omega_j} \\
-        &amp;= \frac{\partial}{\partial F}[\sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2] \cdot \frac{\partial}{\partial\omega_j}[\sum_{j=0}^K\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) + b]\\
-        &amp;= -(y^{(i)}-F(\boldsymbol{x}^{(i)})) \cdot \phi_j(\boldsymbol{x}, \boldsymbol{c}_j)
-    \end{aligned}\\
-    &amp;\omega_j\leftarrow\omega_j + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))\phi_j(\boldsymbol{x}, \boldsymbol{c}_j)
-\end{aligned}
-\]</span></p>
-<p>类似地，<span class="math inline">\(b\)</span>的更新方法： <span class="math display">\[
-\begin{aligned}
-    &amp;\begin{aligned}
-        \frac{\partial C}{\partial b} &amp;= \frac{\partial C}{\partial F}\frac{\partial F}{\partial b} \\
-        &amp;= \frac{\partial}{\partial F}[\sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2] \cdot \frac{\partial}{\partial b}[\sum_{j=0}^K\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) + b]\\
-        &amp;= -(y^{(i)}-F(\boldsymbol{x}^{(i)})) \cdot 1
-    \end{aligned}\\
-    &amp;b\leftarrow b + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))
-\end{aligned}
-\]</span></p>
-<h1 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h1>
-<p>RBF 核函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbf</span>(<span class="params">x, c, s</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.exp(<span class="number">-1</span> / (<span class="number">2</span> * s**<span class="number">2</span>) * (x-c)**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<p>K-平均聚类算法以及标准差的求取：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmeans</span>(<span class="params">X, k</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Performs k-means clustering for 1D input</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        X &#123;ndarray&#125; -- A Mx1 array of inputs</span></span><br><span class="line"><span class="string">        k &#123;int&#125; -- Number of clusters</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        ndarray -- A kx1 array of final cluster centers</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># randomly select initial clusters from input data</span></span><br><span class="line">    clusters = np.random.choice(np.squeeze(X), size=k)</span><br><span class="line">    prevClusters = clusters.copy()</span><br><span class="line">    stds = np.zeros(k)</span><br><span class="line">    converged = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> converged:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        compute distances for each cluster center to each point</span></span><br><span class="line"><span class="string">        where (distances[i, j] represents the distance between the ith point and jth cluster)</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        distances = np.squeeze(np.abs(X[:, np.newaxis] - clusters[np.newaxis, :]))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># find the cluster that&#x27;s closest to each point</span></span><br><span class="line">        closestCluster = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update clusters by taking the mean of all of the points assigned to that cluster</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            pointsForCluster = X[closestCluster == i]</span><br><span class="line">            <span class="keyword">if</span> len(pointsForCluster) &gt; <span class="number">0</span>:</span><br><span class="line">                clusters[i] = np.mean(pointsForCluster, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># converge if clusters haven&#x27;t moved</span></span><br><span class="line">        converged = np.linalg.norm(clusters - prevClusters) &lt; <span class="number">1e-6</span></span><br><span class="line">        prevClusters = clusters.copy()</span><br><span class="line"></span><br><span class="line">    distances = np.squeeze(np.abs(X[:, np.newaxis] - clusters[np.newaxis, :]))</span><br><span class="line">    closestCluster = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    clustersWithNoPoints = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        pointsForCluster = X[closestCluster == i]</span><br><span class="line">        <span class="keyword">if</span> len(pointsForCluster) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="comment"># keep track of clusters with no points or 1 point</span></span><br><span class="line">            clustersWithNoPoints.append(i)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            stds[i] = np.std(X[closestCluster == i])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if there are clusters with 0 or 1 points, take the mean std of the other clusters</span></span><br><span class="line">    <span class="keyword">if</span> len(clustersWithNoPoints) &gt; <span class="number">0</span>:</span><br><span class="line">        pointsToAverage = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> clustersWithNoPoints:</span><br><span class="line">                pointsToAverage.append(X[closestCluster == i])</span><br><span class="line">        pointsToAverage = np.concatenate(pointsToAverage).ravel()</span><br><span class="line">        stds[clustersWithNoPoints] = np.mean(np.std(pointsToAverage))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> clusters, stds</span><br></pre></td></tr></table></figure>
-<p>建立 RBF 神经网络的类（单输出）：</p>
-<p>多个输出时应将权重<span class="math inline">\(\omega\)</span>更改为一个矩阵，并将偏置<span class="math inline">\(b\)</span>更改为一个向量。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RBFNet</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Implementation of a Radial Basis Function Network&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, k=<span class="number">2</span>, lr=<span class="number">0.01</span>, epochs=<span class="number">100</span>, rbf=rbf, inferStds=True</span>):</span></span><br><span class="line">        self.k = k</span><br><span class="line">        self.lr = lr</span><br><span class="line">        self.epochs = epochs</span><br><span class="line">        self.rbf = rbf</span><br><span class="line">        self.inferStds = inferStds</span><br><span class="line"></span><br><span class="line">        self.w = np.random.randn(k)</span><br><span class="line">        self.b = np.random.randn(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>训练函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, X, y</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.inferStds:</span><br><span class="line">        <span class="comment"># compute stds from data</span></span><br><span class="line">        self.centers, self.stds = kmeans(X, self.k)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># use a fixed std</span></span><br><span class="line">        self.centers, _ = kmeans(X, self.k)</span><br><span class="line">        dMax = max([np.abs(c1 - c2) <span class="keyword">for</span> c1 <span class="keyword">in</span> self.centers <span class="keyword">for</span> c2 <span class="keyword">in</span> self.centers])</span><br><span class="line">        self.stds = np.repeat(dMax / np.sqrt(<span class="number">2</span>*self.k), self.k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(self.epochs):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">0</span>]):</span><br><span class="line">            <span class="comment"># forward pass</span></span><br><span class="line">            a = np.array([self.rbf(X[i], c, s) <span class="keyword">for</span> c, s, <span class="keyword">in</span> zip(self.centers, self.stds)])</span><br><span class="line">            F = a.T.dot(self.w) + self.b</span><br><span class="line"></span><br><span class="line">            loss = (y[i] - F).flatten() ** <span class="number">2</span></span><br><span class="line">            print(<span class="string">&#x27;Loss: &#123;0:.2f&#125;&#x27;</span>.format(loss[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># backward pass</span></span><br><span class="line">            error = -(y[i] - F).flatten()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># online update</span></span><br><span class="line">            self.w = self.w - self.lr * a * error</span><br><span class="line">            self.b = self.b - self.lr * error</span><br></pre></td></tr></table></figure>
-<p>预测函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, X</span>):</span></span><br><span class="line">    y_pred = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">0</span>]):</span><br><span class="line">        a = np.array([self.rbf(X[i], c, s) <span class="keyword">for</span> c, s, <span class="keyword">in</span> zip(self.centers, self.stds)])</span><br><span class="line">        F = a.T.dot(self.w) + self.b</span><br><span class="line">        y_pred.append(F)</span><br><span class="line">    <span class="keyword">return</span> np.array(y_pred)</span><br></pre></td></tr></table></figure>
-<p>具体实现过程：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sample inputs and add noise</span></span><br><span class="line">NUM_SAMPLES = <span class="number">100</span></span><br><span class="line">X = np.random.uniform(<span class="number">0.</span>, <span class="number">1.</span>, NUM_SAMPLES)</span><br><span class="line">X = np.sort(X, axis=<span class="number">0</span>)</span><br><span class="line">noise = np.random.uniform(<span class="number">-0.1</span>, <span class="number">0.1</span>, NUM_SAMPLES)</span><br><span class="line">y = np.sin(<span class="number">2</span> * np.pi * X)  + noise</span><br><span class="line"></span><br><span class="line">rbfnet = RBFNet(lr=<span class="number">1e-2</span>, k=<span class="number">2</span>)</span><br><span class="line">rbfnet.fit(X, y)</span><br><span class="line"></span><br><span class="line">y_pred = rbfnet.predict(X)</span><br><span class="line"></span><br><span class="line">plt.plot(X, y, <span class="string">&#x27;-o&#x27;</span>, label=<span class="string">&#x27;true&#x27;</span>)</span><br><span class="line">plt.plot(X, y_pred, <span class="string">&#x27;-o&#x27;</span>, label=<span class="string">&#x27;RBF-Net&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>训练结果：</p>
-<figure>
-<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Approx.png.webp" alt="训练结果" /><figcaption aria-hidden="true">训练结果</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>机器学习</tag>
-        <tag>RBF 神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -601,6 +498,109 @@ x(t)=\sum_{i=1}^ny_i+r_n
         <tag>主元素分析</tag>
         <tag>经验模态分解</tag>
         <tag>集合经验模态分解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习—— RBF 神经网络</title>
+    <url>/2019-11-17-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%20RBF%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html</url>
+    <content><![CDATA[<blockquote>
+<p>参考：</p>
+<ul>
+<li><a href="https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/">https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/</a></li>
+</ul>
+</blockquote>
+<h1 id="概念">概念</h1>
+<p><em>RBF 神经网络 (RBF Neural Network)</em> 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gaussian Radial Basis Function) 作为处理函数，如图所示：</p>
+<figure>
+<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Net.png" alt="RBF 神经网络" /><figcaption aria-hidden="true">RBF 神经网络</figcaption>
+</figure>
+<a id="more"></a>
+<h1 id="高斯径向基">高斯径向基</h1>
+<p>高斯径向基来源于高斯分布。</p>
+<blockquote>
+<p><em>高斯分布 (Gaussian Distribution)</em> 是统计学中最常见的分布模式，它可以用以下公式表示： <span class="math display">\[
+\mathcal{N}(x: \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]</span> 其中<span class="math inline">\(\mu\)</span>代表分布的平均值，<span class="math inline">\(\sigma\)</span>代表分布的标准差。</p>
+</blockquote>
+<p>任何函数都可以用高斯分布的线性组合来进行近似。如图所示，使用不同平均值和标准差的高斯函数的组合可以对一条非线性函数进行回归。</p>
+<figure>
+<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/Curve-Fitting.gif" alt="高斯分布拟合非线性函数" /><figcaption aria-hidden="true">高斯分布拟合非线性函数</figcaption>
+</figure>
+<h2 id="获取平均值">获取平均值</h2>
+<p>可以使用 K-平均聚类算法获得高斯函数的平均值。</p>
+<blockquote>
+<p><em>K-平均聚类算法 (K-means Clustering)</em> 是一种对样本数据进行聚类。聚类任务将样本分为若干个子集，以便确定各个高斯分布的位置。这种聚类算法可以由以下公式表示： <span class="math display">\[
+\underset{\mathbf{S}}{\mathrm{argmin}}\sum_{i=1}^k\sum_{\mathbf{X}\in S_i}\lVert \boldsymbol{x}-\boldsymbol{\mu}_i\rVert^2
+\]</span> 其中<span class="math inline">\(\mathbf{x} = (\boldsymbol{x}_1, \boldsymbol{x}_2, \dots, \boldsymbol{x}_n)\)</span>是观测样本数据集，<span class="math inline">\(k\)</span>为聚类的总集合数，<span class="math inline">\(\boldsymbol{\mu}_i\)</span>为第<span class="math inline">\(i\)</span>个集合的所有点的平均值。</p>
+<p>K-平均聚类算法的主要过程可以表示为：</p>
+<ol type="1">
+<li>随机生成k个聚类中心点 (cluster centroids) <span class="math inline">\(\mu_1, \mu_2, \dots, \mu_k \in \Bbb{R}^n\)</span>；</li>
+<li>按照公式 <span class="math display">\[\boldsymbol{c}^{(i)} := \underset{j}{\mathrm{argmin}}\lVert \boldsymbol{x}^{(i)} - \boldsymbol{\mu}_j\rVert^2\]</span> 获取每一个样本<span class="math inline">\(i\)</span>的所属的类；</li>
+<li>按照公式 <span class="math display">\[\mu_j := \frac{\sum_{i=1}^m1\{\boldsymbol{c}^{(i)} = j\}\boldsymbol{x}^{(i)}}{\sum_{i=1}^m1\{\boldsymbol{c}^{(i)} = j\}}\]</span> 求取每一个类<span class="math inline">\(j\)</span>的新的中心；</li>
+<li>重复步骤2和步骤3，直至收敛。</li>
+</ol>
+</blockquote>
+<h2 id="标准差的确定">标准差的确定</h2>
+<p>高斯函数的标准差的确定有两种方法：</p>
+<ul>
+<li>使用每个聚类各自的标准差；</li>
+<li>使用整体标准差<span class="math inline">\(\sigma = \frac{d_{\max}}{\sqrt{2k}}\)</span> 其中<span class="math inline">\(d_{\max}\)</span>表示两个聚类中心间的最大距离，<span class="math inline">\(k\)</span>表示聚类中心的个数。</li>
+</ul>
+<h1 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h1>
+<p>对于每一个输入<span class="math inline">\(\boldsymbol{x}\)</span>，RBF 神经网络的输出为 <span class="math display">\[
+F(\boldsymbol{x}) = \sum_{j=1}^k\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c_j}) + b
+\]</span> 式中<span class="math inline">\(\omega_j\)</span>表示权重，<span class="math inline">\(b\)</span>表示偏置，<span class="math inline">\(k\)</span>表示聚类数，<span class="math inline">\(\phi_j(\cdot)\)</span>是高斯 RBF 函数： <span class="math display">\[
+\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) = \exp(\frac{-\lVert\boldsymbol{x - c}_j\rVert^2}{2\sigma^2_j})
+\]</span></p>
+<p>代价函数： <span class="math display">\[
+C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
+\]</span></p>
+<p><span class="math inline">\(\boldsymbol{\omega}_j\)</span>的更新方法： <span class="math display">\[
+\begin{aligned}
+    &amp;\begin{aligned}
+        \frac{\partial C}{\partial\omega_j} &amp;= \frac{\partial C}{\partial F}\frac{\partial F}{\partial\omega_j} \\
+        &amp;= \frac{\partial}{\partial F}[\sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2] \cdot \frac{\partial}{\partial\omega_j}[\sum_{j=0}^K\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) + b]\\
+        &amp;= -(y^{(i)}-F(\boldsymbol{x}^{(i)})) \cdot \phi_j(\boldsymbol{x}, \boldsymbol{c}_j)
+    \end{aligned}\\
+    &amp;\omega_j\leftarrow\omega_j + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))\phi_j(\boldsymbol{x}, \boldsymbol{c}_j)
+\end{aligned}
+\]</span></p>
+<p>类似地，<span class="math inline">\(b\)</span>的更新方法： <span class="math display">\[
+\begin{aligned}
+    &amp;\begin{aligned}
+        \frac{\partial C}{\partial b} &amp;= \frac{\partial C}{\partial F}\frac{\partial F}{\partial b} \\
+        &amp;= \frac{\partial}{\partial F}[\sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2] \cdot \frac{\partial}{\partial b}[\sum_{j=0}^K\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c}_j) + b]\\
+        &amp;= -(y^{(i)}-F(\boldsymbol{x}^{(i)})) \cdot 1
+    \end{aligned}\\
+    &amp;b\leftarrow b + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))
+\end{aligned}
+\]</span></p>
+<h1 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h1>
+<p>RBF 核函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbf</span>(<span class="params">x, c, s</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.exp(<span class="number">-1</span> / (<span class="number">2</span> * s**<span class="number">2</span>) * (x-c)**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>K-平均聚类算法以及标准差的求取：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmeans</span>(<span class="params">X, k</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Performs k-means clustering for 1D input</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        X &#123;ndarray&#125; -- A Mx1 array of inputs</span></span><br><span class="line"><span class="string">        k &#123;int&#125; -- Number of clusters</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        ndarray -- A kx1 array of final cluster centers</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># randomly select initial clusters from input data</span></span><br><span class="line">    clusters = np.random.choice(np.squeeze(X), size=k)</span><br><span class="line">    prevClusters = clusters.copy()</span><br><span class="line">    stds = np.zeros(k)</span><br><span class="line">    converged = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> converged:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        compute distances for each cluster center to each point</span></span><br><span class="line"><span class="string">        where (distances[i, j] represents the distance between the ith point and jth cluster)</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        distances = np.squeeze(np.abs(X[:, np.newaxis] - clusters[np.newaxis, :]))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># find the cluster that&#x27;s closest to each point</span></span><br><span class="line">        closestCluster = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update clusters by taking the mean of all of the points assigned to that cluster</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            pointsForCluster = X[closestCluster == i]</span><br><span class="line">            <span class="keyword">if</span> len(pointsForCluster) &gt; <span class="number">0</span>:</span><br><span class="line">                clusters[i] = np.mean(pointsForCluster, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># converge if clusters haven&#x27;t moved</span></span><br><span class="line">        converged = np.linalg.norm(clusters - prevClusters) &lt; <span class="number">1e-6</span></span><br><span class="line">        prevClusters = clusters.copy()</span><br><span class="line"></span><br><span class="line">    distances = np.squeeze(np.abs(X[:, np.newaxis] - clusters[np.newaxis, :]))</span><br><span class="line">    closestCluster = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    clustersWithNoPoints = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        pointsForCluster = X[closestCluster == i]</span><br><span class="line">        <span class="keyword">if</span> len(pointsForCluster) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="comment"># keep track of clusters with no points or 1 point</span></span><br><span class="line">            clustersWithNoPoints.append(i)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            stds[i] = np.std(X[closestCluster == i])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if there are clusters with 0 or 1 points, take the mean std of the other clusters</span></span><br><span class="line">    <span class="keyword">if</span> len(clustersWithNoPoints) &gt; <span class="number">0</span>:</span><br><span class="line">        pointsToAverage = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> clustersWithNoPoints:</span><br><span class="line">                pointsToAverage.append(X[closestCluster == i])</span><br><span class="line">        pointsToAverage = np.concatenate(pointsToAverage).ravel()</span><br><span class="line">        stds[clustersWithNoPoints] = np.mean(np.std(pointsToAverage))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> clusters, stds</span><br></pre></td></tr></table></figure>
+<p>建立 RBF 神经网络的类（单输出）：</p>
+<p>多个输出时应将权重<span class="math inline">\(\omega\)</span>更改为一个矩阵，并将偏置<span class="math inline">\(b\)</span>更改为一个向量。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RBFNet</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Implementation of a Radial Basis Function Network&quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, k=<span class="number">2</span>, lr=<span class="number">0.01</span>, epochs=<span class="number">100</span>, rbf=rbf, inferStds=True</span>):</span></span><br><span class="line">        self.k = k</span><br><span class="line">        self.lr = lr</span><br><span class="line">        self.epochs = epochs</span><br><span class="line">        self.rbf = rbf</span><br><span class="line">        self.inferStds = inferStds</span><br><span class="line"></span><br><span class="line">        self.w = np.random.randn(k)</span><br><span class="line">        self.b = np.random.randn(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>训练函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, X, y</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.inferStds:</span><br><span class="line">        <span class="comment"># compute stds from data</span></span><br><span class="line">        self.centers, self.stds = kmeans(X, self.k)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># use a fixed std</span></span><br><span class="line">        self.centers, _ = kmeans(X, self.k)</span><br><span class="line">        dMax = max([np.abs(c1 - c2) <span class="keyword">for</span> c1 <span class="keyword">in</span> self.centers <span class="keyword">for</span> c2 <span class="keyword">in</span> self.centers])</span><br><span class="line">        self.stds = np.repeat(dMax / np.sqrt(<span class="number">2</span>*self.k), self.k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(self.epochs):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">0</span>]):</span><br><span class="line">            <span class="comment"># forward pass</span></span><br><span class="line">            a = np.array([self.rbf(X[i], c, s) <span class="keyword">for</span> c, s, <span class="keyword">in</span> zip(self.centers, self.stds)])</span><br><span class="line">            F = a.T.dot(self.w) + self.b</span><br><span class="line"></span><br><span class="line">            loss = (y[i] - F).flatten() ** <span class="number">2</span></span><br><span class="line">            print(<span class="string">&#x27;Loss: &#123;0:.2f&#125;&#x27;</span>.format(loss[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># backward pass</span></span><br><span class="line">            error = -(y[i] - F).flatten()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># online update</span></span><br><span class="line">            self.w = self.w - self.lr * a * error</span><br><span class="line">            self.b = self.b - self.lr * error</span><br></pre></td></tr></table></figure>
+<p>预测函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, X</span>):</span></span><br><span class="line">    y_pred = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">0</span>]):</span><br><span class="line">        a = np.array([self.rbf(X[i], c, s) <span class="keyword">for</span> c, s, <span class="keyword">in</span> zip(self.centers, self.stds)])</span><br><span class="line">        F = a.T.dot(self.w) + self.b</span><br><span class="line">        y_pred.append(F)</span><br><span class="line">    <span class="keyword">return</span> np.array(y_pred)</span><br></pre></td></tr></table></figure>
+<p>具体实现过程：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sample inputs and add noise</span></span><br><span class="line">NUM_SAMPLES = <span class="number">100</span></span><br><span class="line">X = np.random.uniform(<span class="number">0.</span>, <span class="number">1.</span>, NUM_SAMPLES)</span><br><span class="line">X = np.sort(X, axis=<span class="number">0</span>)</span><br><span class="line">noise = np.random.uniform(<span class="number">-0.1</span>, <span class="number">0.1</span>, NUM_SAMPLES)</span><br><span class="line">y = np.sin(<span class="number">2</span> * np.pi * X)  + noise</span><br><span class="line"></span><br><span class="line">rbfnet = RBFNet(lr=<span class="number">1e-2</span>, k=<span class="number">2</span>)</span><br><span class="line">rbfnet.fit(X, y)</span><br><span class="line"></span><br><span class="line">y_pred = rbfnet.predict(X)</span><br><span class="line"></span><br><span class="line">plt.plot(X, y, <span class="string">&#x27;-o&#x27;</span>, label=<span class="string">&#x27;true&#x27;</span>)</span><br><span class="line">plt.plot(X, y_pred, <span class="string">&#x27;-o&#x27;</span>, label=<span class="string">&#x27;RBF-Net&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>训练结果：</p>
+<figure>
+<img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Approx.png.webp" alt="训练结果" /><figcaption aria-hidden="true">训练结果</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>机器学习</tag>
+        <tag>RBF 神经网络</tag>
       </tags>
   </entry>
   <entry>
