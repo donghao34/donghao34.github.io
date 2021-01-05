@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"donghao34.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="scikit-learn 学习笔记（一）——交叉验证  摘自 scikit-learn 官方文档  交叉验证 (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。">
+  <meta name="description" content="摘自 scikit-learn 官方文档  交叉验证 交叉验证 (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scikit-learn 学习笔记（一）——交叉验证">
 <meta property="og:url" content="https://donghao34.github.io/2019-10-27-scikit-learn%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81.html">
 <meta property="og:site_name" content="donghao_34&#39;s Blog">
-<meta property="og:description" content="scikit-learn 学习笔记（一）——交叉验证  摘自 scikit-learn 官方文档  交叉验证 (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。">
+<meta property="og:description" content="摘自 scikit-learn 官方文档  交叉验证 交叉验证 (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png">
 <meta property="article:published_time" content="2019-10-27T14:17:05.000Z">
-<meta property="article:modified_time" content="2020-08-13T11:03:43.826Z">
+<meta property="article:modified_time" content="2021-01-05T10:42:07.322Z">
 <meta property="article:author" content="donghao_34">
 <meta property="article:tag" content="Python">
-<meta property="article:tag" content="scikit-learn">
 <meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="scikit-learn">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png">
 
@@ -229,7 +229,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 19:03:43" itemprop="dateModified" datetime="2020-08-13T19:03:43+08:00">2020-08-13</time>
+                <time title="修改时间：2021-01-05 18:42:07" itemprop="dateModified" datetime="2021-01-05T18:42:07+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,22 +273,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="scikit-learn-学习笔记一交叉验证">scikit-learn 学习笔记（一）——交叉验证</h1>
-<blockquote>
+        <blockquote>
 <p>摘自 <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn 官方文档</a></p>
 </blockquote>
+<h1 id="交叉验证">交叉验证</h1>
 <p><strong>交叉验证</strong> (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。</p>
 <a id="more"></a>
 <p>避免过拟合的一个最简单的方法就是将样本分为训练集 (training set) 和测试集 ( test set)，分别用于模型的训练和评估。Python 实现如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 60% for training and 40% for testing.</span></span><br><span class="line"><span class="comment"># &#x27;random_state&#x27; sets the random seed.</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(</span><br><span class="line">  iris.data, iris.target, test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>).fit(X_train, y_train)</span><br><span class="line">accuracy = clf.score(X_test, y_test)</span><br><span class="line">print(accuracy)  <span class="comment"># 0.96...</span></span><br></pre></td></tr></table></figure>
 <p>然而，尽管将样本分为了两个集合，测试集的结果依然有可能会影响训练过长，产生过拟合现象。因此，为确保准确性，实际操作中通常将样本分为三个部分，即训练集、验证集 (validation set) 和测试集。在训练过程中，用验证机评估训练的效果，测试集只在最终评估时使用。</p>
 <p>不过这种方法的缺点在于样本的利用率较低，大量样本没有用于训练。</p>
+<h1 id="k-折交叉验证">K-折交叉验证</h1>
 <p><strong>K-折交叉验证</strong> (K-Fold Cross-Validation) 是一种样本利用率更高的交叉验证方法。这种方法首先将除了测试集以外的样本分为<span class="math inline">\(k\)</span>份，用其中一份作为验证集，其余的<span class="math inline">\(k-1\)</span>份作为训练集进行训练。之后选取新的一份作为验证集，其他的作为训练集进行训练。如此反复，直到每份都参与过验证和训练为止。如下图所示：</p>
 <figure>
 <img src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" alt="K-Fold 过程示意图" /><figcaption aria-hidden="true">K-Fold 过程示意图</figcaption>
 </figure>
-<h2 id="计算交叉验证指标">计算交叉验证指标</h2>
-<h3 id="使用-cross_val_score-方法">使用 cross_val_score 方法</h3>
+<h1 id="计算交叉验证指标">计算交叉验证指标</h1>
+<h2 id="使用-cross_val_score-方法">使用 cross_val_score 方法</h2>
 <p>在 scikit-learn 中，交叉验证可以使用函数<code>cross_val_score</code>来完成。当<code>cv</code>参数是整数时，使用 KFold 或 StratifiedKFold 策略进行交叉验证。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>)</span><br><span class="line">scores = cross_val_score(clf, iris.data, iris.target, cv=<span class="number">5</span>)</span><br><span class="line">print(scores)  <span class="comment"># array([0.96..., 1.  ..., 0.96..., 0.96..., 1.      ])</span></span><br></pre></td></tr></table></figure>
 <p>可以获得模型评分的95%：</p>
@@ -303,10 +304,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> make_pipeline</span><br><span class="line">clf = make_pipeline(preprocessing.StandardScaler(), svm.SVC(C=<span class="number">1</span>))</span><br><span class="line">print(cross_val_score(clf, iris.data, iris.target, cv=cv))</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># array([0.977..., 0.933..., 0.955..., 0.933..., 0.977...])</span></span><br></pre></td></tr></table></figure>
 <p>可以使用<code>cross_val_predict</code>函数获得模型的预测结果。</p>
 </blockquote>
-<h3 id="使用-cross_validate-方法">使用 cross_validate 方法</h3>
+<h2 id="使用-cross_validate-方法">使用 cross_validate 方法</h2>
 <p><code>cross_validate</code>方法可以使用多种验证指标，并且能够返回更多的信息，包括训练得分、你和次数和得分次数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_validate</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> recall_score</span><br><span class="line">scoring = [<span class="string">&#x27;precision_macro&#x27;</span>, <span class="string">&#x27;recall_macro&#x27;</span>]</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>, random_state=<span class="number">0</span>)</span><br><span class="line">scores = cross_validdate(clf, iris.data, iris.target, scoring=scoring, cv=<span class="number">5</span>)</span><br><span class="line">print(sorted(scores.keys()))</span><br><span class="line"><span class="comment"># [&#x27;fit_time&#x27;, &#x27;score_time&#x27;, &#x27;test_precision_macro&#x27;, &#x27;test_recall_macro&#x27;]</span></span><br><span class="line">print(scores[<span class="string">&#x27;test_recall_macro&#x27;</span>])</span><br><span class="line"><span class="comment"># array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])</span></span><br></pre></td></tr></table></figure>
-<h2 id="交叉验证迭代器">交叉验证迭代器</h2>
+<h1 id="交叉验证迭代器">交叉验证迭代器</h1>
 <p>可以通过创建交叉验证迭代器来对样本进行分组。可用的交叉验证迭代器有：</p>
 <ul>
 <li><code>KFold</code></li>
@@ -351,8 +352,8 @@
           
           <div class="post-tags">
               <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/tags/scikit-learn/" rel="tag"><i class="fa fa-tag"></i> scikit-learn</a>
               <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+              <a href="/tags/scikit-learn/" rel="tag"><i class="fa fa-tag"></i> scikit-learn</a>
           </div>
 
         
@@ -426,7 +427,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">scikit-learn 学习笔记（一）——交叉验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E6%8C%87%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">计算交叉验证指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cross_val_score-%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 cross_val_score 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cross_validate-%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用 cross_validate 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">交叉验证迭代器</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">交叉验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">K-折交叉验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">计算交叉验证指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cross_val_score-%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">使用 cross_val_score 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cross_validate-%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">使用 cross_validate 方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">交叉验证迭代器</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -442,7 +443,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -455,7 +456,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -490,7 +491,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -500,13 +501,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">37k</span>
+    <span title="站点总字数">39k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34 分钟</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
 
         

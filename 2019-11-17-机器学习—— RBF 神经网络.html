@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"donghao34.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="机器学习—— RBF 神经网络  参考：  https:&#x2F;&#x2F;pythonmachinelearning.pro&#x2F;using-neural-networks-for-regression-radial-basis-function-networks&#x2F;   概念 RBF 神经网络 (RBF Neural Network) 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏">
+  <meta name="description" content="参考：  https:&#x2F;&#x2F;pythonmachinelearning.pro&#x2F;using-neural-networks-for-regression-radial-basis-function-networks&#x2F;   概念 RBF 神经网络 (RBF Neural Network) 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gau">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习—— RBF 神经网络">
 <meta property="og:url" content="https://donghao34.github.io/2019-11-17-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%20RBF%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html">
 <meta property="og:site_name" content="donghao_34&#39;s Blog">
-<meta property="og:description" content="机器学习—— RBF 神经网络  参考：  https:&#x2F;&#x2F;pythonmachinelearning.pro&#x2F;using-neural-networks-for-regression-radial-basis-function-networks&#x2F;   概念 RBF 神经网络 (RBF Neural Network) 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏">
+<meta property="og:description" content="参考：  https:&#x2F;&#x2F;pythonmachinelearning.pro&#x2F;using-neural-networks-for-regression-radial-basis-function-networks&#x2F;   概念 RBF 神经网络 (RBF Neural Network) 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gau">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Net.png">
 <meta property="og:image" content="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/Curve-Fitting.gif">
 <meta property="og:image" content="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Approx.png.webp">
 <meta property="article:published_time" content="2019-11-17T05:20:37.000Z">
-<meta property="article:modified_time" content="2020-08-13T11:04:31.603Z">
+<meta property="article:modified_time" content="2021-01-05T10:44:15.786Z">
 <meta property="article:author" content="donghao_34">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="机器学习">
@@ -231,7 +231,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 19:04:31" itemprop="dateModified" datetime="2020-08-13T19:04:31+08:00">2020-08-13</time>
+                <time title="修改时间：2021-01-05 18:44:15" itemprop="dateModified" datetime="2021-01-05T18:44:15+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +256,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.4k</span>
+              <span>6.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,19 +275,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="机器学习-rbf-神经网络">机器学习—— RBF 神经网络</h1>
-<blockquote>
+        <blockquote>
 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/">https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/</a></li>
 </ul>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h1 id="概念">概念</h1>
 <p><em>RBF 神经网络 (RBF Neural Network)</em> 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gaussian Radial Basis Function) 作为处理函数，如图所示：</p>
 <figure>
 <img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Net.png" alt="RBF 神经网络" /><figcaption aria-hidden="true">RBF 神经网络</figcaption>
 </figure>
-<p>&lt;1-- more --&gt; ## 高斯径向基</p>
+<a id="more"></a>
+<h1 id="高斯径向基">高斯径向基</h1>
 <p>高斯径向基来源于高斯分布。</p>
 <blockquote>
 <p><em>高斯分布 (Gaussian Distribution)</em> 是统计学中最常见的分布模式，它可以用以下公式表示： <span class="math display">\[
@@ -298,7 +298,7 @@
 <figure>
 <img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/Curve-Fitting.gif" alt="高斯分布拟合非线性函数" /><figcaption aria-hidden="true">高斯分布拟合非线性函数</figcaption>
 </figure>
-<h3 id="获取平均值">获取平均值</h3>
+<h2 id="获取平均值">获取平均值</h2>
 <p>可以使用 K-平均聚类算法获得高斯函数的平均值。</p>
 <blockquote>
 <p><em>K-平均聚类算法 (K-means Clustering)</em> 是一种对样本数据进行聚类。聚类任务将样本分为若干个子集，以便确定各个高斯分布的位置。这种聚类算法可以由以下公式表示： <span class="math display">\[
@@ -312,13 +312,13 @@
 <li>重复步骤2和步骤3，直至收敛。</li>
 </ol>
 </blockquote>
-<h3 id="标准差的确定">标准差的确定</h3>
+<h2 id="标准差的确定">标准差的确定</h2>
 <p>高斯函数的标准差的确定有两种方法：</p>
 <ul>
 <li>使用每个聚类各自的标准差；</li>
 <li>使用整体标准差<span class="math inline">\(\sigma = \frac{d_{\max}}{\sqrt{2k}}\)</span> 其中<span class="math inline">\(d_{\max}\)</span>表示两个聚类中心间的最大距离，<span class="math inline">\(k\)</span>表示聚类中心的个数。</li>
 </ul>
-<h2 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h2>
+<h1 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h1>
 <p>对于每一个输入<span class="math inline">\(\boldsymbol{x}\)</span>，RBF 神经网络的输出为 <span class="math display">\[
 F(\boldsymbol{x}) = \sum_{j=1}^k\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c_j}) + b
 \]</span> 式中<span class="math inline">\(\omega_j\)</span>表示权重，<span class="math inline">\(b\)</span>表示偏置，<span class="math inline">\(k\)</span>表示聚类数，<span class="math inline">\(\phi_j(\cdot)\)</span>是高斯 RBF 函数： <span class="math display">\[
@@ -347,7 +347,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
     &amp;b\leftarrow b + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))
 \end{aligned}
 \]</span></p>
-<h2 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h2>
+<h1 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h1>
 <p>RBF 核函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbf</span>(<span class="params">x, c, s</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.exp(<span class="number">-1</span> / (<span class="number">2</span> * s**<span class="number">2</span>) * (x-c)**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>K-平均聚类算法以及标准差的求取：</p>
@@ -468,7 +468,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rbf-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">机器学习—— RBF 神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">1.1.1.</span> <span class="nav-text">获取平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%B7%AE%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">标准差的确定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rbf-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E9%80%92"><span class="nav-number">1.2.</span> <span class="nav-text">RBF 神经网络的反向传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rbf-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84-python-%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">RBF 神经网络的 Python 实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E5%BE%84%E5%90%91%E5%9F%BA"><span class="nav-number">2.</span> <span class="nav-text">高斯径向基</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">2.1.</span> <span class="nav-text">获取平均值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%B7%AE%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-number">2.2.</span> <span class="nav-text">标准差的确定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rbf-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E9%80%92"><span class="nav-number">3.</span> <span class="nav-text">RBF 神经网络的反向传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rbf-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84-python-%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">RBF 神经网络的 Python 实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -484,7 +484,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -497,7 +497,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -532,7 +532,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -542,13 +542,13 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">37k</span>
+    <span title="站点总字数">39k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34 分钟</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
 
         

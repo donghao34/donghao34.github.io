@@ -20,26 +20,24 @@
     var CONFIG = {"hostname":"donghao34.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="变分模态分解 (VMD)  DRAGOMIRETSKIY K, ZOSSO D. Variational Mode Decomposition [J]. IEEE Trans Signal Process, 2014, 62(3): 531-44.  经验模态分解存在的问题：  高度依赖于极值点查找方法、极值点到载波包络线的插值方法以及施加的停止标准 缺乏数学理论解释，缺少自由度，鲁">
+  <meta name="description" content="ML.NET 简介 ML.NET是微软开发的一款机器学习类库，基于C#编程语言和.NET框架实现。 目前，.NET 框架已经基于.NET Core实现了跨平台开发，使得 ML.NET 的实用性得到了大大的加强。 此外，由于 .NET 框架在开发桌面 GUI 软件时的便利性，ML.NET 在将机器学习封装至用户软件方面有很大的优势。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="焊接信号分析文献调研笔记（二）">
-<meta property="og:url" content="https://donghao34.github.io/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html">
+<meta property="og:title" content="ML.NET 笔记（一）— Hello ML.NET">
+<meta property="og:url" content="https://donghao34.github.io/2021-01-05-ML-NET-%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94-Hello-ML-NET.html">
 <meta property="og:site_name" content="donghao_34&#39;s Blog">
-<meta property="og:description" content="变分模态分解 (VMD)  DRAGOMIRETSKIY K, ZOSSO D. Variational Mode Decomposition [J]. IEEE Trans Signal Process, 2014, 62(3): 531-44.  经验模态分解存在的问题：  高度依赖于极值点查找方法、极值点到载波包络线的插值方法以及施加的停止标准 缺乏数学理论解释，缺少自由度，鲁">
+<meta property="og:description" content="ML.NET 简介 ML.NET是微软开发的一款机器学习类库，基于C#编程语言和.NET框架实现。 目前，.NET 框架已经基于.NET Core实现了跨平台开发，使得 ML.NET 的实用性得到了大大的加强。 此外，由于 .NET 框架在开发桌面 GUI 软件时的便利性，ML.NET 在将机器学习封装至用户软件方面有很大的优势。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://donghao34.github.io/images/VMD.png">
-<meta property="og:image" content="https://donghao34.github.io/images/SquareWave.gif">
-<meta property="og:image" content="https://donghao34.github.io/images/BMD.png">
-<meta property="article:published_time" content="2020-05-12T08:04:49.000Z">
-<meta property="article:modified_time" content="2021-01-05T10:48:09.191Z">
+<meta property="og:image" content="https://donghao34.github.io/images/model.png">
+<meta property="article:published_time" content="2021-01-05T09:14:51.000Z">
+<meta property="article:modified_time" content="2021-01-05T10:40:34.410Z">
 <meta property="article:author" content="donghao_34">
-<meta property="article:tag" content="焊接信号分析">
-<meta property="article:tag" content="变分模态分解">
-<meta property="article:tag" content="宽带模态分解">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="ML.NET">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://donghao34.github.io/images/VMD.png">
+<meta name="twitter:image" content="https://donghao34.github.io/images/model.png">
 
-<link rel="canonical" href="https://donghao34.github.io/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html">
+<link rel="canonical" href="https://donghao34.github.io/2021-01-05-ML-NET-%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94-Hello-ML-NET.html">
 
 
 <script id="page-configurations">
@@ -52,7 +50,7 @@
   };
 </script>
 
-  <title>焊接信号分析文献调研笔记（二） | donghao_34's Blog</title>
+  <title>ML.NET 笔记（一）— Hello ML.NET | donghao_34's Blog</title>
   
 
 
@@ -201,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://donghao34.github.io/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html">
+    <link itemprop="mainEntityOfPage" href="https://donghao34.github.io/2021-01-05-ML-NET-%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94-Hello-ML-NET.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -214,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          焊接信号分析文献调研笔记（二）
+          ML.NET 笔记（一）— Hello ML.NET
         </h1>
 
         <div class="post-meta">
@@ -223,23 +221,17 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-12 16:04:49" itemprop="dateCreated datePublished" datetime="2020-05-12T16:04:49+08:00">2020-05-12</time>
+              <time title="创建时间：2021-01-05 17:14:51 / 修改时间：18:40:34" itemprop="dateCreated datePublished" datetime="2021-01-05T17:14:51+08:00">2021-01-05</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-05 18:48:09" itemprop="dateModified" datetime="2021-01-05T18:48:09+08:00">2021-01-05</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">焊接信号分析</span></a>
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
                 </span>
             </span>
 
@@ -256,7 +248,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,90 +267,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="变分模态分解-vmd"><strong>变分模态分解</strong> (VMD)</h1>
-<blockquote>
-<p>DRAGOMIRETSKIY K, ZOSSO D. Variational Mode Decomposition [J]. IEEE Trans Signal Process, 2014, 62(3): 531-44.</p>
-</blockquote>
-<p>经验模态分解存在的问题：</p>
-<ul>
-<li><p>高度依赖于极值点查找方法、极值点到载波包络线的插值方法以及施加的停止标准</p></li>
-<li><p>缺乏数学理论解释，缺少自由度，鲁棒性不足。</p></li>
-</ul>
-<p><strong>变分模态分解（Variational mode decomposition, VMD）</strong>是一种针对 EMD 方法的缺陷而进行改进的方法。其主要目标是消除 EMD 方法的端点效应和频率混叠问题。</p>
+        <h1 id="ml.net-简介">ML.NET 简介</h1>
+<p><code>ML.NET</code>是微软开发的一款机器学习类库，基于<code>C#</code>编程语言和<code>.NET</code>框架实现。 目前，.NET 框架已经基于<code>.NET Core</code>实现了跨平台开发，使得 ML.NET 的实用性得到了大大的加强。 此外，由于 .NET 框架在开发桌面 GUI 软件时的便利性，ML.NET 在将机器学习封装至用户软件方面有很大的优势。</p>
 <a id="more"></a>
-<h2 id="基本思想和过程">基本思想和过程</h2>
-<p>假设目标要将信号 <span class="math inline">\(f(t)\)</span> 经分解为 <span class="math inline">\(K\)</span> 个 IMF，其中第 <span class="math inline">\(k\)</span> 个 IMF 记作 <span class="math inline">\(u_k (t)\)</span>，通过希尔伯特变换可以得到 <span class="math inline">\(u_k (t)\)</span> 的中心频率 <span class="math inline">\(\omega_k\)</span>。</p>
-<p>则可经过一系列的数学变换得到 VMD 的分析结果。</p>
-<ol type="1">
-<li><p>通过HHT求出原始IMF分量 <span class="math inline">\(u_k(t)\)</span> 的解析形式： <span class="math display">\[
-(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t})\ast u_k(t)
-\]</span></p></li>
-<li><p>对上述结果减去中心频率<span class="math inline">\(\omega_k\)</span>，进行标准化： <span class="math display">\[
-[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast u_k(t)]\mathrm{e}^{−\mathrm{j}\omega_kt}
-\]</span></p></li>
-<li><p>对总体的频率带宽进行优化，基于下式：</p></li>
-</ol>
-<p><span class="math display">\[
-\min_{\{u_k\},\{\omega_k\}}⁡\left\{∑_k\left\Vert\partial_t\left[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast)u_k (t)\right]\mathrm{e}^{−j\omega_kt}\right\Vert_2\right\}
-\\
-s.t. ∑_{k=1}^Ku_k(t)=f(t)
-\]</span></p>
-<p>经过一定的数学推导，可以得到优化问题的具体迭代过程，如图所示。</p>
-<figure>
-<img src="\images\VMD.png" alt="VMD 迭代过程" /><figcaption aria-hidden="true">VMD 迭代过程</figcaption>
-</figure>
-<h2 id="vmd的优劣">VMD的优劣</h2>
-<p><strong>优势：</strong></p>
+<p>ML.NET 能够实现的功能包括：</p>
 <ul>
-<li><p>分解效果明显优于 EMD 和 EEMD</p></li>
-<li><p>自适应分解方法，无需选择基波</p></li>
-<li><p>有完整的数学理论解释</p></li>
-<li><p>每个子波都处在一个较窄的频带范围之内，子波的物理意义更加明确</p></li>
-<li><p>允许人为设定分解模式数量 <span class="math inline">\(K\)</span> 和各模式的中心频率 <span class="math inline">\(\omega_k\)</span>，可通过先验知识提高分解效果</p></li>
+<li>通过离线或在线训练的方式将机器学习集成至 .NET 应用中;</li>
+<li>提供多种机器学习模型，并提供 AutoML 自动机器学习算法，进行自动的模型筛选、训练、优化和;</li>
+<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 Tensorflow、ONNX 模型;</li>
 </ul>
-<p><strong>劣势：</strong></p>
+<p>ML.NET 当前可以实现的机器学习模型包括：</p>
 <ul>
-<li><p>需要人为选择分解的模式数 <span class="math inline">\(K\)</span></p></li>
-<li><p>仍然存在边界效应</p></li>
-<li><p>分析突变型号时效果依然不好</p></li>
-<li><p>没有余项，不利于分析信号的整体变化趋势</p></li>
+<li>分类模型</li>
+<li>回归模型</li>
+<li>异常检测模型</li>
+<li>推荐模型</li>
+<li>序列数据模型</li>
+<li>图像分类模型</li>
 </ul>
-<h1 id="宽带模式分解-bmd">宽带模式分解 (BMD)</h1>
-<blockquote>
-<p>PENG Y, LI Z, HE K, et al. Quality monitoring of aluminum alloy DPMIG welding based on broadband mode decomposition and MMC-FCH[J]. Measurement, 2020,158: 107683.</p>
-</blockquote>
-<p><strong>目标</strong>：解决信号分解过程中的吉布斯效应等问题，如图所示。</p>
-<figure>
-<img src="/images/SquareWave.gif" alt="吉布斯现象" /><figcaption aria-hidden="true">吉布斯现象</figcaption>
-</figure>
-<h2 id="宽带模式分解的基本思路">宽带模式分解的基本思路</h2>
-<p><strong>宽带模式分解 (Broadband Mode Decomposition, BMD)</strong>为了将信号中的宽带信号成分和 AM-FM 窄带信号成分从噪声中分解出来，需要建立典型信号字典。</p>
-<p>字典包含两个典型宽带信号字典（方波 (square) 和锯齿波 (sawtooth)）和一个窄带信号字典：</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;Dic_1=\left\{A_1\text{square}(\omega_1 t+\theta_1, D_1 )\right\}
-\\&amp;Dic_2=\left\{A_2\text{sawtooth}(\omega_2 t+\theta_2,D_2 )\right\}
-\\&amp;Dic_3=\left\{A_3(t)\cos⁡(\omega_3 t+\theta_3 (t))\right\}
-\end{aligned}
-\]</span></p>
-<p>其中 <span class="math inline">\(Dic_3\)</span> 中 <span class="math inline">\(|A_3 (t)|\ll\omega _3\)</span>，<span class="math inline">\(\theta_3 (t)\)</span> 随时间缓慢变化。 通过在字典中搜索得到分解结果，（优化问题，优化参数为<span class="math inline">\(A\)</span>、<span class="math inline">\(\omega\)</span>、<span class="math inline">\(\theta\)</span>）</p>
-<h2 id="算法迭代流程">算法迭代流程</h2>
+<p>其中图像分类模型的训练支持使用 GPU 加速。</p>
+<h1 id="hello-ml.net-world-代码示例">Hello ML.NET World 代码示例</h1>
+<p>以下是官方文档中的ML.NET<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/machine-learning/how-does-mldotnet-work">代码示例</a>，该示例使用线性回归模型进行了简单的房价预测。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Microsoft.ML;</span><br><span class="line"><span class="keyword">using</span> Microsoft.ML.Data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">HouseData</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Size &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Prediction</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">ColumnName(<span class="meta-string">&quot;Score&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        MLContext mlContext = <span class="keyword">new</span> MLContext();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Import or create training data</span></span><br><span class="line">        HouseData[] houseData = &#123;</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">1.1F</span>, Price = <span class="number">1.2F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">1.9F</span>, Price = <span class="number">2.3F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">2.8F</span>, Price = <span class="number">3.0F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">3.4F</span>, Price = <span class="number">3.7F</span> &#125; &#125;;</span><br><span class="line">        IDataView trainingData = mlContext.Data.LoadFromEnumerable(houseData);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Specify data preparation and model training pipeline</span></span><br><span class="line">        <span class="keyword">var</span> pipeline = mlContext.Transforms.Concatenate(<span class="string">&quot;Features&quot;</span>, <span class="keyword">new</span>[] &#123; <span class="string">&quot;Size&quot;</span> &#125;)</span><br><span class="line">            .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: <span class="string">&quot;Price&quot;</span>, maximumNumberOfIterations: <span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Train model</span></span><br><span class="line">        <span class="keyword">var</span> model = pipeline.Fit(trainingData);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. Make a prediction</span></span><br><span class="line">        <span class="keyword">var</span> size = <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">2.5F</span> &#125;;</span><br><span class="line">        <span class="keyword">var</span> price = mlContext.Model.CreatePredictionEngine&lt;HouseData, Prediction&gt;(model).Predict(size);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Predicted price for size: <span class="subst">&#123;size.Size*<span class="number">1000</span>&#125;</span> sq ft= <span class="subst">&#123;price.Price*<span class="number">100</span>:C&#125;</span>k&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Predicted price for size: 2500 sq ft= $261.98k</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ml.net-模型的基本流程">ML.NET 模型的基本流程</h1>
+<p>从示例中可以看出，一个 ML.NET 机器学习代码主要包含以下几个步骤：</p>
 <ol type="1">
-<li><p>去除直流成分</p></li>
-<li><p>执行 <span class="math inline">\(P1\)</span> 优化过程：</p>
-<p>优化目标： <span class="math display">\[
-\begin{aligned}
-&amp;P1:\min⁡(T_1(A_1,\omega _1,\theta_1,D_1 ),T_2 (A_2,\omega _2,\theta_2,D_2 ),T_3 \left[A_3 (n),\omega _3 (n),\theta_3 (n)\right] )
-\\&amp;𝑆.T.\quad x(n)=∑_{i=0}^NIMF_i (n)+rec(n), \quad IMF_i^j\in Dic_j
-\\&amp;T_j=\left\Vert D^{(2)}\left[IMF_i^j (n)\right]\right\Vert_2^2+𝜆\left\Vert D^{(2)} \left[x(n)−IMF_i^j (n)\right]\right\Vert_2^2
-\end{aligned}
-\]</span></p></li>
+<li>使用 <code>IDataView</code> 对象载入数据；</li>
+<li>建立数据特征提取和机器学习算法的流程；</li>
+<li>使用 <code>Fit()</code> 方法训练模型；</li>
+<li>评估模型的性能并进行改进；</li>
+<li>以二进制格式保存模型；</li>
+<li>使用 <code>ITransformer</code> 对象读取模型；</li>
+<li>调用 <code>CreatePredictionEngine.Predict()</code> 方法获取预测结果。</li>
 </ol>
-<p>如图所示</p>
 <figure>
-<img src="images/BMD.png" alt="BMD迭代过程" /><figcaption aria-hidden="true">BMD迭代过程</figcaption>
+<img src="/images/model.png" alt="ML.NET 基本流程" /><figcaption aria-hidden="true">ML.NET 基本流程</figcaption>
 </figure>
-<p>从上述过程可以看到，BMD 方法的主要思路就是在已知信号中含有方波或锯齿波的脉冲成分下，设立对应的字典的分类方法。</p>
 
     </div>
 
@@ -374,7 +318,7 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://donghao34.github.io/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html" title="焊接信号分析文献调研笔记（二）">https://donghao34.github.io/2020-05-12-焊接信号分析文献调研笔记（二）.html</a>
+    <a href="https://donghao34.github.io/2021-01-05-ML-NET-%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94-Hello-ML-NET.html" title="ML.NET 笔记（一）— Hello ML.NET">https://donghao34.github.io/2021-01-05-ML-NET-笔记（一）—-Hello-ML-NET.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -386,9 +330,9 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 焊接信号分析</a>
-              <a href="/tags/%E5%8F%98%E5%88%86%E6%A8%A1%E6%80%81%E5%88%86%E8%A7%A3/" rel="tag"><i class="fa fa-tag"></i> 变分模态分解</a>
-              <a href="/tags/%E5%AE%BD%E5%B8%A6%E6%A8%A1%E6%80%81%E5%88%86%E8%A7%A3/" rel="tag"><i class="fa fa-tag"></i> 宽带模态分解</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C#</a>
+              <a href="/tags/ML-NET/" rel="tag"><i class="fa fa-tag"></i> ML.NET</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
           </div>
 
         
@@ -397,13 +341,10 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.html" rel="prev" title="焊接信号分析文献调研笔记（一）">
-      <i class="fa fa-chevron-left"></i> 焊接信号分析文献调研笔记（一）
+    <a href="/2020-08-13-Matplotlib-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%BE%AA%E7%8E%AF.html" rel="prev" title="Matplotlib 学习笔记（一）——设置颜色循环">
+      <i class="fa fa-chevron-left"></i> Matplotlib 学习笔记（一）——设置颜色循环
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020-08-13-Matplotlib-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%BE%AA%E7%8E%AF.html" rel="next" title="Matplotlib 学习笔记（一）——设置颜色循环">
-      Matplotlib 学习笔记（一）——设置颜色循环 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -462,7 +403,7 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E5%88%86%E6%A8%A1%E6%80%81%E5%88%86%E8%A7%A3-vmd"><span class="nav-number">1.</span> <span class="nav-text">变分模态分解 (VMD)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3%E5%92%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">基本思想和过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vmd%E7%9A%84%E4%BC%98%E5%8A%A3"><span class="nav-number">1.2.</span> <span class="nav-text">VMD的优劣</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%BD%E5%B8%A6%E6%A8%A1%E5%BC%8F%E5%88%86%E8%A7%A3-bmd"><span class="nav-number">2.</span> <span class="nav-text">宽带模式分解 (BMD)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%B8%A6%E6%A8%A1%E5%BC%8F%E5%88%86%E8%A7%A3%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">宽带模式分解的基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%BF%AD%E4%BB%A3%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">算法迭代流程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ml.net-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">ML.NET 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hello-ml.net-world-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">Hello ML.NET World 代码示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ml.net-%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">ML.NET 模型的基本流程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -604,7 +545,7 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
 
 
   
-<script src="/js/local-search.js"></script>
+<script src="/js/local-search.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -621,59 +562,6 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-    
 
   
 

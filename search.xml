@@ -3,8 +3,7 @@
   <entry>
     <title>LaTeX 学习笔记（一）——使用 minted 包高亮代码</title>
     <url>/2019-11-11-LaTeX%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20minted%20%E5%8C%85%E9%AB%98%E4%BA%AE%E4%BB%A3%E7%A0%81.html</url>
-    <content><![CDATA[<h1 id="latex-学习笔记一使用-minted-包高亮代码">LaTeX 学习笔记（一）——使用 minted 包高亮代码</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted">https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted</a></li>
@@ -15,11 +14,11 @@
 </blockquote>
 <p>LaTeX 中可以使用<em>listing</em>宏包来排版代码块，但是需要对代码的颜色进行手动设置。<em>minted</em>包能够自动对代码进行高亮，使用更为简单。</p>
 <a id="more"></a>
-<h2 id="预先准备">预先准备</h2>
+<h1 id="预先准备">预先准备</h1>
 <p>由于 minted 包调用了 python 中的 pygments 模块，因此首先需要安装 python 环境并把 python 的目录加入系统的环境变量中。之后使用 pip 安装 pygments 模块：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">pip install pygments</span><br></pre></td></tr></table></figure>
 <p>另外，还需要在 LaTeX 的编译命令中加入 <code>-shell-escape</code>参数。</p>
-<h2 id="使用方法">使用方法</h2>
+<h1 id="使用方法">使用方法</h1>
 <p>使用以下方法进行导入：</p>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackge</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
 <p>使用行内代码时的语法：</p>
@@ -28,13 +27,13 @@
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mint</span><span class="string">&#123;language&#125;</span></span>|code|</span><br></pre></td></tr></table></figure>
-<h2 id="配置-minted-输出选项">配置 minted 输出选项</h2>
+<h1 id="配置-minted-输出选项">配置 minted 输出选项</h1>
 <p>创建代码环境时，可以配置输出格式：</p>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">[configure]</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
 <p>也可以在开头设置整体格式：</p>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">setminted</span><span class="string">&#123;configure&#125;</span></span></span><br></pre></td></tr></table></figure>
 <p>具体可设置的选项可以查阅 <a href="http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf">minted 包的文档</a>。</p>
-<h2 id="注意事项">注意事项</h2>
+<h1 id="注意事项">注意事项</h1>
 <p>minted 在设置背景颜色<code>colorbg</code>的时候会出现一个 bug，需要添加以下代码解决：</p>
 <figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">%% fix the minted@colorbg environment</span></span><br><span class="line"><span class="tag">\<span class="name">makeatletter</span></span></span><br><span class="line"><span class="tag">\<span class="name">renewenvironment</span><span class="string">&#123;minted@colorbg&#125;</span><span class="string">[1]</span></span></span><br><span class="line">&#123;<span class="tag">\<span class="name">def</span></span><span class="tag">\<span class="name">minted</span></span>@bgcol&#123;#1&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">noindent</span></span></span><br><span class="line">    <span class="tag">\<span class="name">begin</span><span class="string">&#123;lrbox&#125;</span><span class="string">&#123;\minted@bgbox&#125;</span></span></span><br><span class="line">        <span class="tag">\<span class="name">begin</span><span class="string">&#123;minipage&#125;</span><span class="string">&#123;\linewidth-2\fboxsep&#125;</span></span>&#125;</span><br><span class="line">        &#123;<span class="tag">\<span class="name">end</span><span class="string">&#123;minipage&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">end</span><span class="string">&#123;lrbox&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">setlength</span><span class="string">&#123;\topsep&#125;</span><span class="string">&#123;\bigskipamount&#125;</span></span><span class="comment">% set the vertical space</span></span><br><span class="line">    <span class="tag">\<span class="name">trivlist</span></span><span class="tag">\<span class="name">item</span></span><span class="tag">\<span class="name">relax</span></span> <span class="comment">% ensure going to a new line</span></span><br><span class="line">    <span class="tag">\<span class="name">colorbox</span><span class="string">&#123;\minted@bgcol&#125;</span><span class="string">&#123;\usebox&#123;\minted@bgbox&#125;</span></span>&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">endtrivlist</span></span> <span class="comment">% close the trivlist</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">\<span class="name">makeatother</span></span></span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -47,10 +46,58 @@
       </tags>
   </entry>
   <entry>
+    <title>ML.NET 笔记（一）— Hello ML.NET</title>
+    <url>/2021-01-05-ML-NET-%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94-Hello-ML-NET.html</url>
+    <content><![CDATA[<h1 id="ml.net-简介">ML.NET 简介</h1>
+<p><code>ML.NET</code>是微软开发的一款机器学习类库，基于<code>C#</code>编程语言和<code>.NET</code>框架实现。 目前，.NET 框架已经基于<code>.NET Core</code>实现了跨平台开发，使得 ML.NET 的实用性得到了大大的加强。 此外，由于 .NET 框架在开发桌面 GUI 软件时的便利性，ML.NET 在将机器学习封装至用户软件方面有很大的优势。</p>
+<a id="more"></a>
+<p>ML.NET 能够实现的功能包括：</p>
+<ul>
+<li>通过离线或在线训练的方式将机器学习集成至 .NET 应用中;</li>
+<li>提供多种机器学习模型，并提供 AutoML 自动机器学习算法，进行自动的模型筛选、训练、优化和;</li>
+<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 Tensorflow、ONNX 模型;</li>
+</ul>
+<p>ML.NET 当前可以实现的机器学习模型包括：</p>
+<ul>
+<li>分类模型</li>
+<li>回归模型</li>
+<li>异常检测模型</li>
+<li>推荐模型</li>
+<li>序列数据模型</li>
+<li>图像分类模型</li>
+</ul>
+<p>其中图像分类模型的训练支持使用 GPU 加速。</p>
+<h1 id="hello-ml.net-world-代码示例">Hello ML.NET World 代码示例</h1>
+<p>以下是官方文档中的ML.NET<a href="https://docs.microsoft.com/en-us/dotnet/machine-learning/how-does-mldotnet-work">代码示例</a>，该示例使用线性回归模型进行了简单的房价预测。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Microsoft.ML;</span><br><span class="line"><span class="keyword">using</span> Microsoft.ML.Data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">HouseData</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Size &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Prediction</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">ColumnName(<span class="meta-string">&quot;Score&quot;</span>)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        MLContext mlContext = <span class="keyword">new</span> MLContext();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Import or create training data</span></span><br><span class="line">        HouseData[] houseData = &#123;</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">1.1F</span>, Price = <span class="number">1.2F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">1.9F</span>, Price = <span class="number">2.3F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">2.8F</span>, Price = <span class="number">3.0F</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">3.4F</span>, Price = <span class="number">3.7F</span> &#125; &#125;;</span><br><span class="line">        IDataView trainingData = mlContext.Data.LoadFromEnumerable(houseData);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Specify data preparation and model training pipeline</span></span><br><span class="line">        <span class="keyword">var</span> pipeline = mlContext.Transforms.Concatenate(<span class="string">&quot;Features&quot;</span>, <span class="keyword">new</span>[] &#123; <span class="string">&quot;Size&quot;</span> &#125;)</span><br><span class="line">            .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: <span class="string">&quot;Price&quot;</span>, maximumNumberOfIterations: <span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Train model</span></span><br><span class="line">        <span class="keyword">var</span> model = pipeline.Fit(trainingData);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. Make a prediction</span></span><br><span class="line">        <span class="keyword">var</span> size = <span class="keyword">new</span> HouseData() &#123; Size = <span class="number">2.5F</span> &#125;;</span><br><span class="line">        <span class="keyword">var</span> price = mlContext.Model.CreatePredictionEngine&lt;HouseData, Prediction&gt;(model).Predict(size);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Predicted price for size: <span class="subst">&#123;size.Size*<span class="number">1000</span>&#125;</span> sq ft= <span class="subst">&#123;price.Price*<span class="number">100</span>:C&#125;</span>k&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Predicted price for size: 2500 sq ft= $261.98k</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ml.net-模型的基本流程">ML.NET 模型的基本流程</h1>
+<p>从示例中可以看出，一个 ML.NET 机器学习代码主要包含以下几个步骤：</p>
+<ol type="1">
+<li>使用 <code>IDataView</code> 对象载入数据；</li>
+<li>建立数据特征提取和机器学习算法的流程；</li>
+<li>使用 <code>Fit()</code> 方法训练模型；</li>
+<li>评估模型的性能并进行改进；</li>
+<li>以二进制格式保存模型；</li>
+<li>使用 <code>ITransformer</code> 对象读取模型；</li>
+<li>调用 <code>CreatePredictionEngine.Predict()</code> 方法获取预测结果。</li>
+</ol>
+<figure>
+<img src="/images/model.png" alt="ML.NET 基本流程" /><figcaption aria-hidden="true">ML.NET 基本流程</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>ML.NET</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Matplotlib 学习笔记（一）——设置颜色循环</title>
     <url>/2020-08-13-Matplotlib-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E5%BE%AA%E7%8E%AF.html</url>
-    <content><![CDATA[<h1 id="matplotlib-学习笔记一设置颜色循环">Matplotlib 学习笔记（一）——设置颜色循环</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://stackoverflow.com/questions/38208700/matplotlib-plot-lines-with-colors-through-colormap">https://stackoverflow.com/questions/38208700/matplotlib-plot-lines-with-colors-through-colormap</a></li>
@@ -76,73 +123,9 @@
       </tags>
   </entry>
   <entry>
-    <title>scikit-learn 学习笔记（一）——交叉验证</title>
-    <url>/2019-10-27-scikit-learn%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81.html</url>
-    <content><![CDATA[<h1 id="scikit-learn-学习笔记一交叉验证">scikit-learn 学习笔记（一）——交叉验证</h1>
-<blockquote>
-<p>摘自 <a href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn 官方文档</a></p>
-</blockquote>
-<p><strong>交叉验证</strong> (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。</p>
-<a id="more"></a>
-<p>避免过拟合的一个最简单的方法就是将样本分为训练集 (training set) 和测试集 ( test set)，分别用于模型的训练和评估。Python 实现如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 60% for training and 40% for testing.</span></span><br><span class="line"><span class="comment"># &#x27;random_state&#x27; sets the random seed.</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(</span><br><span class="line">  iris.data, iris.target, test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>).fit(X_train, y_train)</span><br><span class="line">accuracy = clf.score(X_test, y_test)</span><br><span class="line">print(accuracy)  <span class="comment"># 0.96...</span></span><br></pre></td></tr></table></figure>
-<p>然而，尽管将样本分为了两个集合，测试集的结果依然有可能会影响训练过长，产生过拟合现象。因此，为确保准确性，实际操作中通常将样本分为三个部分，即训练集、验证集 (validation set) 和测试集。在训练过程中，用验证机评估训练的效果，测试集只在最终评估时使用。</p>
-<p>不过这种方法的缺点在于样本的利用率较低，大量样本没有用于训练。</p>
-<p><strong>K-折交叉验证</strong> (K-Fold Cross-Validation) 是一种样本利用率更高的交叉验证方法。这种方法首先将除了测试集以外的样本分为<span class="math inline">\(k\)</span>份，用其中一份作为验证集，其余的<span class="math inline">\(k-1\)</span>份作为训练集进行训练。之后选取新的一份作为验证集，其他的作为训练集进行训练。如此反复，直到每份都参与过验证和训练为止。如下图所示：</p>
-<figure>
-<img src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" alt="K-Fold 过程示意图" /><figcaption aria-hidden="true">K-Fold 过程示意图</figcaption>
-</figure>
-<h2 id="计算交叉验证指标">计算交叉验证指标</h2>
-<h3 id="使用-cross_val_score-方法">使用 cross_val_score 方法</h3>
-<p>在 scikit-learn 中，交叉验证可以使用函数<code>cross_val_score</code>来完成。当<code>cv</code>参数是整数时，使用 KFold 或 StratifiedKFold 策略进行交叉验证。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>)</span><br><span class="line">scores = cross_val_score(clf, iris.data, iris.target, cv=<span class="number">5</span>)</span><br><span class="line">print(scores)  <span class="comment"># array([0.96..., 1.  ..., 0.96..., 0.96..., 1.      ])</span></span><br></pre></td></tr></table></figure>
-<p>可以获得模型评分的95%：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="string">&quot;Accuracy: %0.2f (+/- %0.2f)&quot;</span> % (scores.mean(), scores.std() * <span class="number">2</span>))</span><br><span class="line"><span class="comment"># Accuracy: 0.98 (+/- 0.03)</span></span><br></pre></td></tr></table></figure>
-<p>可以设置方法中的<code>scoring</code>参数来更改评分模式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line">scores = cross_val_score(clf, iris.data, iris.target, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;f1_macro&#x27;</span>)</span><br><span class="line">print(scores)  <span class="comment"># array([0.96..., 1.  ..., 0.96..., 1.      ])</span></span><br></pre></td></tr></table></figure>
-<p>也可以使用特定方法进行交叉验证，此时只需将方法名传入<code>cv</code>参数中即可。</p>
-<blockquote>
-<p>注意，对数据进行预处理也可以提升模型的准确度：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target,</span><br><span class="line">                                                   test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line">scaler = preprocessing.StandardScaler().fit(X_train)</span><br><span class="line">X_train_transformed = scaler.transform(X_train)</span><br><span class="line">clf = svm.SVC(C=<span class="number">1</span>).fit(X_train_trainsformed, y_train)</span><br><span class="line">X_test_transformed = scaler.transform(X_test)</span><br><span class="line">print(clf.score(X_test_transformed, y_test))  <span class="comment"># 0.9333...</span></span><br></pre></td></tr></table></figure>
-<p>可以使用 Pipeline 封装整个优化过程：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> make_pipeline</span><br><span class="line">clf = make_pipeline(preprocessing.StandardScaler(), svm.SVC(C=<span class="number">1</span>))</span><br><span class="line">print(cross_val_score(clf, iris.data, iris.target, cv=cv))</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># array([0.977..., 0.933..., 0.955..., 0.933..., 0.977...])</span></span><br></pre></td></tr></table></figure>
-<p>可以使用<code>cross_val_predict</code>函数获得模型的预测结果。</p>
-</blockquote>
-<h3 id="使用-cross_validate-方法">使用 cross_validate 方法</h3>
-<p><code>cross_validate</code>方法可以使用多种验证指标，并且能够返回更多的信息，包括训练得分、你和次数和得分次数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_validate</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> recall_score</span><br><span class="line">scoring = [<span class="string">&#x27;precision_macro&#x27;</span>, <span class="string">&#x27;recall_macro&#x27;</span>]</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>, random_state=<span class="number">0</span>)</span><br><span class="line">scores = cross_validdate(clf, iris.data, iris.target, scoring=scoring, cv=<span class="number">5</span>)</span><br><span class="line">print(sorted(scores.keys()))</span><br><span class="line"><span class="comment"># [&#x27;fit_time&#x27;, &#x27;score_time&#x27;, &#x27;test_precision_macro&#x27;, &#x27;test_recall_macro&#x27;]</span></span><br><span class="line">print(scores[<span class="string">&#x27;test_recall_macro&#x27;</span>])</span><br><span class="line"><span class="comment"># array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])</span></span><br></pre></td></tr></table></figure>
-<h2 id="交叉验证迭代器">交叉验证迭代器</h2>
-<p>可以通过创建交叉验证迭代器来对样本进行分组。可用的交叉验证迭代器有：</p>
-<ul>
-<li><code>KFold</code></li>
-<li><code>RepeatedKFold</code></li>
-<li><code>LeaveOneOut</code></li>
-<li><code>LeavePOut</code></li>
-<li><code>ShuffleSplit</code></li>
-<li><code>StratifiedKFold</code></li>
-<li><code>StratifiedShuffleSplit</code></li>
-<li><code>GroupKFold</code></li>
-<li><code>LeaveOneGroupOut</code></li>
-<li><code>LeavePGroupsOut</code></li>
-<li><code>GroupShuffleSplit</code></li>
-<li><code>TimeSeriesSplit</code></li>
-<li>...</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>scikit-learn</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Numpy 学习笔记（一）—— rank 1 array</title>
     <url>/2019-11-03-Numpy%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20rank%201%20array.html</url>
-    <content><![CDATA[<h1 id="numpy-学习笔记一-rank-1-array">Numpy 学习笔记（一）—— rank 1 array</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/9ff7a3c9a182">https://www.jianshu.com/p/9ff7a3c9a182</a></li>
@@ -170,10 +153,73 @@
       </tags>
   </entry>
   <entry>
+    <title>scikit-learn 学习笔记（一）——交叉验证</title>
+    <url>/2019-10-27-scikit-learn%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81.html</url>
+    <content><![CDATA[<blockquote>
+<p>摘自 <a href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn 官方文档</a></p>
+</blockquote>
+<h1 id="交叉验证">交叉验证</h1>
+<p><strong>交叉验证</strong> (cross-validation) 是机器学习过程中避免过拟合 (overfitting) 以及优化模型参数的一个非常有效的措施。借助 scikit-learning Python机器学习库，可以非常方便地对样本进行处理、分组，以实现交叉验证。</p>
+<a id="more"></a>
+<p>避免过拟合的一个最简单的方法就是将样本分为训练集 (training set) 和测试集 ( test set)，分别用于模型的训练和评估。Python 实现如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 60% for training and 40% for testing.</span></span><br><span class="line"><span class="comment"># &#x27;random_state&#x27; sets the random seed.</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(</span><br><span class="line">  iris.data, iris.target, test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>).fit(X_train, y_train)</span><br><span class="line">accuracy = clf.score(X_test, y_test)</span><br><span class="line">print(accuracy)  <span class="comment"># 0.96...</span></span><br></pre></td></tr></table></figure>
+<p>然而，尽管将样本分为了两个集合，测试集的结果依然有可能会影响训练过长，产生过拟合现象。因此，为确保准确性，实际操作中通常将样本分为三个部分，即训练集、验证集 (validation set) 和测试集。在训练过程中，用验证机评估训练的效果，测试集只在最终评估时使用。</p>
+<p>不过这种方法的缺点在于样本的利用率较低，大量样本没有用于训练。</p>
+<h1 id="k-折交叉验证">K-折交叉验证</h1>
+<p><strong>K-折交叉验证</strong> (K-Fold Cross-Validation) 是一种样本利用率更高的交叉验证方法。这种方法首先将除了测试集以外的样本分为<span class="math inline">\(k\)</span>份，用其中一份作为验证集，其余的<span class="math inline">\(k-1\)</span>份作为训练集进行训练。之后选取新的一份作为验证集，其他的作为训练集进行训练。如此反复，直到每份都参与过验证和训练为止。如下图所示：</p>
+<figure>
+<img src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" alt="K-Fold 过程示意图" /><figcaption aria-hidden="true">K-Fold 过程示意图</figcaption>
+</figure>
+<h1 id="计算交叉验证指标">计算交叉验证指标</h1>
+<h2 id="使用-cross_val_score-方法">使用 cross_val_score 方法</h2>
+<p>在 scikit-learn 中，交叉验证可以使用函数<code>cross_val_score</code>来完成。当<code>cv</code>参数是整数时，使用 KFold 或 StratifiedKFold 策略进行交叉验证。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>)</span><br><span class="line">scores = cross_val_score(clf, iris.data, iris.target, cv=<span class="number">5</span>)</span><br><span class="line">print(scores)  <span class="comment"># array([0.96..., 1.  ..., 0.96..., 0.96..., 1.      ])</span></span><br></pre></td></tr></table></figure>
+<p>可以获得模型评分的95%：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="string">&quot;Accuracy: %0.2f (+/- %0.2f)&quot;</span> % (scores.mean(), scores.std() * <span class="number">2</span>))</span><br><span class="line"><span class="comment"># Accuracy: 0.98 (+/- 0.03)</span></span><br></pre></td></tr></table></figure>
+<p>可以设置方法中的<code>scoring</code>参数来更改评分模式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line">scores = cross_val_score(clf, iris.data, iris.target, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;f1_macro&#x27;</span>)</span><br><span class="line">print(scores)  <span class="comment"># array([0.96..., 1.  ..., 0.96..., 1.      ])</span></span><br></pre></td></tr></table></figure>
+<p>也可以使用特定方法进行交叉验证，此时只需将方法名传入<code>cv</code>参数中即可。</p>
+<blockquote>
+<p>注意，对数据进行预处理也可以提升模型的准确度：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target,</span><br><span class="line">                                                   test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line">scaler = preprocessing.StandardScaler().fit(X_train)</span><br><span class="line">X_train_transformed = scaler.transform(X_train)</span><br><span class="line">clf = svm.SVC(C=<span class="number">1</span>).fit(X_train_trainsformed, y_train)</span><br><span class="line">X_test_transformed = scaler.transform(X_test)</span><br><span class="line">print(clf.score(X_test_transformed, y_test))  <span class="comment"># 0.9333...</span></span><br></pre></td></tr></table></figure>
+<p>可以使用 Pipeline 封装整个优化过程：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> make_pipeline</span><br><span class="line">clf = make_pipeline(preprocessing.StandardScaler(), svm.SVC(C=<span class="number">1</span>))</span><br><span class="line">print(cross_val_score(clf, iris.data, iris.target, cv=cv))</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># array([0.977..., 0.933..., 0.955..., 0.933..., 0.977...])</span></span><br></pre></td></tr></table></figure>
+<p>可以使用<code>cross_val_predict</code>函数获得模型的预测结果。</p>
+</blockquote>
+<h2 id="使用-cross_validate-方法">使用 cross_validate 方法</h2>
+<p><code>cross_validate</code>方法可以使用多种验证指标，并且能够返回更多的信息，包括训练得分、你和次数和得分次数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_validate</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> recall_score</span><br><span class="line">scoring = [<span class="string">&#x27;precision_macro&#x27;</span>, <span class="string">&#x27;recall_macro&#x27;</span>]</span><br><span class="line">clf = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>, C=<span class="number">1</span>, random_state=<span class="number">0</span>)</span><br><span class="line">scores = cross_validdate(clf, iris.data, iris.target, scoring=scoring, cv=<span class="number">5</span>)</span><br><span class="line">print(sorted(scores.keys()))</span><br><span class="line"><span class="comment"># [&#x27;fit_time&#x27;, &#x27;score_time&#x27;, &#x27;test_precision_macro&#x27;, &#x27;test_recall_macro&#x27;]</span></span><br><span class="line">print(scores[<span class="string">&#x27;test_recall_macro&#x27;</span>])</span><br><span class="line"><span class="comment"># array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])</span></span><br></pre></td></tr></table></figure>
+<h1 id="交叉验证迭代器">交叉验证迭代器</h1>
+<p>可以通过创建交叉验证迭代器来对样本进行分组。可用的交叉验证迭代器有：</p>
+<ul>
+<li><code>KFold</code></li>
+<li><code>RepeatedKFold</code></li>
+<li><code>LeaveOneOut</code></li>
+<li><code>LeavePOut</code></li>
+<li><code>ShuffleSplit</code></li>
+<li><code>StratifiedKFold</code></li>
+<li><code>StratifiedShuffleSplit</code></li>
+<li><code>GroupKFold</code></li>
+<li><code>LeaveOneGroupOut</code></li>
+<li><code>LeavePGroupsOut</code></li>
+<li><code>GroupShuffleSplit</code></li>
+<li><code>TimeSeriesSplit</code></li>
+<li>...</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>机器学习</tag>
+        <tag>scikit-learn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>scikit-learn 学习笔记（二）——模型保存</title>
     <url>/2019-11-02-scikit-learn%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98.html</url>
-    <content><![CDATA[<h1 id="scikit-learn-学习笔记二模型保存">scikit-learn 学习笔记（二）——模型保存</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://scikit-learn.org/stable/modules/model_persistence.html">scikit-learn 官网教程</a></li>
@@ -182,11 +228,11 @@
 </blockquote>
 <p>训练完成的模型需要保存在本地，以便之后的使用。在 scikit-learn 中，保存模型有两种方法，分别为 <em>pickle</em> 和 <em>joblib</em>。</p>
 <a id="more"></a>
-<h2 id="使用-pickle-模组存储训练模型">使用 pickle 模组存储训练模型</h2>
+<h1 id="使用-pickle-模组存储训练模型">使用 pickle 模组存储训练模型</h1>
 <p><em>pickle</em> 模组是 Python 语言内置的模型保存包，可以用于保存 scikit-learn 的模型。</p>
 <p>其实现方法如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle  <span class="comment"># Import the pickle module for model saving.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"></span><br><span class="line"><span class="comment"># Train a classification model.</span></span><br><span class="line">clf = svm.SVC(gamma=<span class="string">&#x27;scale&#x27;</span>)</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X, y = iris.data, iris.target</span><br><span class="line">clf.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use pickle module to save the model.</span></span><br><span class="line">s = pickle.dumps(clf)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the model.</span></span><br><span class="line">clf2 = pickle.loads(s)</span><br><span class="line">print(clf2.predict(X[<span class="number">0</span>:<span class="number">1</span>]))  <span class="comment"># array([0])</span></span><br><span class="line">print(y[<span class="number">0</span>])  <span class="comment"># 0</span></span><br></pre></td></tr></table></figure>
-<h2 id="使用-joblib-模组存储训练模型">使用 joblib 模组存储训练模型</h2>
+<h1 id="使用-joblib-模组存储训练模型">使用 joblib 模组存储训练模型</h1>
 <p><em>joblib</em> 模组也可以用于保存训练：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> joblib <span class="keyword">import</span> dump, load</span><br><span class="line">dump(clf, <span class="string">&#x27;filename.joblib&#x27;</span>)</span><br><span class="line"></span><br><span class="line">clf = load(<span class="string">&#x27;filename.joblib&#x27;</span>)</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -195,26 +241,26 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>scikit-learn</tag>
         <tag>机器学习</tag>
+        <tag>scikit-learn</tag>
       </tags>
   </entry>
   <entry>
     <title>机器学习—— RBF 神经网络</title>
     <url>/2019-11-17-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%20RBF%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html</url>
-    <content><![CDATA[<h1 id="机器学习-rbf-神经网络">机器学习—— RBF 神经网络</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/">https://pythonmachinelearning.pro/using-neural-networks-for-regression-radial-basis-function-networks/</a></li>
 </ul>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h1 id="概念">概念</h1>
 <p><em>RBF 神经网络 (RBF Neural Network)</em> 是一种特殊的神经网络模型。这种神经网络通常有两个全连接层，在隐藏层中使用了高斯径向基函数 (Gaussian Radial Basis Function) 作为处理函数，如图所示：</p>
 <figure>
 <img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/RBF-Net.png" alt="RBF 神经网络" /><figcaption aria-hidden="true">RBF 神经网络</figcaption>
 </figure>
-<p>&lt;1-- more --&gt; ## 高斯径向基</p>
+<a id="more"></a>
+<h1 id="高斯径向基">高斯径向基</h1>
 <p>高斯径向基来源于高斯分布。</p>
 <blockquote>
 <p><em>高斯分布 (Gaussian Distribution)</em> 是统计学中最常见的分布模式，它可以用以下公式表示： <span class="math display">\[
@@ -225,7 +271,7 @@
 <figure>
 <img src="https://pythonmachinelearning.pro/wp-content/uploads/2017/10/Curve-Fitting.gif" alt="高斯分布拟合非线性函数" /><figcaption aria-hidden="true">高斯分布拟合非线性函数</figcaption>
 </figure>
-<h3 id="获取平均值">获取平均值</h3>
+<h2 id="获取平均值">获取平均值</h2>
 <p>可以使用 K-平均聚类算法获得高斯函数的平均值。</p>
 <blockquote>
 <p><em>K-平均聚类算法 (K-means Clustering)</em> 是一种对样本数据进行聚类。聚类任务将样本分为若干个子集，以便确定各个高斯分布的位置。这种聚类算法可以由以下公式表示： <span class="math display">\[
@@ -239,13 +285,13 @@
 <li>重复步骤2和步骤3，直至收敛。</li>
 </ol>
 </blockquote>
-<h3 id="标准差的确定">标准差的确定</h3>
+<h2 id="标准差的确定">标准差的确定</h2>
 <p>高斯函数的标准差的确定有两种方法：</p>
 <ul>
 <li>使用每个聚类各自的标准差；</li>
 <li>使用整体标准差<span class="math inline">\(\sigma = \frac{d_{\max}}{\sqrt{2k}}\)</span> 其中<span class="math inline">\(d_{\max}\)</span>表示两个聚类中心间的最大距离，<span class="math inline">\(k\)</span>表示聚类中心的个数。</li>
 </ul>
-<h2 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h2>
+<h1 id="rbf-神经网络的反向传递">RBF 神经网络的反向传递</h1>
 <p>对于每一个输入<span class="math inline">\(\boldsymbol{x}\)</span>，RBF 神经网络的输出为 <span class="math display">\[
 F(\boldsymbol{x}) = \sum_{j=1}^k\omega_j\phi_j(\boldsymbol{x}, \boldsymbol{c_j}) + b
 \]</span> 式中<span class="math inline">\(\omega_j\)</span>表示权重，<span class="math inline">\(b\)</span>表示偏置，<span class="math inline">\(k\)</span>表示聚类数，<span class="math inline">\(\phi_j(\cdot)\)</span>是高斯 RBF 函数： <span class="math display">\[
@@ -274,7 +320,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
     &amp;b\leftarrow b + \eta(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))
 \end{aligned}
 \]</span></p>
-<h2 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h2>
+<h1 id="rbf-神经网络的-python-实现">RBF 神经网络的 Python 实现</h1>
 <p>RBF 核函数：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbf</span>(<span class="params">x, c, s</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.exp(<span class="number">-1</span> / (<span class="number">2</span> * s**<span class="number">2</span>) * (x-c)**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>K-平均聚类算法以及标准差的求取：</p>
@@ -305,8 +351,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
   <entry>
     <title>使用 gitbook 创建静态页面文档</title>
     <url>/2020-02-28-%E4%BD%BF%E7%94%A8-gitbook-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2%E6%96%87%E6%A1%A3.html</url>
-    <content><![CDATA[<h1 id="使用-gitbook-创建静态页面文档">使用 gitbook 创建静态页面文档</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
 <li><a href="https://gitbookio.gitbooks.io/documentation/">gitbook 官方文档</a></li>
@@ -315,10 +360,10 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
 </blockquote>
 <p><strong>Gitbook</strong> 是一个简单的文档生成系统，可以用于进行简单的文档建立和书籍制作，支持生成静态页面或常见的电子书格式 (pdf, epub, mobi)，实现起来较为简单。</p>
 <a id="more"></a>
-<h2 id="gitbook-环境的安装">Gitbook 环境的安装</h2>
+<h1 id="gitbook-环境的安装">Gitbook 环境的安装</h1>
 <p>Gitbook 需要 <strong>Node.js</strong> 环境，首先应在<a href="https://nodejs.org/en/">此链接</a>下载安装 Node.js 环境。完成后，在命令行中输入以下命令，即可完成安装：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install gitbook -g</span><br></pre></td></tr></table></figure>
-<h2 id="gitbook-电子书的创建">Gitbook 电子书的创建</h2>
+<h1 id="gitbook-电子书的创建">Gitbook 电子书的创建</h1>
 <p>在需要创建电子书的目录下的命令行里输入以下命令，即可完成电子书的初始化：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook init</span><br></pre></td></tr></table></figure>
 <p>完成初始化后会自动在目录下生成 <code>README.md</code> 文件和 <code>SUMMARY.md</code> 文件，分别是书籍的简介（即第一页）和目录结构文件。</p>
@@ -328,7 +373,7 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># SUMMARY</span></span><br><span class="line"></span><br><span class="line"><span class="section">### Part I</span></span><br><span class="line"><span class="bullet">*</span> [<span class="string">Chapter1</span>](<span class="link">part1/chapter1/README.md</span>)</span><br><span class="line"><span class="bullet">  *</span> [<span class="string">Section1.1</span>](<span class="link">part1/chapter1/section1.1.md</span>)</span><br><span class="line"><span class="bullet">  *</span> [<span class="string">Section1.2</span>](<span class="link">part1/chapter1/section1.2.md</span>)</span><br><span class="line"><span class="bullet">*</span> [<span class="string">Chapter2</span>](<span class="link">part1/chapter2/README.md</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">### Part II</span></span><br><span class="line"><span class="bullet"> *</span> [<span class="string">Chapter1</span>](<span class="link">part2/chapter1/README.md</span>)</span><br><span class="line"><span class="bullet">  *</span> [<span class="string">Section1.1</span>](<span class="link">part2/chapter1/section1.1.md</span>)</span><br><span class="line"><span class="bullet">  *</span> [<span class="string">Section1.2</span>](<span class="link">part2/chapter1/section1.2.md</span>)</span><br><span class="line"><span class="bullet">*</span> [<span class="string">Chapter2</span>](<span class="link">part2/chapter2/README.md</span>)</span><br></pre></td></tr></table></figure>
 <p>修改 <code>SUMMARY.md</code> 文件中的目录结构后，再次运行 <code>gitbook init</code> 命令，会自动生成对应的 markdown 文件。</p>
 <p>完成文档的撰写后，可以运行 <code>gitbook build</code> 命令编译电子书，或运行 <code>gitbook serve</code> 创建本地服务实时编译和预览文档。</p>
-<h2 id="使用-gitbook-插件">使用 gitbook 插件</h2>
+<h1 id="使用-gitbook-插件">使用 gitbook 插件</h1>
 <p>Gitbook 支持大量插件，要使用其插件，首先需要在电子书目录下创建配置程序 <code>book.json</code>，并在其中添加如下设置：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span>: [</span><br><span class="line">      <span class="string">&quot;plugin-name&quot;</span></span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>常用的插件包括：</p>
@@ -356,108 +401,9 @@ C = \sum_{i=1}^N(\boldsymbol{y}^{(i)}-F(\boldsymbol{x}^{(i)}))^2
       </tags>
   </entry>
   <entry>
-    <title>焊接信号分析文献调研笔记（二）</title>
-    <url>/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html</url>
-    <content><![CDATA[<h1 id="焊接信号分析文献调研笔记二">焊接信号分析文献调研笔记（二）</h1>
-<h2 id="变分模态分解-vmd"><strong>变分模态分解</strong> (VMD)</h2>
-<blockquote>
-<p>DRAGOMIRETSKIY K, ZOSSO D. Variational Mode Decomposition [J]. IEEE Trans Signal Process, 2014, 62(3): 531-44.</p>
-</blockquote>
-<p>经验模态分解存在的问题：</p>
-<ul>
-<li><p>高度依赖于极值点查找方法、极值点到载波包络线的插值方法以及施加的停止标准</p></li>
-<li><p>缺乏数学理论解释，缺少自由度，鲁棒性不足。</p></li>
-</ul>
-<p><strong>变分模态分解（Variational mode decomposition, VMD）</strong>是一种针对 EMD 方法的缺陷而进行改进的方法。其主要目标是消除 EMD 方法的端点效应和频率混叠问题。</p>
-<a id="more"></a>
-<h3 id="基本思想和过程">基本思想和过程</h3>
-<p>假设目标要将信号 <span class="math inline">\(f(t)\)</span> 经分解为 <span class="math inline">\(K\)</span> 个 IMF，其中第 <span class="math inline">\(k\)</span> 个 IMF 记作 <span class="math inline">\(u_k (t)\)</span>，通过希尔伯特变换可以得到 <span class="math inline">\(u_k (t)\)</span> 的中心频率 <span class="math inline">\(\omega_k\)</span>。</p>
-<p>则可经过一系列的数学变换得到 VMD 的分析结果。</p>
-<ol type="1">
-<li><p>通过HHT求出原始IMF分量 <span class="math inline">\(u_k(t)\)</span> 的解析形式： <span class="math display">\[
-(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t})\ast u_k(t)
-\]</span></p></li>
-<li><p>对上述结果减去中心频率<span class="math inline">\(\omega_k\)</span>，进行标准化： <span class="math display">\[
-[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast u_k(t)]\mathrm{e}^{−\mathrm{j}\omega_kt}
-\]</span></p></li>
-<li><p>对总体的频率带宽进行优化，基于下式：</p></li>
-</ol>
-<p><span class="math display">\[
- \min_{\{u_k\},\{\omega_k\}}⁡\left\{∑_k\left\Vert\partial_t\left[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast)u_k (t)\right]\mathrm{e}^{−j\omega_kt}\right\Vert_2\right\}
-\\
-s.t. ∑_{k=1}^Ku_k(t)=f(t)
-\]</span></p>
-<p>经过一定的数学推导，可以得到优化问题的具体迭代过程，如图所示。</p>
-<figure>
-<img src="\images\VMD.png" alt="VMD 迭代过程" /><figcaption aria-hidden="true">VMD 迭代过程</figcaption>
-</figure>
-<h3 id="vmd的优劣">VMD的优劣</h3>
-<p><strong>优势：</strong></p>
-<ul>
-<li><p>分解效果明显优于 EMD 和 EEMD</p></li>
-<li><p>自适应分解方法，无需选择基波</p></li>
-<li><p>有完整的数学理论解释</p></li>
-<li><p>每个子波都处在一个较窄的频带范围之内，子波的物理意义更加明确</p></li>
-<li><p>允许人为设定分解模式数量 <span class="math inline">\(K\)</span> 和各模式的中心频率 <span class="math inline">\(\omega_k\)</span>，可通过先验知识提高分解效果</p></li>
-</ul>
-<p><strong>劣势：</strong></p>
-<ul>
-<li><p>需要人为选择分解的模式数 <span class="math inline">\(K\)</span></p></li>
-<li><p>仍然存在边界效应</p></li>
-<li><p>分析突变型号时效果依然不好</p></li>
-<li><p>没有余项，不利于分析信号的整体变化趋势</p></li>
-</ul>
-<h2 id="宽带模式分解-bmd">宽带模式分解 (BMD)</h2>
-<blockquote>
-<p>PENG Y, LI Z, HE K, et al. Quality monitoring of aluminum alloy DPMIG welding based on broadband mode decomposition and MMC-FCH[J]. Measurement, 2020,158: 107683.</p>
-</blockquote>
-<p><strong>目标</strong>：解决信号分解过程中的吉布斯效应等问题，如图所示。</p>
-<figure>
-<img src="/images/SquareWave.gif" alt="吉布斯现象" /><figcaption aria-hidden="true">吉布斯现象</figcaption>
-</figure>
-<h3 id="宽带模式分解的基本思路">宽带模式分解的基本思路</h3>
-<p><strong>宽带模式分解 (Broadband Mode Decomposition, BMD)</strong>为了将信号中的宽带信号成分和 AM-FM 窄带信号成分从噪声中分解出来，需要建立典型信号字典。</p>
-<p>字典包含两个典型宽带信号字典（方波 (square) 和锯齿波 (sawtooth)）和一个窄带信号字典：</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;Dic_1=\left\{A_1\text{square}(\omega_1 t+\theta_1, D_1 )\right\}
-\\&amp;Dic_2=\left\{A_2\text{sawtooth}(\omega_2 t+\theta_2,D_2 )\right\}
-\\&amp;Dic_3=\left\{A_3(t)\cos⁡(\omega_3 t+\theta_3 (t))\right\}
-\end{aligned}
-\]</span></p>
-<p>其中 <span class="math inline">\(Dic_3\)</span> 中 <span class="math inline">\(|A_3 (t)|\ll\omega _3\)</span>，<span class="math inline">\(\theta_3 (t)\)</span> 随时间缓慢变化。 通过在字典中搜索得到分解结果，（优化问题，优化参数为<span class="math inline">\(A\)</span>、<span class="math inline">\(\omega\)</span>、<span class="math inline">\(\theta\)</span>）</p>
-<h3 id="算法迭代流程">算法迭代流程</h3>
-<ol type="1">
-<li><p>去除直流成分</p></li>
-<li><p>执行 <span class="math inline">\(P1\)</span> 优化过程：</p>
-<p>优化目标： <span class="math display">\[
-\begin{aligned}
-&amp;P1:\min⁡(T_1(A_1,\omega _1,\theta_1,D_1 ),T_2 (A_2,\omega _2,\theta_2,D_2 ),T_3 \left[A_3 (n),\omega _3 (n),\theta_3 (n)\right] )
-\\&amp;𝑆.T.\quad x(n)=∑_{i=0}^NIMF_i (n)+rec(n), \quad IMF_i^j\in Dic_j
-\\&amp;T_j=\left\Vert D^{(2)}\left[IMF_i^j (n)\right]\right\Vert_2^2+𝜆\left\Vert D^{(2)} \left[x(n)−IMF_i^j (n)\right]\right\Vert_2^2
-\end{aligned}
-\]</span></p></li>
-</ol>
-<p>如图所示</p>
-<figure>
-<img src="images/BMD.png" alt="BMD迭代过程" /><figcaption aria-hidden="true">BMD迭代过程</figcaption>
-</figure>
-<p>从上述过程可以看到，BMD 方法的主要思路就是在已知信号中含有方波或锯齿波的脉冲成分下，设立对应的字典的分类方法。</p>
-]]></content>
-      <categories>
-        <category>焊接信号分析</category>
-      </categories>
-      <tags>
-        <tag>焊接信号分析</tag>
-        <tag>变分模态分解</tag>
-        <tag>宽带模态分解</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>焊接信号分析文献调研笔记（一）</title>
     <url>/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.html</url>
-    <content><![CDATA[<h1 id="焊接信号分析文献调研笔记一">焊接信号分析文献调研笔记（一）</h1>
-<h2 id="基于小波分解主元分析法建立的激光焊接信号分析模型">基于小波分解主元分析法建立的激光焊接信号分析模型</h2>
+    <content><![CDATA[<h1 id="基于小波分解主元分析法建立的激光焊接信号分析模型">基于小波分解主元分析法建立的激光焊接信号分析模型</h1>
 <blockquote>
 <p>You D, Gao X, Katayama S. WPD-PCA-based laser welding process monitoring and defects diagnosis by using FNN and SVM[J]. IEEE Transactions on Industrial Electronics, 2014, 62(1): 628-636.</p>
 </blockquote>
@@ -469,10 +415,10 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
 <li>支持向量机 (support vector machine, SVM)</li>
 </ul>
 <a id="more"></a>
-<h3 id="小波包分解主元素分析法-wavelet-packet-decomposition-pca-wpd-pca">小波包分解主元素分析法 (Wavelet packet decomposition PCA, WPD-PCA)</h3>
+<h2 id="小波包分解主元素分析法-wavelet-packet-decomposition-pca-wpd-pca">小波包分解主元素分析法 (Wavelet packet decomposition PCA, WPD-PCA)</h2>
 <p>使用 WPD-PCA 方法提取焊接信号中的特征参数，焊接信号包括光电二极管采集到的高频信号和分光计采集到的低频信号。 并使用图像处理的方法来量化焊接状态，确定焊接几何参数。使用前向神经网络来建立光信号和几何参量的关系模型， 使用支持向量机建立光信号和焊接缺陷的关系模型。</p>
 <p>光电二极管被用来测量可见光 (350--750 nm)和激光反射 (1030 nm)。分光计可以用来测量光谱数据 (186--1100 nm)。</p>
-<h4 id="光电二极管信号的特征提取">光电二极管信号的特征提取</h4>
+<h3 id="光电二极管信号的特征提取">光电二极管信号的特征提取</h3>
 <p>离散小波分解被用于多尺度信号分析，但只能得到分解的低频（近似）系数 (approximation coefficients)。 WPD （小波包分解）是这种方法的延伸，它使用低通、高通滤波器对低频系数和高频（细节）系数 (detail coefficients).</p>
 <p>小波包分解的表达式如下所示： <span class="math display">\[
 W_{j, k}^n(t)=2^{j/2}W^n(2^jt-k),\qquad j, k\in Z.
@@ -525,13 +471,13 @@ X_{j,n}^{10}=X_9-X_8.
 \]</span></p>
 <p>其中，<span class="math inline">\(\Phi_j^n(\omega)\)</span> 表示小波包系数 <span class="math inline">\(Cp_j^n(k)\)</span> 的傅里叶变换。</p>
 <p>最终得到的特征向量组 <span class="math inline">\(\boldsymbol{V}_P\)</span> 为 <span class="math inline">\(N_s\times2\times10\)</span> 的矩阵，<span class="math inline">\(N_s\)</span> 为子带的数量。</p>
-<h4 id="分光计信号的特征提取">分光计信号的特征提取</h4>
+<h3 id="分光计信号的特征提取">分光计信号的特征提取</h3>
 <p>使用 500 Hz 的采样频率，对信号进行采样。实验发现 400--900 nm 波长范围包含了大多数特征。分光器被分解为 25 各子带，每个子带包含 20 个光谱，并将其平均值当作光谱的特征值： <span class="math display">\[
 Xs_M=\frac{\sum_{m=m_1}^{m_2}x_s^m}{20}
 \]</span> 分光计的特征向量组由下式表示： <span class="math display">\[
 \boldsymbol{V}_S=[Xs_1,Xs_2,\dots,Xs_{25}]
 \]</span></p>
-<h4 id="主元素分析法进行特征选择">主元素分析法进行特征选择</h4>
+<h3 id="主元素分析法进行特征选择">主元素分析法进行特征选择</h3>
 <p>通过上述过程，共有 <span class="math inline">\(N=N_s\times2\times10+25\)</span> 组特征被提取了出来。其中 <span class="math inline">\(N_s\)</span> 在 1 到 4 之间，总特征向量数在 45 到 105 之间。通过特征选择可以提升模型预测和分类的泛化能力。主元素分析法 (Primary Component Analysis, PCA) 是一种常用的特征选择方法，本文使用该方法对特征向量组中的特征进行筛选。</p>
 <p>如果每个传感器采集到的采样点数为 <span class="math inline">\(H\)</span>，那么可以对特征进行正则化，得到 <span class="math display">\[
 \hat{\boldsymbol{V}}=\frac{\boldsymbol{V}-\boldsymbol{V}_{\text{mid}}}{\frac{1}{2}(\boldsymbol{V}_{\text{max}}-\boldsymbol{V}_{\text{min}})}
@@ -546,22 +492,22 @@ Xs_M=\frac{\sum_{m=m_1}^{m_2}x_s^m}{20}
 <p>于是主元素 <span class="math inline">\(\boldsymbol{S}_i\)</span> 就是 <span class="math inline">\(\hat{\boldsymbol{V}}\)</span> 的正交变换，即 <span class="math display">\[
 \boldsymbol{S}_i=\boldsymbol{u}_i^{\text{T}}\hat{\boldsymbol{V}}
 \]</span></p>
-<h3 id="视觉传感器焊缝几何特征和缺陷特征提取">视觉传感器焊缝几何特征和缺陷特征提取</h3>
-<h4 id="焊缝几何特征提取">焊缝几何特征提取</h4>
+<h2 id="视觉传感器焊缝几何特征和缺陷特征提取">视觉传感器焊缝几何特征和缺陷特征提取</h2>
+<h3 id="焊缝几何特征提取">焊缝几何特征提取</h3>
 <p>使用实验室尺度的视觉传感器来提取焊缝几何特征，从而确定焊接状态。飞溅特征使用视觉相机获取。匙孔表面的细微特征需要使用辅助照明 (Auxiliary Illumination, AI) 来进行观测。匙孔长度和熔池的深度的测量则使用 X 射线视觉影像技术完成。</p>
 <p>根据图像的位置特征，可以肯容易地将飞溅特征和金属蒸汽特征分离开来，并根据运动方向（前向或后向）将飞溅进行分类。其次，匙孔尺寸和坐标信息可以通过灰度处理和二值化实现。最后，匙孔长度和熔池深度可以通过对X射线进行灰度处理来提取。使用上述三种视觉传感器中获得的图像提取了六种典型几何特征，包括前向飞溅 <span class="math inline">\(y_{sf}\)</span>，后向飞溅 <span class="math inline">\(y_{bf}\)</span>，匙孔尺寸 <span class="math inline">\(y_{ks}\)</span>，匙孔位置 <span class="math inline">\(y_{kp}\)</span>，匙孔深度 <span class="math inline">\(y_{kd}\)</span>，和熔池深度 <span class="math inline">\(y_{md}\)</span>。因此，焊接状态参量可以由下式表示： <span class="math display">\[
 Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
 \]</span></p>
-<h4 id="焊缝缺陷特征提取">焊缝缺陷特征提取</h4>
+<h3 id="焊缝缺陷特征提取">焊缝缺陷特征提取</h3>
 <p>根据国际标准 EN ISO 13919-1，试验选择了三种代表性的焊接缺陷用于焊缝缺陷的分类参考。因此，焊接结果 <span class="math inline">\(y_{wr}\)</span> 可以被分为四类。类一代表完好焊缝，类二代表爆炸，类三代表焊瘤，类四代表下凹。</p>
-<h3 id="预测模型的建立">预测模型的建立</h3>
-<h4 id="基于前向神经网络预测进行过程监控">基于前向神经网络预测进行过程监控</h4>
+<h2 id="预测模型的建立">预测模型的建立</h2>
+<h3 id="基于前向神经网络预测进行过程监控">基于前向神经网络预测进行过程监控</h3>
 <p>在焊接过程中，超过 20 种输入特征 <span class="math inline">\(i\)</span> 以及 6 种焊接几何参数被用于拟合模型。模型使用了一个单隐层的神经网络，并使用了 sigmoid 传递函数作为隐藏层的传递函数。输出层的传递函数为线性函数。</p>
-<h2 id="弧焊过程监控研究现状">弧焊过程监控研究现状</h2>
+<h1 id="弧焊过程监控研究现状">弧焊过程监控研究现状</h1>
 <blockquote>
 <p>UHRLANDT D. Diagnostics of metal inert gas and metal active gas welding processes [J]. Journal of Physics D: Applied Physics, 2016, 49(31): 313001.</p>
 </blockquote>
-<h3 id="弧焊过程中的电测量">弧焊过程中的电测量</h3>
+<h2 id="弧焊过程中的电测量">弧焊过程中的电测量</h2>
 <p>如今，通过将电压探头、分路器或罗氏线圈（用于电流测量）与现代快速数字记录仪相连，可以很好地测量电信号的快速变化。需要特别注意的是设备的频率响应特性、接地和屏蔽以及电压探头的测量位置。电测量的一个优点是电弧特性的所有动态变化，包括电弧附着和金属转移的影响，都会在电流-电压特性中留下线索。他的缺点则是由这些有用的信息通常会和自身以及电源和噪声重叠在一起。</p>
 <p>即便如此，电压和电流测量与复杂的信号处理方法相结合，仍然是控制过程稳定性和焊接质量的最受欢迎的方法。这是因为这样可以避免额外的工作，例如使用光学传感器等。短路频率可以作为一个过程稳定的简单指标。而从电压信号中分辨出熔滴的分离则较为困难。</p>
 <p>复变分析法 (Complex Analysis) 是一种分析电压和电流信号与焊接质量之间的的关系的常用方法。其分析过程常常是基于对信号时频特性和的功率谱密度的分析之上。主要的分析方法可以包括：</p>
@@ -573,13 +519,13 @@ Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
 </ul>
 <p>电弧电压测量是研究电弧柱内电场和电极鞘层电压的一种方法。例如，在短路过程的实验中，通过比较已建立的电弧和短路前电弧的测量电压，以及电弧图像确定的电弧长度，可以确定电弧柱和电极鞘层区域的单独电压降。此时建议使用具有几乎恒定电压输出和低噪声的受控电源。</p>
 <p>此外，可以直接将电子探针置于等离子体中测量电弧局部的电势或热导率，这也是直接测量此类物理量的唯一方法。电子探针可以用于研究局部等离子体的各类特征。然而，探针对等离子体的局部扰动和热等离子体探针理论的局限性，特别是无碰撞鞘层方法的有效性，使得这种方法相当困难，限制了结果的准确性。霍尔传感器也可以用于测量电弧内部的电流分布。</p>
-<h3 id="研究现状分析">研究现状分析</h3>
+<h2 id="研究现状分析">研究现状分析</h2>
 <p>当前工作的中心主要在两个方面：</p>
-<h4 id="电弧的物理性质和材料转移的改进诊断方法">电弧的物理性质和材料转移的改进诊断方法</h4>
+<h3 id="电弧的物理性质和材料转移的改进诊断方法">电弧的物理性质和材料转移的改进诊断方法</h3>
 <p>包括利用电弧发射光谱对脉冲电弧等离子体内部温度等性质的二维甚至三维分布的获取等。</p>
-<h4 id="新的监控和控制方法">新的监控和控制方法</h4>
+<h2 id="新的监控和控制方法">新的监控和控制方法</h2>
 <p>主要集中在光谱、高速摄影的应用上。类似于声音信号的其他方法收到的关注较少。</p>
-<h3 id="需要解决的问题">需要解决的问题</h3>
+<h2 id="需要解决的问题">需要解决的问题</h2>
 <ul>
 <li>电弧非平衡区域（外部区域和靠近墙壁的区域）以及不符合 LTE 假设的时间段（点火、小电流电弧）中的等离子体特性——这一点应包括对LTE假设下获得的现有结果的进一步验证。</li>
 <li>鞘层电压和电流路径——这一点应包括对考虑电弧附着区域的 GMAW 过程功率平衡的相应更深入的研究。</li>
@@ -591,13 +537,13 @@ Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
 <p>为了更全面地了解不同的GMAW过程，需要对电弧诊断和材料传输的同步应用进行研究。</p>
 <p>其他要求和挑战来自于现有诊断对实际焊接条件的有限适用性。</p>
 <p>最后，应在以下两个方面开发监控方法：（a）监控缺陷；（b）主动在线控制过程，以提高稳定性和效率。更为细致的内在物理机制研究和更复杂的诊断方法的发展可以用来支持这里。举例来说，金属蒸发和由此产生的辐射与材料传输中的不规则性之间的关系，一旦得到更详细的评估，就可以为提高灵敏度的控制方法提供一个可能的方向。</p>
-<h2 id="集合经验模态分解-ensemble-empirical-mode-decomposition">集合经验模态分解 (Ensemble Empirical Mode Decomposition)</h2>
+<h1 id="集合经验模态分解-ensemble-empirical-mode-decomposition">集合经验模态分解 (Ensemble Empirical Mode Decomposition)</h1>
 <blockquote>
 <p>HUANG Y, WANG K, ZHOU Z, et al. Stability evaluation of short-circuiting gas metal arc welding based on ensemble empirical mode decomposition [J]. Measurement Science and Technology, 2017, 28(3): 035006.</p>
 <p><a href="https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034" class="uri">https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034</a></p>
 </blockquote>
 <p>经验模态分解 (EMD) 是一种新兴的信号分解、滤波、处理和特征提取的方法，但是它存在着两个显著的缺陷，分别是模态混合和端点效应的问题。</p>
-<h3 id="经验模态分解的模态混合问题">经验模态分解的模态混合问题</h3>
+<h2 id="经验模态分解的模态混合问题">经验模态分解的模态混合问题</h2>
 <p>EMD 分解得到的 IMF 分量往往存在模态混合,造成 IMF 分量不精确。Huang 等认为模式混叠是极值点的选择造成信号的间歇现象。</p>
 <p>出现下列情况之一就称为模态混合:</p>
 <ol type="1">
@@ -612,14 +558,14 @@ Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
 <figure>
 <img src="/images/modeMixing2.png" alt="模态混合-2" /><figcaption aria-hidden="true">模态混合-2</figcaption>
 </figure>
-<h3 id="经验模态分解中的端点效应问题">经验模态分解中的端点效应问题</h3>
+<h2 id="经验模态分解中的端点效应问题">经验模态分解中的端点效应问题</h2>
 <p>端点效应由两种情形造成的:</p>
 <ol type="1">
 <li>在三次样条拟合中产生;</li>
 <li>在Hilbert变换中产生。</li>
 </ol>
 <p>端点效应直接影响经验模态分析的效果。端点处理的好,分解的效果就比较好。</p>
-<h3 id="集合经验模态分解算法">集合经验模态分解算法</h3>
+<h2 id="集合经验模态分解算法">集合经验模态分解算法</h2>
 <p>集合经验模态算法使用均匀分布的高斯白噪声来解决经验模态分解的不足。在经验模态分解过程中，通过多次在信号内引入高斯白噪声，形成一些包含白噪声的内涵模态分量 (IMFs)。对这些 IMF 求取总体的平均值，得到最终的内涵模态分量。而添加的白噪声会在求平均值的过程中被去除掉。</p>
 <p>算法实现如下：</p>
 <ol type="1">
@@ -658,10 +604,184 @@ x(t)=\sum_{i=1}^ny_i+r_n
       </tags>
   </entry>
   <entry>
+    <title>焊接信号分析文献调研笔记（二）</title>
+    <url>/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html</url>
+    <content><![CDATA[<h1 id="变分模态分解-vmd"><strong>变分模态分解</strong> (VMD)</h1>
+<blockquote>
+<p>DRAGOMIRETSKIY K, ZOSSO D. Variational Mode Decomposition [J]. IEEE Trans Signal Process, 2014, 62(3): 531-44.</p>
+</blockquote>
+<p>经验模态分解存在的问题：</p>
+<ul>
+<li><p>高度依赖于极值点查找方法、极值点到载波包络线的插值方法以及施加的停止标准</p></li>
+<li><p>缺乏数学理论解释，缺少自由度，鲁棒性不足。</p></li>
+</ul>
+<p><strong>变分模态分解（Variational mode decomposition, VMD）</strong>是一种针对 EMD 方法的缺陷而进行改进的方法。其主要目标是消除 EMD 方法的端点效应和频率混叠问题。</p>
+<a id="more"></a>
+<h2 id="基本思想和过程">基本思想和过程</h2>
+<p>假设目标要将信号 <span class="math inline">\(f(t)\)</span> 经分解为 <span class="math inline">\(K\)</span> 个 IMF，其中第 <span class="math inline">\(k\)</span> 个 IMF 记作 <span class="math inline">\(u_k (t)\)</span>，通过希尔伯特变换可以得到 <span class="math inline">\(u_k (t)\)</span> 的中心频率 <span class="math inline">\(\omega_k\)</span>。</p>
+<p>则可经过一系列的数学变换得到 VMD 的分析结果。</p>
+<ol type="1">
+<li><p>通过HHT求出原始IMF分量 <span class="math inline">\(u_k(t)\)</span> 的解析形式： <span class="math display">\[
+(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t})\ast u_k(t)
+\]</span></p></li>
+<li><p>对上述结果减去中心频率<span class="math inline">\(\omega_k\)</span>，进行标准化： <span class="math display">\[
+[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast u_k(t)]\mathrm{e}^{−\mathrm{j}\omega_kt}
+\]</span></p></li>
+<li><p>对总体的频率带宽进行优化，基于下式：</p></li>
+</ol>
+<p><span class="math display">\[
+\min_{\{u_k\},\{\omega_k\}}⁡\left\{∑_k\left\Vert\partial_t\left[(\delta(t)+\frac{\mathrm{j}}{\mathrm{\pi}t}\ast)u_k (t)\right]\mathrm{e}^{−j\omega_kt}\right\Vert_2\right\}
+\\
+s.t. ∑_{k=1}^Ku_k(t)=f(t)
+\]</span></p>
+<p>经过一定的数学推导，可以得到优化问题的具体迭代过程，如图所示。</p>
+<figure>
+<img src="\images\VMD.png" alt="VMD 迭代过程" /><figcaption aria-hidden="true">VMD 迭代过程</figcaption>
+</figure>
+<h2 id="vmd的优劣">VMD的优劣</h2>
+<p><strong>优势：</strong></p>
+<ul>
+<li><p>分解效果明显优于 EMD 和 EEMD</p></li>
+<li><p>自适应分解方法，无需选择基波</p></li>
+<li><p>有完整的数学理论解释</p></li>
+<li><p>每个子波都处在一个较窄的频带范围之内，子波的物理意义更加明确</p></li>
+<li><p>允许人为设定分解模式数量 <span class="math inline">\(K\)</span> 和各模式的中心频率 <span class="math inline">\(\omega_k\)</span>，可通过先验知识提高分解效果</p></li>
+</ul>
+<p><strong>劣势：</strong></p>
+<ul>
+<li><p>需要人为选择分解的模式数 <span class="math inline">\(K\)</span></p></li>
+<li><p>仍然存在边界效应</p></li>
+<li><p>分析突变型号时效果依然不好</p></li>
+<li><p>没有余项，不利于分析信号的整体变化趋势</p></li>
+</ul>
+<h1 id="宽带模式分解-bmd">宽带模式分解 (BMD)</h1>
+<blockquote>
+<p>PENG Y, LI Z, HE K, et al. Quality monitoring of aluminum alloy DPMIG welding based on broadband mode decomposition and MMC-FCH[J]. Measurement, 2020,158: 107683.</p>
+</blockquote>
+<p><strong>目标</strong>：解决信号分解过程中的吉布斯效应等问题，如图所示。</p>
+<figure>
+<img src="/images/SquareWave.gif" alt="吉布斯现象" /><figcaption aria-hidden="true">吉布斯现象</figcaption>
+</figure>
+<h2 id="宽带模式分解的基本思路">宽带模式分解的基本思路</h2>
+<p><strong>宽带模式分解 (Broadband Mode Decomposition, BMD)</strong>为了将信号中的宽带信号成分和 AM-FM 窄带信号成分从噪声中分解出来，需要建立典型信号字典。</p>
+<p>字典包含两个典型宽带信号字典（方波 (square) 和锯齿波 (sawtooth)）和一个窄带信号字典：</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;Dic_1=\left\{A_1\text{square}(\omega_1 t+\theta_1, D_1 )\right\}
+\\&amp;Dic_2=\left\{A_2\text{sawtooth}(\omega_2 t+\theta_2,D_2 )\right\}
+\\&amp;Dic_3=\left\{A_3(t)\cos⁡(\omega_3 t+\theta_3 (t))\right\}
+\end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(Dic_3\)</span> 中 <span class="math inline">\(|A_3 (t)|\ll\omega _3\)</span>，<span class="math inline">\(\theta_3 (t)\)</span> 随时间缓慢变化。 通过在字典中搜索得到分解结果，（优化问题，优化参数为<span class="math inline">\(A\)</span>、<span class="math inline">\(\omega\)</span>、<span class="math inline">\(\theta\)</span>）</p>
+<h2 id="算法迭代流程">算法迭代流程</h2>
+<ol type="1">
+<li><p>去除直流成分</p></li>
+<li><p>执行 <span class="math inline">\(P1\)</span> 优化过程：</p>
+<p>优化目标： <span class="math display">\[
+\begin{aligned}
+&amp;P1:\min⁡(T_1(A_1,\omega _1,\theta_1,D_1 ),T_2 (A_2,\omega _2,\theta_2,D_2 ),T_3 \left[A_3 (n),\omega _3 (n),\theta_3 (n)\right] )
+\\&amp;𝑆.T.\quad x(n)=∑_{i=0}^NIMF_i (n)+rec(n), \quad IMF_i^j\in Dic_j
+\\&amp;T_j=\left\Vert D^{(2)}\left[IMF_i^j (n)\right]\right\Vert_2^2+𝜆\left\Vert D^{(2)} \left[x(n)−IMF_i^j (n)\right]\right\Vert_2^2
+\end{aligned}
+\]</span></p></li>
+</ol>
+<p>如图所示</p>
+<figure>
+<img src="images/BMD.png" alt="BMD迭代过程" /><figcaption aria-hidden="true">BMD迭代过程</figcaption>
+</figure>
+<p>从上述过程可以看到，BMD 方法的主要思路就是在已知信号中含有方波或锯齿波的脉冲成分下，设立对应的字典的分类方法。</p>
+]]></content>
+      <categories>
+        <category>焊接信号分析</category>
+      </categories>
+      <tags>
+        <tag>焊接信号分析</tag>
+        <tag>变分模态分解</tag>
+        <tag>宽带模态分解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性代数复习</title>
+    <url>/2019-10-27-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%A4%8D%E4%B9%A0.html</url>
+    <content><![CDATA[<p>计算方法（数值分析）课程涉及部分线性代数内容，故对本科一年级所学的线性代数进行了复习。</p>
+<blockquote>
+<p>摘自：</p>
+<ul>
+<li><a href="https://baike.baidu.com/item/逆矩阵">百度百科-逆矩阵</a></li>
+<li><a href="https://baike.baidu.com/item/正定矩阵">百度百科-正定矩阵</a></li>
+<li><a href="https://baike.baidu.com/item/矩阵特征值">百度百科-矩阵特征值</a></li>
+</ul>
+</blockquote>
+<h1 id="矩阵的逆">矩阵的逆</h1>
+<ul>
+<li><strong>定义</strong>： 如果矩阵<span class="math inline">\(\boldsymbol{A}\)</span>和<span class="math inline">\(\boldsymbol{B}\)</span>满足以下关系式： <span class="math display">\[
+\boldsymbol{AB}=\boldsymbol{BA}=\boldsymbol{E}
+\]</span> 称<span class="math inline">\(\boldsymbol{A}\)</span>和<span class="math inline">\(\boldsymbol{B}\)</span>互为逆矩阵，记<span class="math inline">\(\boldsymbol{B}=\boldsymbol{A}^{-1}\)</span>。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p><strong>矩阵的逆的求法</strong>： <span class="math display">\[
+\boldsymbol{A}^{-1}=\frac{1}{\left|\boldsymbol{A}\right|}\boldsymbol{A}^*
+\]</span> 其中</p>
+<p><span class="math display">\[
+\boldsymbol{A}^*=(A_{ji})_{n\times n}
+\]</span></p>
+<p><span class="math inline">\(A_{ij}\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的代数余子式。</p></li>
+</ul>
+<h1 id="正定矩阵">正定矩阵</h1>
+<ul>
+<li><strong>定义</strong>： 设<span class="math inline">\(\boldsymbol{M}\)</span>是<span class="math inline">\(n\)</span>阶方阵，如果对任意非零向量<span class="math inline">\(\boldsymbol{x}\)</span>都有<span class="math inline">\(\boldsymbol{x}^{\text{T}}\boldsymbol{Mx}&gt;0\)</span>，称M为正定矩阵。</li>
+<li><strong>性质</strong>：
+<ul>
+<li>正定矩阵的行列式恒为正；</li>
+<li>实对称矩阵<span class="math inline">\(\boldsymbol{A}\)</span>正定当且仅当<span class="math inline">\(\boldsymbol{A}\)</span>与单位矩阵合同；</li>
+<li>若<span class="math inline">\(\boldsymbol{A}\)</span>是正定矩阵，则<span class="math inline">\(\boldsymbol{A}\)</span>的逆矩阵也是正定矩阵；</li>
+<li>两个正定矩阵的和是正定矩阵；</li>
+<li>正实数与正定矩阵的乘积是正定矩阵。</li>
+</ul></li>
+<li><strong>等价命题</strong>： 对于<span class="math inline">\(n\)</span>实对称矩阵<span class="math inline">\(\boldsymbol{A}\)</span>，下列命题是等价的：
+<ul>
+<li><span class="math inline">\(\boldsymbol{A}\)</span>是正定矩阵；</li>
+<li><span class="math inline">\(\boldsymbol{A}\)</span>的一切顺序主子式均为正；</li>
+<li><span class="math inline">\(\boldsymbol{A}\)</span>的一切主子式均为正；</li>
+<li><span class="math inline">\(\boldsymbol{A}\)</span>的特征值为正；</li>
+<li>存在实可逆矩阵<span class="math inline">\(\boldsymbol{C}\)</span>，使得<span class="math inline">\(\boldsymbol{A=C}^{\rm{T}}\boldsymbol{C}\)</span>；</li>
+<li>存在秩为<span class="math inline">\(n\)</span>的<span class="math inline">\(n\times n\)</span>实矩阵<span class="math inline">\(\boldsymbol{B}\)</span>，使<span class="math inline">\(\boldsymbol{A=B}^{\rm{T}}\boldsymbol{B}\)</span>；</li>
+<li>存在主对角线元素全为正的实三角矩阵<span class="math inline">\(\boldsymbol{R}\)</span>，使<span class="math inline">\(\boldsymbol{A=R}^{\rm{T}}\boldsymbol{R}\)</span>；</li>
+</ul></li>
+</ul>
+<h1 id="矩阵的特征值">矩阵的特征值</h1>
+<ul>
+<li><p><strong>定义</strong>： 设<span class="math inline">\(\boldsymbol{A}\)</span>是<span class="math inline">\(n\)</span>阶方阵，如果存在数<span class="math inline">\(\lambda\)</span>和非零<span class="math inline">\(n\)</span>维列向量<span class="math inline">\(\boldsymbol{x}\)</span>，使得<span class="math inline">\(\boldsymbol{Ax=}m\boldsymbol{x}\)</span>成立，则称<span class="math inline">\(m\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征向量。</p></li>
+<li><p><strong>求法</strong>： 方程 <span class="math display">\[
+\left|\lambda\boldsymbol{E-A}\right|=\boldsymbol{0}
+\]</span> 的<span class="math inline">\(n\)</span>个复根<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_n\)</span>为矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的<span class="math inline">\(n\)</span>个特征值。将特征值代入方程 <span class="math display">\[
+(\lambda\boldsymbol{E-A})\boldsymbol{x}=\boldsymbol{0}
+\]</span> 得到的基解系以及基础解系的线性组合都是<span class="math inline">\(\boldsymbol{A}\)</span>的特征向量。</p></li>
+<li><p><strong>性质</strong>：</p>
+<ul>
+<li><p><span class="math inline">\(n\)</span>阶方阵<span class="math inline">\(\boldsymbol{A}=(a_{ij})\)</span>的所有特征根为<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_n\)</span>（包括重根），则 <span class="math display">\[
+\lambda_1+\lambda_2+\dots+\lambda_n=\sum_{i=1}^{n}{a_{ii}}\\
+\lambda_1\lambda_2\dots\lambda_n=\left|\boldsymbol{A}\right|
+\]</span></p></li>
+<li><p>若<span class="math inline">\(\lambda\)</span>是可逆矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>为对应的特征向量，则<span class="math inline">\(1/\lambda\)</span>为<span class="math inline">\(\boldsymbol{A}^{-1}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>仍为对应的特征向量。</p></li>
+<li><p>若<span class="math inline">\(\lambda\)</span>是方阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>为对应的特征向量，则<span class="math inline">\(\lambda^m\)</span>为<span class="math inline">\(\boldsymbol{A}^{m}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>仍为对应的特征向量。</p></li>
+<li><p>设<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_m\)</span>是方阵<span class="math inline">\(\boldsymbol{A}\)</span>的互不相同的特征值。<span class="math inline">\(\boldsymbol{x}_j\)</span>是属于<span class="math inline">\(\lambda_i\)</span>的特征向量<span class="math inline">\((i=1,2,\dots,m)\)</span>，则<span class="math inline">\(x_1,x_2,\dots,x_m\)</span>线性无关，即不同特征值的特征向量线性无关。</p></li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>线性代数</category>
+      </categories>
+      <tags>
+        <tag>线性代数</tag>
+        <tag>计算方法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>遗传算法（一）——原理概述</title>
     <url>/2019-10-24-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E6%A6%82%E8%BF%B0.html</url>
-    <content><![CDATA[<h1 id="遗传算法">遗传算法</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>摘自：</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/ae5157c26af9">https://www.jianshu.com/p/ae5157c26af9</a></li>
@@ -670,17 +790,17 @@ x(t)=\sum_{i=1}^ny_i+r_n
 </ul>
 </blockquote>
 <p>遗传算法是一种模拟达尔文物种进化理论的算法，算法很新颖独特。</p>
-<h2 id="原理">原理</h2>
+<h1 id="原理">原理</h1>
 <p>遗传算法模拟了自然界物竞天择的生物进化过程。</p>
 <p>它的主要过程是由代表问题的潜在解集的一个种群 (population) 开始。种群由经过基因 (gene) 编码 (coding) 的一定数目的个体 (individual) 组成。每个个体实际上是染色体 (chromosome) 带有特征的实体。</p>
 <p>随后以面为单位搜索，通过随机初始化种群，并按照适者生存、优胜劣汰的原理，主带逐代 (generation) 演化产生越来越好的近似解。在每一代中，根据个体的适应度 (fitness) 大小来选择 (selection) 个体，并借助于自然遗传学中的遗传算子 (genetic operators) 进行组合交叉 (crossover) 和变异 (mutation)，产生出新的解集的种群。</p>
 <a id="more"></a>
-<h2 id="实现过程">实现过程</h2>
+<h1 id="实现过程">实现过程</h1>
 <p>遗传算法的实现过程可以由下图表示：</p>
 <figure>
 <img src="/images/20191024_遗传算法.jpg" alt="遗传算法示意图" /><figcaption aria-hidden="true">遗传算法示意图</figcaption>
 </figure>
-<h3 id="编码">编码</h3>
+<h2 id="编码">编码</h2>
 <ul>
 <li><p><strong>二进制编码</strong>： 使用类似于模数转换的公式： <span class="math display">\[
 x = -1 + x^t\frac{b-a}{2^n-1}
@@ -688,7 +808,7 @@ x = -1 + x^t\frac{b-a}{2^n-1}
 <li><p><strong>浮点数编码</strong>：</p></li>
 <li><p><strong>符号编码</strong></p></li>
 </ul>
-<h3 id="适应性评分与选择函数">适应性评分与选择函数</h3>
+<h2 id="适应性评分与选择函数">适应性评分与选择函数</h2>
 <ul>
 <li><strong>物竞——适应性函数</strong>：用以评判个体适应程度的函数：
 <ul>
@@ -720,8 +840,8 @@ x = -1 + x^t\frac{b-a}{2^n-1}
 <li><strong>排挤选择</strong>： 新生的子代代替或排挤相似的旧父代个体，提高群体多样性。</li>
 </ul></li>
 </ul>
-<h2 id="遗传变异">遗传变异</h2>
-<h3 id="基因重组交叉">基因重组/交叉</h3>
+<h1 id="遗传变异">遗传变异</h1>
+<h2 id="基因重组交叉">基因重组/交叉</h2>
 <ul>
 <li><p><strong>单点交叉</strong>：选取一点；</p></li>
 <li><p><strong>两点交叉</strong>：选取两点；</p></li>
@@ -730,7 +850,7 @@ x = -1 + x^t\frac{b-a}{2^n-1}
 <li><p><strong>算术交叉</strong>：线性组合（常用于浮点数编码）。</p></li>
 </ul>
 <p><em>（注：二进制交叉：交换位；浮点数交叉：取二者之间的随机值）</em></p>
-<h3 id="基因突变">基因突变</h3>
+<h2 id="基因突变">基因突变</h2>
 <ul>
 <li><p><strong>基本位变异</strong>：选取一位或多位；</p></li>
 <li><p><strong>均匀变异</strong>：设置一个一定范围内的随机数，以一个较小的概率替换基因上的原有基因值；</p></li>
@@ -749,93 +869,13 @@ x = -1 + x^t\frac{b-a}{2^n-1}
       </tags>
   </entry>
   <entry>
-    <title>线性代数复习</title>
-    <url>/2019-10-27-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%A4%8D%E4%B9%A0.html</url>
-    <content><![CDATA[<h1 id="线性代数复习">线性代数复习</h1>
-<p>计算方法（数值分析）课程涉及部分线性代数内容，故对本科一年级所学的线性代数进行了复习。</p>
-<blockquote>
-<p>摘自：</p>
-<ul>
-<li><a href="https://baike.baidu.com/item/逆矩阵">百度百科-逆矩阵</a></li>
-<li><a href="https://baike.baidu.com/item/正定矩阵">百度百科-正定矩阵</a></li>
-<li><a href="https://baike.baidu.com/item/矩阵特征值">百度百科-矩阵特征值</a></li>
-</ul>
-</blockquote>
-<h2 id="矩阵的逆">矩阵的逆</h2>
-<ul>
-<li><strong>定义</strong>： 如果矩阵<span class="math inline">\(\boldsymbol{A}\)</span>和<span class="math inline">\(\boldsymbol{B}\)</span>满足以下关系式： <span class="math display">\[
-\boldsymbol{AB}=\boldsymbol{BA}=\boldsymbol{E}
-\]</span> 称<span class="math inline">\(\boldsymbol{A}\)</span>和<span class="math inline">\(\boldsymbol{B}\)</span>互为逆矩阵，记<span class="math inline">\(\boldsymbol{B}=\boldsymbol{A}^{-1}\)</span>。</li>
-</ul>
-<a id="more"></a>
-<ul>
-<li><p><strong>矩阵的逆的求法</strong>： <span class="math display">\[
-\boldsymbol{A}^{-1}=\frac{1}{\left|\boldsymbol{A}\right|}\boldsymbol{A}^*
-\]</span> 其中</p>
-<p><span class="math display">\[
-\boldsymbol{A}^*=(A_{ji})_{n\times n}
-\]</span></p>
-<p><span class="math inline">\(A_{ij}\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的代数余子式。</p></li>
-</ul>
-<h2 id="正定矩阵">正定矩阵</h2>
-<ul>
-<li><strong>定义</strong>： 设<span class="math inline">\(\boldsymbol{M}\)</span>是<span class="math inline">\(n\)</span>阶方阵，如果对任意非零向量<span class="math inline">\(\boldsymbol{x}\)</span>都有<span class="math inline">\(\boldsymbol{x}^{\text{T}}\boldsymbol{Mx}&gt;0\)</span>，称M为正定矩阵。</li>
-<li><strong>性质</strong>：
-<ul>
-<li>正定矩阵的行列式恒为正；</li>
-<li>实对称矩阵<span class="math inline">\(\boldsymbol{A}\)</span>正定当且仅当<span class="math inline">\(\boldsymbol{A}\)</span>与单位矩阵合同；</li>
-<li>若<span class="math inline">\(\boldsymbol{A}\)</span>是正定矩阵，则<span class="math inline">\(\boldsymbol{A}\)</span>的逆矩阵也是正定矩阵；</li>
-<li>两个正定矩阵的和是正定矩阵；</li>
-<li>正实数与正定矩阵的乘积是正定矩阵。</li>
-</ul></li>
-<li><strong>等价命题</strong>： 对于<span class="math inline">\(n\)</span>实对称矩阵<span class="math inline">\(\boldsymbol{A}\)</span>，下列命题是等价的：
-<ul>
-<li><span class="math inline">\(\boldsymbol{A}\)</span>是正定矩阵；</li>
-<li><span class="math inline">\(\boldsymbol{A}\)</span>的一切顺序主子式均为正；</li>
-<li><span class="math inline">\(\boldsymbol{A}\)</span>的一切主子式均为正；</li>
-<li><span class="math inline">\(\boldsymbol{A}\)</span>的特征值为正；</li>
-<li>存在实可逆矩阵<span class="math inline">\(\boldsymbol{C}\)</span>，使得<span class="math inline">\(\boldsymbol{A=C}^{\rm{T}}\boldsymbol{C}\)</span>；</li>
-<li>存在秩为<span class="math inline">\(n\)</span>的<span class="math inline">\(n\times n\)</span>实矩阵<span class="math inline">\(\boldsymbol{B}\)</span>，使<span class="math inline">\(\boldsymbol{A=B}^{\rm{T}}\boldsymbol{B}\)</span>；</li>
-<li>存在主对角线元素全为正的实三角矩阵<span class="math inline">\(\boldsymbol{R}\)</span>，使<span class="math inline">\(\boldsymbol{A=R}^{\rm{T}}\boldsymbol{R}\)</span>；</li>
-</ul></li>
-</ul>
-<h2 id="矩阵的特征值">矩阵的特征值</h2>
-<ul>
-<li><p><strong>定义</strong>： 设<span class="math inline">\(\boldsymbol{A}\)</span>是<span class="math inline">\(n\)</span>阶方阵，如果存在数<span class="math inline">\(\lambda\)</span>和非零<span class="math inline">\(n\)</span>维列向量<span class="math inline">\(\boldsymbol{x}\)</span>，使得<span class="math inline">\(\boldsymbol{Ax=}m\boldsymbol{x}\)</span>成立，则称<span class="math inline">\(m\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>是矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征向量。</p></li>
-<li><p><strong>求法</strong>： 方程 <span class="math display">\[
-\left|\lambda\boldsymbol{E-A}\right|=\boldsymbol{0}
-\]</span> 的<span class="math inline">\(n\)</span>个复根<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_n\)</span>为矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的<span class="math inline">\(n\)</span>个特征值。将特征值代入方程 <span class="math display">\[
-(\lambda\boldsymbol{E-A})\boldsymbol{x}=\boldsymbol{0}
-\]</span> 得到的基解系以及基础解系的线性组合都是<span class="math inline">\(\boldsymbol{A}\)</span>的特征向量。</p></li>
-<li><p><strong>性质</strong>：</p>
-<ul>
-<li><p><span class="math inline">\(n\)</span>阶方阵<span class="math inline">\(\boldsymbol{A}=(a_{ij})\)</span>的所有特征根为<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_n\)</span>（包括重根），则 <span class="math display">\[
-\lambda_1+\lambda_2+\dots+\lambda_n=\sum_{i=1}^{n}{a_{ii}}\\
-\lambda_1\lambda_2\dots\lambda_n=\left|\boldsymbol{A}\right|
-\]</span></p></li>
-<li><p>若<span class="math inline">\(\lambda\)</span>是可逆矩阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>为对应的特征向量，则<span class="math inline">\(1/\lambda\)</span>为<span class="math inline">\(\boldsymbol{A}^{-1}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>仍为对应的特征向量。</p></li>
-<li><p>若<span class="math inline">\(\lambda\)</span>是方阵<span class="math inline">\(\boldsymbol{A}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>为对应的特征向量，则<span class="math inline">\(\lambda^m\)</span>为<span class="math inline">\(\boldsymbol{A}^{m}\)</span>的一个特征值，<span class="math inline">\(\boldsymbol{x}\)</span>仍为对应的特征向量。</p></li>
-<li><p>设<span class="math inline">\(\lambda_1, \lambda_2, \dots, \lambda_m\)</span>是方阵<span class="math inline">\(\boldsymbol{A}\)</span>的互不相同的特征值。<span class="math inline">\(\boldsymbol{x}_j\)</span>是属于<span class="math inline">\(\lambda_i\)</span>的特征向量<span class="math inline">\((i=1,2,\dots,m)\)</span>，则<span class="math inline">\(x_1,x_2,\dots,x_m\)</span>线性无关，即不同特征值的特征向量线性无关。</p></li>
-</ul></li>
-</ul>
-]]></content>
-      <categories>
-        <category>线性代数</category>
-      </categories>
-      <tags>
-        <tag>线性代数</tag>
-        <tag>计算方法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>遗传算法学习笔记（二）——使用 Geatpy 工具箱</title>
     <url>/2019-10-30-%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20Geatpy%20%E5%B7%A5%E5%85%B7%E7%AE%B1.html</url>
-    <content><![CDATA[<h1 id="遗传算法学习笔记二使用-geatpy-工具箱">遗传算法学习笔记（二）——使用 Geatpy 工具箱</h1>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>摘自：<a href="http://geatpy.com/index.php/geatpy%E6%95%99%E7%A8%8B/">Geatpy官方教程</a></p>
 </blockquote>
 <p><em>Geatpy</em> 是国内华南农业大学、暨南大学、华南理工大学三所高校联合编写的基于 Python 编程语言的遗传算法工具箱。初学者可以使用该工具箱简单高效地实现遗传算法。</p>
-<p>Geatpy 拥有两种编程模式来实现遗传算法，分别是脚本编程和面向对象编程。 <a id="more"></a> ## 脚本编程法</p>
+<p>Geatpy 拥有两种编程模式来实现遗传算法，分别是脚本编程和面向对象编程。 <a id="more"></a> # 脚本编程法</p>
 <p>脚本编程法类似于 MATLAB 的编程风格，易于理解，但是代码量较大。</p>
 <p>可以通过一个实例来演示脚本编程的主要流程：</p>
 <p>假设求解 McCormick 函数的最小值。这个函数是一个二元函数，表达式为： <span class="math display">\[
@@ -846,7 +886,7 @@ f(x,y)=\sin(x+y)+(x-y)^2-1.5x+2.5y+1
 </figure>
 <p>此处算法选择带有精英保留的遗传算法“Elitist Reservation GA"，可编写以下执行脚本：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;demo.py&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> geatpy <span class="keyword">as</span> ea  <span class="comment"># 导入geatpy库</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================== 目标函数设置 =======================</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aim</span>(<span class="params">Phen</span>):</span>  <span class="comment"># 传入种群染色体矩阵解码后的基因表现型矩阵</span></span><br><span class="line">    x1 = Phen[:, [<span class="number">0</span>]]</span><br><span class="line">    x2 = Phen[:, [<span class="number">1</span>]]</span><br><span class="line">    <span class="keyword">return</span> np.sin(x1 + x2) + (x1 - x2)**<span class="number">2</span> - <span class="number">1.5</span> * x1 + <span class="number">2.5</span> * x2 + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================== 变量设置 ===========================</span></span><br><span class="line"><span class="comment"># 变量的范围</span></span><br><span class="line">x1 = [<span class="number">-1.5</span>, <span class="number">4</span>]</span><br><span class="line">x2 = [<span class="number">-3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="comment"># 变量范围边界，1表示闭区间，0表示开区间</span></span><br><span class="line">b1 = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">b2 = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 生成变量范围矩阵，第一行为上界，第二行为下界</span></span><br><span class="line">ranges = np.vstack([x1, x2]).T</span><br><span class="line"><span class="comment"># 生成变量边界矩阵</span></span><br><span class="line">borders = np.vstack([b1, b2]).T</span><br><span class="line"><span class="comment"># 变量类型，0表示连续变量，1表示离散变量</span></span><br><span class="line">varTypes = np.array([<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># =================== 染色体编码设置 =========================</span></span><br><span class="line">Encoding = <span class="string">&#x27;BG&#x27;</span>  <span class="comment"># &#x27;BG&#x27;表示采用二进制/格雷码</span></span><br><span class="line">codes = [<span class="number">1</span>, <span class="number">1</span>]  <span class="comment"># 编码方式，1表示格雷码编码</span></span><br><span class="line">precisions = [<span class="number">6</span>, <span class="number">6</span>]  <span class="comment"># 精度，解码后精确到小数点后的位数</span></span><br><span class="line">scales = [<span class="number">0</span>, <span class="number">0</span>]  <span class="comment"># 0表示算术刻度，1表示对数刻度</span></span><br><span class="line"><span class="comment"># 调用函数创建译码矩阵</span></span><br><span class="line">FieldD = ea.crtfld(Encoding, varTypes, ranges, borders, precisions, codes, scales)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ==================== 遗传算法参数设置 =======================</span></span><br><span class="line">NIND = <span class="number">20</span>  <span class="comment"># 种群个体数目</span></span><br><span class="line">MAXGEN = <span class="number">100</span>  <span class="comment"># 最大遗传代数</span></span><br><span class="line">maxormins = [<span class="number">1</span>]  <span class="comment"># 1表示最小化目标函数，-1表示最大化目标函数</span></span><br><span class="line">selectStyle = <span class="string">&#x27;sus&#x27;</span>  <span class="comment"># 采用随机抽样选择</span></span><br><span class="line">recStyle = <span class="string">&#x27;xovdp&#x27;</span>  <span class="comment"># 采用两点交叉</span></span><br><span class="line">mutStyle = <span class="string">&#x27;mutbin&#x27;</span>  <span class="comment"># 采用二进制染色体变异算子</span></span><br><span class="line">pc = <span class="number">0.9</span>  <span class="comment"># 交叉概率</span></span><br><span class="line">pm = <span class="number">1</span>  <span class="comment"># 整条染色体变异概率（每一位变异的概率 = pm / 染色体长度）</span></span><br><span class="line">Lind = int(np.sum(FieldD[<span class="number">0</span>, :]))  <span class="comment"># 计算染色体长度</span></span><br><span class="line">obj_trace = np.zeros((MAXGEN, <span class="number">2</span>))  <span class="comment"># 定义目标函数值记录器</span></span><br><span class="line">var_trace = np.zeros((MAXGEN, Lind))  <span class="comment"># 定义染色体记录器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ==================== 开始进行遗传进化 =======================</span></span><br><span class="line">start_time = time.time()  <span class="comment"># 开始计时</span></span><br><span class="line">Chrom = ea.crtpc(Encoding.NIND, FieldD)  <span class="comment"># 生成种群染色体矩阵</span></span><br><span class="line">variable = ea.bs2real(Chrom, FieldD)  <span class="comment"># 对初始种群进行解码</span></span><br><span class="line">ObjV = aim(variable)  <span class="comment"># 计算初始种群个体的目标函数值</span></span><br><span class="line">best_ind = np.argmin(ObjV)  <span class="comment"># 计算当代最有个体的序号</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始进化</span></span><br><span class="line"><span class="keyword">for</span> gen <span class="keyword">in</span> range(MAXGEN):</span><br><span class="line">    FitnV = ea.ranking(maxormins * ObjV)  <span class="comment"># 根据目标函数大小分配适应度值</span></span><br><span class="line">    SelCh = Chrom[ea.selecting(selectStyle, FitnV, NIND - <span class="number">1</span>)]  <span class="comment"># 选择</span></span><br><span class="line">    SelCh = ea.recombin(recStyle, SelCh, pc)  <span class="comment"># 重组</span></span><br><span class="line">    SelCh = ea.mutate(mutStyle, Encoding, SelCh, pm)  <span class="comment"># 变异</span></span><br><span class="line">    <span class="comment"># 把父代精英个体与自带的染色体进行合并，得到新一代种群</span></span><br><span class="line">    Chrom = np.vstack([Chrom[best_ind, :], SelCh])</span><br><span class="line">    Phen = ea.bs2real(Chrom, FieldD)  <span class="comment"># 对种群进行解码</span></span><br><span class="line">    ObjV = aim(Phen)  <span class="comment"># 求种群个体的目标函数值</span></span><br><span class="line">    best_ind = np.argmin(ObjV)  <span class="comment"># 当代最优个体的序号</span></span><br><span class="line">    obj_trace[gen, <span class="number">0</span>] = np.sum(ObjV) / ObjV.shape[<span class="number">0</span>]  <span class="comment"># 记录当代种群的目标函数均值</span></span><br><span class="line">    obj_trace[gen, <span class="number">1</span>] = ObjV[best_ind]  <span class="comment"># 记录当代种群最优个体的目标函数值</span></span><br><span class="line">    var_trace[gen, :] = Chrom[best_ind, :]  <span class="comment"># 记录当代种群最优个体的染色体</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进化完成</span></span><br><span class="line">end_time = time.time()  <span class="comment"># 结束计时</span></span><br><span class="line">ea.trcplot(obj_trace, [[<span class="string">&#x27;种群个体平均目标函数值&#x27;</span>, <span class="string">&#x27;种群最优个体目标函数值&#x27;</span>]])  <span class="comment"># 绘制图像</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===================== 输出结果 ==============================</span></span><br><span class="line">best_gen = np.argmin(obj_trace[:, [<span class="number">1</span>]])</span><br><span class="line">print(<span class="string">&#x27;最优解的目标函数值：&#x27;</span>, obj_trace[best_gen, <span class="number">1</span>])</span><br><span class="line">variable = ea.bs2real(var_trace[[best_gen], :], FieldD)  <span class="comment"># 解码得到表现型（变量值）</span></span><br><span class="line">print(<span class="string">&#x27;最优解的决策变量值为：&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(variable.shape[<span class="number">1</span>]):</span><br><span class="line">    print(<span class="string">&#x27;x&#x27;</span>+str(i)+<span class="string">&#x27;=&#x27;</span>, variable[<span class="number">0</span>, i])</span><br><span class="line">print(<span class="string">&#x27;用时：&#x27;</span>, end_time - start_time, <span class="string">&#x27;秒&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="面向对象编程法">面向对象编程法</h2>
+<h1 id="面向对象编程法">面向对象编程法</h1>
 <p>面向对象编程法通过实例化进化算法框架来完成实际编程。</p>
 <p>Geatpy 进化算法框架包含四个大类，分别是：</p>
 <ul>
@@ -857,7 +897,7 @@ f(x,y)=\sin(x+y)+(x-y)^2-1.5x+2.5y+1
 </ul>
 <p>其中，Population 类和 PsyPopulation 类需要进行实例化，Algorithm 类和 Problem 类需要进行继承。</p>
 <p>以下通过两个示例演示面向对象编程法的编程过程：</p>
-<h3 id="例1带约束的单目标优化问题">例1：带约束的单目标优化问题</h3>
+<h2 id="例1带约束的单目标优化问题">例1：带约束的单目标优化问题</h2>
 <ul>
 <li><p>问题模型：</p>
 <p><span class="math display">\[
@@ -880,7 +920,7 @@ x_1\in[0,1],\quad x_2\in[0,1],\quad x_3\in(0,2)
 <li><p>编写执行脚本调用模板进行求解 “main1.py”文件：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;main1.py&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> geatpy <span class="keyword">as</span> ea</span><br><span class="line"><span class="keyword">from</span> MyProblem1 <span class="keyword">import</span> MyProblem1</span><br><span class="line"></span><br><span class="line"><span class="comment"># ============================== 实例化问题对象 =================================</span></span><br><span class="line">problem = MyProblem1()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ================================= 种群设置 ===================================</span></span><br><span class="line">Encoding = <span class="string">&#x27;RI&#x27;</span>  <span class="comment"># 编码方式</span></span><br><span class="line">NIND = <span class="number">50</span>  <span class="comment"># 种群规模</span></span><br><span class="line"><span class="comment"># 创建区域描述器</span></span><br><span class="line">Field = ea.crtfld(Encoding, problem.varTypes, problem.ranges, problem.borders)</span><br><span class="line"><span class="comment"># 实例化种群对象</span></span><br><span class="line">population = ea.Population(Encoding, Field, NIND)</span><br><span class="line"></span><br><span class="line"><span class="comment"># =============================== 算法参数设置 ==================================</span></span><br><span class="line"><span class="comment"># 实例化模板对象</span></span><br><span class="line">myAlgorithm = ea.soea_DE_best_1_L_templet(problem, population)</span><br><span class="line">myAlgorithm.MAXGEN = <span class="number">1000</span>  <span class="comment"># 最大遗传代数</span></span><br><span class="line">myAlgorithm.mutOper.F = <span class="number">0.5</span>  <span class="comment"># 设置差分进化的变异缩放因子</span></span><br><span class="line">myAlgorithm.recOper.XOVR = <span class="number">0.5</span>  <span class="comment"># 设置交叉概率</span></span><br><span class="line">myAlgorithm.drawing = <span class="number">1</span>  <span class="comment"># 设置绘图方式，0为不绘图，1为绘制结果图，2为绘制进化过程动态图</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ========================== 调用算法模板进行种群进化 =============================</span></span><br><span class="line">[population, obj_trace, var_trace] = myAlgorithm.run()  <span class="comment"># 执行算法模板</span></span><br><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line">best_gen = np.argmax(obj_trace[:, <span class="number">1</span>])</span><br><span class="line">best_ObjV = obj_trace[best_gen, <span class="number">1</span>]</span><br><span class="line">print(<span class="string">&#x27;最优的目标函数值为：%s&#x27;</span> % (best_ObjV))</span><br><span class="line">print(<span class="string">&#x27;最优的决策变量值为：&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(var_trace.shape[<span class="number">1</span>]):</span><br><span class="line">    print(var_trace[best_gen, i])</span><br><span class="line">print(<span class="string">&#x27;有效进化代数：%s&#x27;</span> % (obj_trace.shape[<span class="number">0</span>]))</span><br><span class="line">print(<span class="string">&#x27;最优的一代是第%s代&#x27;</span> % (best_gen + <span class="number">1</span>))</span><br><span class="line">print(<span class="string">&#x27;评价次数：%s&#x27;</span> % (myAlgorithm.evalsNum))</span><br><span class="line">print(<span class="string">&#x27;时间已过%s秒&#x27;</span> % (myAlgorithm.passTime))</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="例2带约束的多目标优化问题">例2：带约束的多目标优化问题</h3>
+<h2 id="例2带约束的多目标优化问题">例2：带约束的多目标优化问题</h2>
 <ul>
 <li>问题： <span class="math display">\[
 \min=
