@@ -1,47 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>LaTeX 学习笔记（一）——使用 minted 包高亮代码</title>
-    <url>/2019-11-11-LaTeX%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20minted%20%E5%8C%85%E9%AB%98%E4%BA%AE%E4%BB%A3%E7%A0%81.html</url>
+    <title>Numpy 学习笔记（一）—— rank 1 array</title>
+    <url>/2019-11-03-Numpy%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20rank%201%20array.html</url>
     <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
-<li><a href="https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted">https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted</a></li>
-<li><a href="https://blog.csdn.net/xenonhu/article/details/88978672">https://blog.csdn.net/xenonhu/article/details/88978672</a></li>
-<li><a href="https://tex.stackexchange.com/questions/173850/problem-in-adding-a-background-color-in-a-minted-environment">https://tex.stackexchange.com/questions/173850/problem-in-adding-a-background-color-in-a-minted-environment</a></li>
-<li><a href="http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf">http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf</a></li>
+<li><a href="https://www.jianshu.com/p/9ff7a3c9a182">https://www.jianshu.com/p/9ff7a3c9a182</a></li>
+<li><a href="http://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content?type=detail&amp;;id=2001701016">http://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content?type=detail&amp;;id=2001701016</a></li>
 </ul>
 </blockquote>
-<p>LaTeX 中可以使用<em>listing</em>宏包来排版代码块，但是需要对代码的颜色进行手动设置。<em>minted</em>包能够自动对代码进行高亮，使用更为简单。</p>
+<p>在使用 Numpy 的 ndarry 数据结构时，时常会遇到这样一种特殊的结构，它的<code>shape</code>为<code>(n,)</code>，这种数组称为 <strong>rank 1 array</strong> （秩为1的数组）：</p>
 <a id="more"></a>
-<h1 id="预先准备">预先准备</h1>
-<p>由于 minted 包调用了 python 中的 pygments 模块，因此首先需要安装 python 环境并把 python 的目录加入系统的环境变量中。之后使用 pip 安装 pygments 模块：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">pip install pygments</span><br></pre></td></tr></table></figure>
-<p>另外，还需要在 LaTeX 的编译命令中加入 <code>-shell-escape</code>参数。</p>
-<h1 id="使用方法">使用方法</h1>
-<p>使用以下方法进行导入：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackge</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>使用行内代码时的语法：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mintinline</span><span class="string">&#123;language&#125;</span><span class="string">&#123;code&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>使用行间代码块的语法：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>或</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mint</span><span class="string">&#123;language&#125;</span></span>|code|</span><br></pre></td></tr></table></figure>
-<h1 id="配置-minted-输出选项">配置 minted 输出选项</h1>
-<p>创建代码环境时，可以配置输出格式：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">[configure]</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>也可以在开头设置整体格式：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">setminted</span><span class="string">&#123;configure&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>具体可设置的选项可以查阅 <a href="http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf">minted 包的文档</a>。</p>
-<h1 id="注意事项">注意事项</h1>
-<p>minted 在设置背景颜色<code>colorbg</code>的时候会出现一个 bug，需要添加以下代码解决：</p>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">%% fix the minted@colorbg environment</span></span><br><span class="line"><span class="tag">\<span class="name">makeatletter</span></span></span><br><span class="line"><span class="tag">\<span class="name">renewenvironment</span><span class="string">&#123;minted@colorbg&#125;</span><span class="string">[1]</span></span></span><br><span class="line">&#123;<span class="tag">\<span class="name">def</span></span><span class="tag">\<span class="name">minted</span></span>@bgcol&#123;#1&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">noindent</span></span></span><br><span class="line">    <span class="tag">\<span class="name">begin</span><span class="string">&#123;lrbox&#125;</span><span class="string">&#123;\minted@bgbox&#125;</span></span></span><br><span class="line">        <span class="tag">\<span class="name">begin</span><span class="string">&#123;minipage&#125;</span><span class="string">&#123;\linewidth-2\fboxsep&#125;</span></span>&#125;</span><br><span class="line">        &#123;<span class="tag">\<span class="name">end</span><span class="string">&#123;minipage&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">end</span><span class="string">&#123;lrbox&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">setlength</span><span class="string">&#123;\topsep&#125;</span><span class="string">&#123;\bigskipamount&#125;</span></span><span class="comment">% set the vertical space</span></span><br><span class="line">    <span class="tag">\<span class="name">trivlist</span></span><span class="tag">\<span class="name">item</span></span><span class="tag">\<span class="name">relax</span></span> <span class="comment">% ensure going to a new line</span></span><br><span class="line">    <span class="tag">\<span class="name">colorbox</span><span class="string">&#123;\minted@bgcol&#125;</span><span class="string">&#123;\usebox&#123;\minted@bgbox&#125;</span></span>&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">endtrivlist</span></span> <span class="comment">% close the trivlist</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">\<span class="name">makeatother</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.random.randn(<span class="number">5</span>)</span><br><span class="line">print(a)  <span class="comment"># [ 0.50290632 -0.29691140 0.94529604 -0.82126861 -1.46269164]</span></span><br><span class="line">print(a.shape)  <span class="comment"># (5,)</span></span><br></pre></td></tr></table></figure>
+<p>这种数组的产生可能有以下几种原因：</p>
+<ul>
+<li>输入 array 时，<code>[]</code>的数量不够（只有一重括号时就会产生这种数组）；</li>
+<li>使用了<code>zip()</code>函数；</li>
+<li>数组切片时，索引只用了一个值（应该使用<code>:</code>代表整列，如<code>a[1, :]</code>代表第二行）。</li>
+</ul>
+<p>可以使用<code>[:, None]</code>或<code>[None, :]</code>来增加数组维数，或者使用<code>reshape()</code>来改变形状，从而解决这个问题。</p>
+<p>为了避免此类问题的发生，在创建数组时，即便是一维向量，也应该把两个维度的尺寸都输入进去，如<code>np.zeros((3, 1))</code>。</p>
 ]]></content>
       <categories>
-        <category>LaTeX</category>
+        <category>Numpy</category>
       </categories>
       <tags>
-        <tag>LaTeX</tag>
+        <tag>Numpy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -55,7 +40,7 @@
 <ul>
 <li>通过离线或在线训练的方式将机器学习集成至 .NET 应用中;</li>
 <li>提供多种机器学习模型，并提供 AutoML 自动机器学习算法，进行自动的模型筛选、训练、优化和部署;</li>
-<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 TensorFlow、ONNX 模型.</li>
+<li>允许手动选择、创建机器学习模型，或导入已经训练完成的 TensorFlow、ONNX 模型。</li>
 </ul>
 <p>ML.NET 当前可以实现的机器学习模型包括：</p>
 <ul>
@@ -123,33 +108,48 @@
       </tags>
   </entry>
   <entry>
-    <title>Numpy 学习笔记（一）—— rank 1 array</title>
-    <url>/2019-11-03-Numpy%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20rank%201%20array.html</url>
+    <title>LaTeX 学习笔记（一）——使用 minted 包高亮代码</title>
+    <url>/2019-11-11-LaTeX%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20minted%20%E5%8C%85%E9%AB%98%E4%BA%AE%E4%BB%A3%E7%A0%81.html</url>
     <content><![CDATA[<blockquote>
 <p>参考：</p>
 <ul>
-<li><a href="https://www.jianshu.com/p/9ff7a3c9a182">https://www.jianshu.com/p/9ff7a3c9a182</a></li>
-<li><a href="http://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content?type=detail&amp;;id=2001701016">http://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content?type=detail&amp;;id=2001701016</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted">https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted</a></li>
+<li><a href="https://blog.csdn.net/xenonhu/article/details/88978672">https://blog.csdn.net/xenonhu/article/details/88978672</a></li>
+<li><a href="https://tex.stackexchange.com/questions/173850/problem-in-adding-a-background-color-in-a-minted-environment">https://tex.stackexchange.com/questions/173850/problem-in-adding-a-background-color-in-a-minted-environment</a></li>
+<li><a href="http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf">http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf</a></li>
 </ul>
 </blockquote>
-<p>在使用 Numpy 的 ndarry 数据结构时，时常会遇到这样一种特殊的结构，它的<code>shape</code>为<code>(n,)</code>，这种数组称为 <strong>rank 1 array</strong> （秩为1的数组）：</p>
+<p>LaTeX 中可以使用<em>listing</em>宏包来排版代码块，但是需要对代码的颜色进行手动设置。<em>minted</em>包能够自动对代码进行高亮，使用更为简单。</p>
 <a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.random.randn(<span class="number">5</span>)</span><br><span class="line">print(a)  <span class="comment"># [ 0.50290632 -0.29691140 0.94529604 -0.82126861 -1.46269164]</span></span><br><span class="line">print(a.shape)  <span class="comment"># (5,)</span></span><br></pre></td></tr></table></figure>
-<p>这种数组的产生可能有以下几种原因：</p>
-<ul>
-<li>输入 array 时，<code>[]</code>的数量不够（只有一重括号时就会产生这种数组）；</li>
-<li>使用了<code>zip()</code>函数；</li>
-<li>数组切片时，索引只用了一个值（应该使用<code>:</code>代表整列，如<code>a[1, :]</code>代表第二行）。</li>
-</ul>
-<p>可以使用<code>[:, None]</code>或<code>[None, :]</code>来增加数组维数，或者使用<code>reshape()</code>来改变形状，从而解决这个问题。</p>
-<p>为了避免此类问题的发生，在创建数组时，即便是一维向量，也应该把两个维度的尺寸都输入进去，如<code>np.zeros((3, 1))</code>。</p>
+<h1 id="预先准备">预先准备</h1>
+<p>由于 minted 包调用了 python 中的 pygments 模块，因此首先需要安装 python 环境并把 python 的目录加入系统的环境变量中。之后使用 pip 安装 pygments 模块：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">pip install pygments</span><br></pre></td></tr></table></figure>
+<p>另外，还需要在 LaTeX 的编译命令中加入 <code>-shell-escape</code>参数。</p>
+<h1 id="使用方法">使用方法</h1>
+<p>使用以下方法进行导入：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackge</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用行内代码时的语法：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mintinline</span><span class="string">&#123;language&#125;</span><span class="string">&#123;code&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用行间代码块的语法：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mint</span><span class="string">&#123;language&#125;</span></span>|code|</span><br></pre></td></tr></table></figure>
+<h1 id="配置-minted-输出选项">配置 minted 输出选项</h1>
+<p>创建代码环境时，可以配置输出格式：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;minted&#125;</span><span class="string">[configure]</span><span class="string">&#123;language&#125;</span></span></span><br><span class="line">code</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;minted&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>也可以在开头设置整体格式：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">setminted</span><span class="string">&#123;configure&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>具体可设置的选项可以查阅 <a href="http://mirrors.sjtug.sjtu.edu.cn/ctan/macros/latex/contrib/minted/minted.pdf">minted 包的文档</a>。</p>
+<h1 id="注意事项">注意事项</h1>
+<p>minted 在设置背景颜色<code>colorbg</code>的时候会出现一个 bug，需要添加以下代码解决：</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="comment">%% fix the minted@colorbg environment</span></span><br><span class="line"><span class="tag">\<span class="name">makeatletter</span></span></span><br><span class="line"><span class="tag">\<span class="name">renewenvironment</span><span class="string">&#123;minted@colorbg&#125;</span><span class="string">[1]</span></span></span><br><span class="line">&#123;<span class="tag">\<span class="name">def</span></span><span class="tag">\<span class="name">minted</span></span>@bgcol&#123;#1&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">noindent</span></span></span><br><span class="line">    <span class="tag">\<span class="name">begin</span><span class="string">&#123;lrbox&#125;</span><span class="string">&#123;\minted@bgbox&#125;</span></span></span><br><span class="line">        <span class="tag">\<span class="name">begin</span><span class="string">&#123;minipage&#125;</span><span class="string">&#123;\linewidth-2\fboxsep&#125;</span></span>&#125;</span><br><span class="line">        &#123;<span class="tag">\<span class="name">end</span><span class="string">&#123;minipage&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">end</span><span class="string">&#123;lrbox&#125;</span></span><span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">setlength</span><span class="string">&#123;\topsep&#125;</span><span class="string">&#123;\bigskipamount&#125;</span></span><span class="comment">% set the vertical space</span></span><br><span class="line">    <span class="tag">\<span class="name">trivlist</span></span><span class="tag">\<span class="name">item</span></span><span class="tag">\<span class="name">relax</span></span> <span class="comment">% ensure going to a new line</span></span><br><span class="line">    <span class="tag">\<span class="name">colorbox</span><span class="string">&#123;\minted@bgcol&#125;</span><span class="string">&#123;\usebox&#123;\minted@bgbox&#125;</span></span>&#125;<span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">endtrivlist</span></span> <span class="comment">% close the trivlist</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">\<span class="name">makeatother</span></span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>Numpy</category>
+        <category>LaTeX</category>
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Numpy</tag>
+        <tag>LaTeX</tag>
       </tags>
   </entry>
   <entry>
@@ -295,209 +295,6 @@
         <tag>gitbook</tag>
         <tag>markdown</tag>
         <tag>html</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>焊接信号分析文献调研笔记（一）</title>
-    <url>/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.html</url>
-    <content><![CDATA[<h1 id="基于小波分解主元分析法建立的激光焊接信号分析模型">基于小波分解主元分析法建立的激光焊接信号分析模型</h1>
-<blockquote>
-<p>You D, Gao X, Katayama S. WPD-PCA-based laser welding process monitoring and defects diagnosis by using FNN and SVM[J]. IEEE Transactions on Industrial Electronics, 2014, 62(1): 628-636.</p>
-</blockquote>
-<p>光敏二极管和分光计是两种结构简单、成本低廉的光信号捕捉设备。</p>
-<p>光信号分析的常用方法：</p>
-<ul>
-<li>主元素分析法 (principal component analysis, PCA)</li>
-<li>偏最小二乘法 (partial least square, PLS)</li>
-<li>支持向量机 (support vector machine, SVM)</li>
-</ul>
-<a id="more"></a>
-<h2 id="小波包分解主元素分析法-wavelet-packet-decomposition-pca-wpd-pca">小波包分解主元素分析法 (Wavelet packet decomposition PCA, WPD-PCA)</h2>
-<p>使用 WPD-PCA 方法提取焊接信号中的特征参数，焊接信号包括光电二极管采集到的高频信号和分光计采集到的低频信号。 并使用图像处理的方法来量化焊接状态，确定焊接几何参数。使用前向神经网络来建立光信号和几何参量的关系模型， 使用支持向量机建立光信号和焊接缺陷的关系模型。</p>
-<p>光电二极管被用来测量可见光 (350--750 nm)和激光反射 (1030 nm)。分光计可以用来测量光谱数据 (186--1100 nm)。</p>
-<h3 id="光电二极管信号的特征提取">光电二极管信号的特征提取</h3>
-<p>离散小波分解被用于多尺度信号分析，但只能得到分解的低频（近似）系数 (approximation coefficients)。 WPD （小波包分解）是这种方法的延伸，它使用低通、高通滤波器对低频系数和高频（细节）系数 (detail coefficients).</p>
-<p>小波包分解的表达式如下所示： <span class="math display">\[
-W_{j, k}^n(t)=2^{j/2}W^n(2^jt-k),\qquad j, k\in Z.
-\]</span> 式中 <span class="math inline">\(j\)</span> 和 <span class="math inline">\(k\)</span> 表示尺度等级。<span class="math inline">\(j\)</span> 表示缩放等级，控制小波的频域特性；<span class="math inline">\(k\)</span> 表示平移等级，控制小波的频域特性。</p>
-<p>使用 Daubechies 母小波 (db10)，尺度函数和母小波可以由下式表示： <span class="math display">\[
-W_{0,0}^0(t)=\phi(t)\quad W_{0,0}^1(t)=\psi(t).
-\]</span> 低通和高通滤波器可以由下式定义： <span class="math display">\[
-h(k)=\langle\phi(t),\phi(2t-k)\rangle\quad g(k)=\langle\psi(t),\phi(2t-k)\rangle.
-\]</span></p>
-<p>因此，<span class="math inline">\(n&gt;1\)</span> 情况下的小波包方程可以由下式描述： <span class="math display">\[
-W_{j,k}^{2n}(t)=\sqrt{2}\sum_kh(k)W_{j-1,k}^n(2t-k),
-\]</span></p>
-<p><span class="math display">\[
-W_{j,k}^{2n+1}(t)=\sqrt{2}\sum_kg(k)W_{j-1,k}^n(2t-k).
-\]</span></p>
-<p>光电二极管信号 <span class="math inline">\(\boldsymbol{x}_p\)</span> 的小波包系数为 <span class="math display">\[
-Cp_j^n(k)=\sum_t\boldsymbol{x}_p(t)W_{j,k}^n(t).
-\]</span> 使用小波包分解分别获得可见光信号和激光反射光信号的小波包系数 <span class="math inline">\(Cpv_j^n(k)\)</span> 和 <span class="math inline">\(Cpr_j^n(k)\)</span>，从尺度的系数获得其特征向量 <span class="math inline">\(\boldsymbol{X}pv_{j,n}\)</span> 和 <span class="math inline">\(\boldsymbol{X}pr_{j,n}\)</span>，最终得到光电二极管的特征向量组 <span class="math inline">\(\boldsymbol{V}_P\)</span>，其中 <span class="math display">\[
-\boldsymbol{V}_P=[\boldsymbol{X}pv_{j,1},\boldsymbol{X}pv_{j,2},\dots,\boldsymbol{X}pv_{j,N_s},\boldsymbol{X}pr_{j,1},\boldsymbol{X}pr_{j,2},\dots,\boldsymbol{X}pr_{j,N_s}].
-\]</span> 其中，<span class="math inline">\(n=1\sim10\)</span> 特征向量的元素可以由下式求出:</p>
-<p><span class="math display">\[
-X_{j,n}^1=\frac{1}{K}\sum_{k=1}^KCp_j^n(k),
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^2=\sqrt{\frac{1}{K}\sum_{k=1}^K(Cp_j^n(k))^2},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^4=\frac{\max|Cp_j^n(k)|}{X_2},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^4=\frac{1}{K}\sum_{k=1}^{K}(Cp_j^n(k))^2,
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^5=\frac{1}{K}\sum_{k=1}^{K}(Cp_j^n(k))^4,
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^6=\frac{E[(Cp_j^n(k)-X_1)^3]}{X_2^3},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^7=\frac{X_2}{X_1},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^8=\frac{1}{K}\sum_\omega\log|\Phi_j^n(\omega)|\mathrm{e}^{2\mathrm{\pi}\omega\mathrm{i}/K},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^9=\frac{1}{K}\sum_\omega\log|\Phi_j^n(\omega)|\mathrm{e}^{4\mathrm{\pi}\omega\mathrm{i}/K},
-\]</span></p>
-<p><span class="math display">\[
-X_{j,n}^{10}=X_9-X_8.
-\]</span></p>
-<p>其中，<span class="math inline">\(\Phi_j^n(\omega)\)</span> 表示小波包系数 <span class="math inline">\(Cp_j^n(k)\)</span> 的傅里叶变换。</p>
-<p>最终得到的特征向量组 <span class="math inline">\(\boldsymbol{V}_P\)</span> 为 <span class="math inline">\(N_s\times2\times10\)</span> 的矩阵，<span class="math inline">\(N_s\)</span> 为子带的数量。</p>
-<h3 id="分光计信号的特征提取">分光计信号的特征提取</h3>
-<p>使用 500 Hz 的采样频率，对信号进行采样。实验发现 400--900 nm 波长范围包含了大多数特征。分光器被分解为 25 各子带，每个子带包含 20 个光谱，并将其平均值当作光谱的特征值： <span class="math display">\[
-Xs_M=\frac{\sum_{m=m_1}^{m_2}x_s^m}{20}
-\]</span> 分光计的特征向量组由下式表示： <span class="math display">\[
-\boldsymbol{V}_S=[Xs_1,Xs_2,\dots,Xs_{25}]
-\]</span></p>
-<h3 id="主元素分析法进行特征选择">主元素分析法进行特征选择</h3>
-<p>通过上述过程，共有 <span class="math inline">\(N=N_s\times2\times10+25\)</span> 组特征被提取了出来。其中 <span class="math inline">\(N_s\)</span> 在 1 到 4 之间，总特征向量数在 45 到 105 之间。通过特征选择可以提升模型预测和分类的泛化能力。主元素分析法 (Primary Component Analysis, PCA) 是一种常用的特征选择方法，本文使用该方法对特征向量组中的特征进行筛选。</p>
-<p>如果每个传感器采集到的采样点数为 <span class="math inline">\(H\)</span>，那么可以对特征进行正则化，得到 <span class="math display">\[
-\hat{\boldsymbol{V}}=\frac{\boldsymbol{V}-\boldsymbol{V}_{\text{mid}}}{\frac{1}{2}(\boldsymbol{V}_{\text{max}}-\boldsymbol{V}_{\text{min}})}
-\]</span> 其中 <span class="math inline">\(\boldsymbol{V}_{\text{mid}}\)</span>，<span class="math inline">\(\boldsymbol{V}_{\text{max}}\)</span> 和 <span class="math inline">\(\boldsymbol{V}_{\text{min}}\)</span> 分别时特征数值 <span class="math inline">\(\boldsymbol{V}\)</span> 的中值、最小值和最大值。</p>
-<p>PCA 方法对特征进行如下变换： <span class="math display">\[
-\boldsymbol{S}=\boldsymbol{U}^{\mathrm{T}}\hat{\boldsymbol{V}}
-\]</span> 其中，<span class="math inline">\(\boldsymbol{U}\)</span> 是一个 <span class="math inline">\(N\times N\)</span> 的正交矩阵，他的第 <span class="math inline">\(i\)</span> 列 <span class="math inline">\(\boldsymbol{u}_i\)</span> 是样本协方差矩阵的第 <span class="math inline">\(i\)</span> 个特征向量，即 <span class="math display">\[
-\boldsymbol{C}=\frac{1}{H}\hat{\boldsymbol{V}}^{\mathrm{T}}\hat{\boldsymbol{V}}
-\]</span> 通过求解特征方程 <span class="math display">\[
-\lambda_i\boldsymbol{u}=\boldsymbol{Cu}_i\qquad i=1,2,\dots,N
-\]</span> 可以得到矩阵 <span class="math inline">\(\boldsymbol{C}\)</span> 的特征值 <span class="math inline">\(\lambda_i\)</span> 和特征向量 <span class="math inline">\(\boldsymbol{u}_i\)</span>。</p>
-<p>于是主元素 <span class="math inline">\(\boldsymbol{S}_i\)</span> 就是 <span class="math inline">\(\hat{\boldsymbol{V}}\)</span> 的正交变换，即 <span class="math display">\[
-\boldsymbol{S}_i=\boldsymbol{u}_i^{\text{T}}\hat{\boldsymbol{V}}
-\]</span></p>
-<h2 id="视觉传感器焊缝几何特征和缺陷特征提取">视觉传感器焊缝几何特征和缺陷特征提取</h2>
-<h3 id="焊缝几何特征提取">焊缝几何特征提取</h3>
-<p>使用实验室尺度的视觉传感器来提取焊缝几何特征，从而确定焊接状态。飞溅特征使用视觉相机获取。匙孔表面的细微特征需要使用辅助照明 (Auxiliary Illumination, AI) 来进行观测。匙孔长度和熔池的深度的测量则使用 X 射线视觉影像技术完成。</p>
-<p>根据图像的位置特征，可以肯容易地将飞溅特征和金属蒸汽特征分离开来，并根据运动方向（前向或后向）将飞溅进行分类。其次，匙孔尺寸和坐标信息可以通过灰度处理和二值化实现。最后，匙孔长度和熔池深度可以通过对X射线进行灰度处理来提取。使用上述三种视觉传感器中获得的图像提取了六种典型几何特征，包括前向飞溅 <span class="math inline">\(y_{sf}\)</span>，后向飞溅 <span class="math inline">\(y_{bf}\)</span>，匙孔尺寸 <span class="math inline">\(y_{ks}\)</span>，匙孔位置 <span class="math inline">\(y_{kp}\)</span>，匙孔深度 <span class="math inline">\(y_{kd}\)</span>，和熔池深度 <span class="math inline">\(y_{md}\)</span>。因此，焊接状态参量可以由下式表示： <span class="math display">\[
-Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
-\]</span></p>
-<h3 id="焊缝缺陷特征提取">焊缝缺陷特征提取</h3>
-<p>根据国际标准 EN ISO 13919-1，试验选择了三种代表性的焊接缺陷用于焊缝缺陷的分类参考。因此，焊接结果 <span class="math inline">\(y_{wr}\)</span> 可以被分为四类。类一代表完好焊缝，类二代表爆炸，类三代表焊瘤，类四代表下凹。</p>
-<h2 id="预测模型的建立">预测模型的建立</h2>
-<h3 id="基于前向神经网络预测进行过程监控">基于前向神经网络预测进行过程监控</h3>
-<p>在焊接过程中，超过 20 种输入特征 <span class="math inline">\(i\)</span> 以及 6 种焊接几何参数被用于拟合模型。模型使用了一个单隐层的神经网络，并使用了 sigmoid 传递函数作为隐藏层的传递函数。输出层的传递函数为线性函数。</p>
-<h1 id="弧焊过程监控研究现状">弧焊过程监控研究现状</h1>
-<blockquote>
-<p>UHRLANDT D. Diagnostics of metal inert gas and metal active gas welding processes [J]. Journal of Physics D: Applied Physics, 2016, 49(31): 313001.</p>
-</blockquote>
-<h2 id="弧焊过程中的电测量">弧焊过程中的电测量</h2>
-<p>如今，通过将电压探头、分路器或罗氏线圈（用于电流测量）与现代快速数字记录仪相连，可以很好地测量电信号的快速变化。需要特别注意的是设备的频率响应特性、接地和屏蔽以及电压探头的测量位置。电测量的一个优点是电弧特性的所有动态变化，包括电弧附着和金属转移的影响，都会在电流-电压特性中留下线索。他的缺点则是由这些有用的信息通常会和自身以及电源和噪声重叠在一起。</p>
-<p>即便如此，电压和电流测量与复杂的信号处理方法相结合，仍然是控制过程稳定性和焊接质量的最受欢迎的方法。这是因为这样可以避免额外的工作，例如使用光学传感器等。短路频率可以作为一个过程稳定的简单指标。而从电压信号中分辨出熔滴的分离则较为困难。</p>
-<p>复变分析法 (Complex Analysis) 是一种分析电压和电流信号与焊接质量之间的的关系的常用方法。其分析过程常常是基于对信号时频特性和的功率谱密度的分析之上。主要的分析方法可以包括：</p>
-<ul>
-<li>短时傅里叶变换 (Short-time Fourier Transform)</li>
-<li>电压电流信号自相关函数的傅里叶变换</li>
-<li>模糊逻辑分析</li>
-<li>神经网络</li>
-</ul>
-<p>电弧电压测量是研究电弧柱内电场和电极鞘层电压的一种方法。例如，在短路过程的实验中，通过比较已建立的电弧和短路前电弧的测量电压，以及电弧图像确定的电弧长度，可以确定电弧柱和电极鞘层区域的单独电压降。此时建议使用具有几乎恒定电压输出和低噪声的受控电源。</p>
-<p>此外，可以直接将电子探针置于等离子体中测量电弧局部的电势或热导率，这也是直接测量此类物理量的唯一方法。电子探针可以用于研究局部等离子体的各类特征。然而，探针对等离子体的局部扰动和热等离子体探针理论的局限性，特别是无碰撞鞘层方法的有效性，使得这种方法相当困难，限制了结果的准确性。霍尔传感器也可以用于测量电弧内部的电流分布。</p>
-<h2 id="研究现状分析">研究现状分析</h2>
-<p>当前工作的中心主要在两个方面：</p>
-<h3 id="电弧的物理性质和材料转移的改进诊断方法">电弧的物理性质和材料转移的改进诊断方法</h3>
-<p>包括利用电弧发射光谱对脉冲电弧等离子体内部温度等性质的二维甚至三维分布的获取等。</p>
-<h2 id="新的监控和控制方法">新的监控和控制方法</h2>
-<p>主要集中在光谱、高速摄影的应用上。类似于声音信号的其他方法收到的关注较少。</p>
-<h2 id="需要解决的问题">需要解决的问题</h2>
-<ul>
-<li>电弧非平衡区域（外部区域和靠近墙壁的区域）以及不符合 LTE 假设的时间段（点火、小电流电弧）中的等离子体特性——这一点应包括对LTE假设下获得的现有结果的进一步验证。</li>
-<li>鞘层电压和电流路径——这一点应包括对考虑电弧附着区域的 GMAW 过程功率平衡的相应更深入的研究。</li>
-<li>电弧附着的建立与熔化部分的动力学和表面特性相关——这应包括分析附加热源（如低功率激光辐射）的影响。</li>
-<li>GMAW 电弧中金属蒸气含量的验证——这应包括对金属蒸发和烟雾形成机理的进一步研究。</li>
-<li>熔池的表面特性和熔体的流动和动力学——这应包括进一步研究凝固过程对熔池的材料转移和电弧影响。</li>
-</ul>
-<p>其中一些问题可能需要新的的诊断方法，或者对现有技术（如探针测量）进行大量开发，以扩大其应用范围。</p>
-<p>为了更全面地了解不同的GMAW过程，需要对电弧诊断和材料传输的同步应用进行研究。</p>
-<p>其他要求和挑战来自于现有诊断对实际焊接条件的有限适用性。</p>
-<p>最后，应在以下两个方面开发监控方法：（a）监控缺陷；（b）主动在线控制过程，以提高稳定性和效率。更为细致的内在物理机制研究和更复杂的诊断方法的发展可以用来支持这里。举例来说，金属蒸发和由此产生的辐射与材料传输中的不规则性之间的关系，一旦得到更详细的评估，就可以为提高灵敏度的控制方法提供一个可能的方向。</p>
-<h1 id="集合经验模态分解-ensemble-empirical-mode-decomposition">集合经验模态分解 (Ensemble Empirical Mode Decomposition)</h1>
-<blockquote>
-<p>HUANG Y, WANG K, ZHOU Z, et al. Stability evaluation of short-circuiting gas metal arc welding based on ensemble empirical mode decomposition [J]. Measurement Science and Technology, 2017, 28(3): 035006.</p>
-<p><a href="https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034" class="uri">https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034</a></p>
-</blockquote>
-<p>经验模态分解 (EMD) 是一种新兴的信号分解、滤波、处理和特征提取的方法，但是它存在着两个显著的缺陷，分别是模态混合和端点效应的问题。</p>
-<h2 id="经验模态分解的模态混合问题">经验模态分解的模态混合问题</h2>
-<p>EMD 分解得到的 IMF 分量往往存在模态混合,造成 IMF 分量不精确。Huang 等认为模式混叠是极值点的选择造成信号的间歇现象。</p>
-<p>出现下列情况之一就称为模态混合:</p>
-<ol type="1">
-<li>在同一个 IMF 分量中,存在尺度分布范围很宽却又各不相同的信号</li>
-<li>在不同的 IMF 分量中,存在着尺度相近的e信号。</li>
-</ol>
-<p>模态混合使得 IMF 分量失去其具有原来单一特征尺度的特征，形成尺度混杂的振荡，因此失去其原有的物理意义。一个模拟信号例子来说明EMD的模态混叠，如图所示，<span class="math inline">\(x_1(t)\)</span> 是 10 Hz 的正弦波，<span class="math inline">\(x_2(t)\)</span> 是间歇信号。</p>
-<figure>
-<img src="/images/modeMixing1.png" alt="模态混合-1" /><figcaption aria-hidden="true">模态混合-1</figcaption>
-</figure>
-<p>对其进行 EMD 分解得到下图的结果。可以很明显地从图中看出，<span class="math inline">\(c_1\)</span> 分量中明显存在不同的频率的波形，存在模态混叠现象。</p>
-<figure>
-<img src="/images/modeMixing2.png" alt="模态混合-2" /><figcaption aria-hidden="true">模态混合-2</figcaption>
-</figure>
-<h2 id="经验模态分解中的端点效应问题">经验模态分解中的端点效应问题</h2>
-<p>端点效应由两种情形造成的:</p>
-<ol type="1">
-<li>在三次样条拟合中产生;</li>
-<li>在Hilbert变换中产生。</li>
-</ol>
-<p>端点效应直接影响经验模态分析的效果。端点处理的好,分解的效果就比较好。</p>
-<h2 id="集合经验模态分解算法">集合经验模态分解算法</h2>
-<p>集合经验模态算法使用均匀分布的高斯白噪声来解决经验模态分解的不足。在经验模态分解过程中，通过多次在信号内引入高斯白噪声，形成一些包含白噪声的内涵模态分量 (IMFs)。对这些 IMF 求取总体的平均值，得到最终的内涵模态分量。而添加的白噪声会在求平均值的过程中被去除掉。</p>
-<p>算法实现如下：</p>
-<ol type="1">
-<li><p>假设全局的 EMD 次数为 <span class="math inline">\(M\)</span>，加入的噪声幅值为 <span class="math inline">\(k\)</span>。</p></li>
-<li><p>执行第 m 次 EMD 过程：</p>
-<ol type="1">
-<li><p>将幅值为 <span class="math inline">\(k\)</span> 的白噪声 <span class="math inline">\(n_m(t)\)</span> 添加入被分析的信号 <span class="math inline">\(x(t)\)</span> 中: <span class="math display">\[
-x_m(t)=x(t)+k\cdot n_m(t)
-\]</span> 其中 <span class="math inline">\(n_m(t)\)</span> 表示第 <span class="math inline">\(m\)</span> 次添加的白噪声，<span class="math inline">\(k\)</span> 是白噪声的幅值，<span class="math inline">\(x_m(t)\)</span>是第 <span class="math inline">\(m\)</span> 个原始信号 <span class="math inline">\(x(t)\)</span> 和白噪声 <span class="math inline">\(k\cdot n_m(t)\)</span> 的和。</p></li>
-<li><p>使用 EMD 对添加噪声后的 <span class="math inline">\(x_m(t)\)</span> 进行分解，得到的 IMF 集合被命名为 <span class="math inline">\(c_{n,m}(n=1,2,3,\dots,N)\)</span>， 即第 <span class="math inline">\(m\)</span> 次分解的 <span class="math inline">\(n\)</span> 个 IMFs.</p></li>
-<li><p>如果 <span class="math inline">\(m&lt;M\)</span>，则使 <span class="math inline">\(m=m+1\)</span>，重复步骤 i 和步骤 ii，直到 <span class="math inline">\(m=M\)</span>。</p></li>
-</ol></li>
-<li><p>最终，<span class="math inline">\(m\)</span> 次 EMD 的全局平均值 <span class="math inline">\(y_n\)</span> 可以表示为： <span class="math display">\[
-y_n=\frac{\sum_{m=1}^Mc_{m,n}}{M}\quad(n=1,2,3,\dots,N\quad m=1,2,3,\dots,M)
-\]</span> 使用 <span class="math inline">\(y_n\)</span> 作为最后的分解结果。</p></li>
-</ol>
-<p>如果余项 <span class="math inline">\(r_n\)</span> 是一个无法再继续进行分解的单调函数，则整个过程的结果为：</p>
-<p><span class="math display">\[
-x(t)=\sum_{i=1}^ny_i+r_n
-\]</span></p>
-<p><span class="math inline">\(k\)</span> 通常合适的取值范围可以为 0.01--0.5。<span class="math inline">\(M\)</span> 越大，精度越高，但计算的时间越长。文中的取值为 <span class="math inline">\(k=0.2,\ M=300\)</span>。</p>
-<p>下图展示了 EMD 和 EEMD 对同一原始信号的分解效果比较。显而易见，EEMD 的分解效果更好。</p>
-<figure>
-<img src="\images\comparisonEMDEEMD.jpg" alt="EMDEEMD比较" /><figcaption aria-hidden="true">EMDEEMD比较</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>焊接信号分析</category>
-      </categories>
-      <tags>
-        <tag>焊接信号分析</tag>
-        <tag>小波包分解</tag>
-        <tag>主元素分析</tag>
-        <tag>经验模态分解</tag>
-        <tag>集合经验模态分解</tag>
       </tags>
   </entry>
   <entry>
@@ -776,6 +573,209 @@ s.t. ∑_{k=1}^Ku_k(t)=f(t)
       <tags>
         <tag>线性代数</tag>
         <tag>计算方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>焊接信号分析文献调研笔记（一）</title>
+    <url>/2020-05-12-%E7%84%8A%E6%8E%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.html</url>
+    <content><![CDATA[<h1 id="基于小波分解主元分析法建立的激光焊接信号分析模型">基于小波分解主元分析法建立的激光焊接信号分析模型</h1>
+<blockquote>
+<p>You D, Gao X, Katayama S. WPD-PCA-based laser welding process monitoring and defects diagnosis by using FNN and SVM[J]. IEEE Transactions on Industrial Electronics, 2014, 62(1): 628-636.</p>
+</blockquote>
+<p>光敏二极管和分光计是两种结构简单、成本低廉的光信号捕捉设备。</p>
+<p>光信号分析的常用方法：</p>
+<ul>
+<li>主元素分析法 (principal component analysis, PCA)</li>
+<li>偏最小二乘法 (partial least square, PLS)</li>
+<li>支持向量机 (support vector machine, SVM)</li>
+</ul>
+<a id="more"></a>
+<h2 id="小波包分解主元素分析法-wavelet-packet-decomposition-pca-wpd-pca">小波包分解主元素分析法 (Wavelet packet decomposition PCA, WPD-PCA)</h2>
+<p>使用 WPD-PCA 方法提取焊接信号中的特征参数，焊接信号包括光电二极管采集到的高频信号和分光计采集到的低频信号。 并使用图像处理的方法来量化焊接状态，确定焊接几何参数。使用前向神经网络来建立光信号和几何参量的关系模型， 使用支持向量机建立光信号和焊接缺陷的关系模型。</p>
+<p>光电二极管被用来测量可见光 (350--750 nm)和激光反射 (1030 nm)。分光计可以用来测量光谱数据 (186--1100 nm)。</p>
+<h3 id="光电二极管信号的特征提取">光电二极管信号的特征提取</h3>
+<p>离散小波分解被用于多尺度信号分析，但只能得到分解的低频（近似）系数 (approximation coefficients)。 WPD （小波包分解）是这种方法的延伸，它使用低通、高通滤波器对低频系数和高频（细节）系数 (detail coefficients).</p>
+<p>小波包分解的表达式如下所示： <span class="math display">\[
+W_{j, k}^n(t)=2^{j/2}W^n(2^jt-k),\qquad j, k\in Z.
+\]</span> 式中 <span class="math inline">\(j\)</span> 和 <span class="math inline">\(k\)</span> 表示尺度等级。<span class="math inline">\(j\)</span> 表示缩放等级，控制小波的频域特性；<span class="math inline">\(k\)</span> 表示平移等级，控制小波的频域特性。</p>
+<p>使用 Daubechies 母小波 (db10)，尺度函数和母小波可以由下式表示： <span class="math display">\[
+W_{0,0}^0(t)=\phi(t)\quad W_{0,0}^1(t)=\psi(t).
+\]</span> 低通和高通滤波器可以由下式定义： <span class="math display">\[
+h(k)=\langle\phi(t),\phi(2t-k)\rangle\quad g(k)=\langle\psi(t),\phi(2t-k)\rangle.
+\]</span></p>
+<p>因此，<span class="math inline">\(n&gt;1\)</span> 情况下的小波包方程可以由下式描述： <span class="math display">\[
+W_{j,k}^{2n}(t)=\sqrt{2}\sum_kh(k)W_{j-1,k}^n(2t-k),
+\]</span></p>
+<p><span class="math display">\[
+W_{j,k}^{2n+1}(t)=\sqrt{2}\sum_kg(k)W_{j-1,k}^n(2t-k).
+\]</span></p>
+<p>光电二极管信号 <span class="math inline">\(\boldsymbol{x}_p\)</span> 的小波包系数为 <span class="math display">\[
+Cp_j^n(k)=\sum_t\boldsymbol{x}_p(t)W_{j,k}^n(t).
+\]</span> 使用小波包分解分别获得可见光信号和激光反射光信号的小波包系数 <span class="math inline">\(Cpv_j^n(k)\)</span> 和 <span class="math inline">\(Cpr_j^n(k)\)</span>，从尺度的系数获得其特征向量 <span class="math inline">\(\boldsymbol{X}pv_{j,n}\)</span> 和 <span class="math inline">\(\boldsymbol{X}pr_{j,n}\)</span>，最终得到光电二极管的特征向量组 <span class="math inline">\(\boldsymbol{V}_P\)</span>，其中 <span class="math display">\[
+\boldsymbol{V}_P=[\boldsymbol{X}pv_{j,1},\boldsymbol{X}pv_{j,2},\dots,\boldsymbol{X}pv_{j,N_s},\boldsymbol{X}pr_{j,1},\boldsymbol{X}pr_{j,2},\dots,\boldsymbol{X}pr_{j,N_s}].
+\]</span> 其中，<span class="math inline">\(n=1\sim10\)</span> 特征向量的元素可以由下式求出:</p>
+<p><span class="math display">\[
+X_{j,n}^1=\frac{1}{K}\sum_{k=1}^KCp_j^n(k),
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^2=\sqrt{\frac{1}{K}\sum_{k=1}^K(Cp_j^n(k))^2},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^4=\frac{\max|Cp_j^n(k)|}{X_2},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^4=\frac{1}{K}\sum_{k=1}^{K}(Cp_j^n(k))^2,
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^5=\frac{1}{K}\sum_{k=1}^{K}(Cp_j^n(k))^4,
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^6=\frac{E[(Cp_j^n(k)-X_1)^3]}{X_2^3},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^7=\frac{X_2}{X_1},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^8=\frac{1}{K}\sum_\omega\log|\Phi_j^n(\omega)|\mathrm{e}^{2\mathrm{\pi}\omega\mathrm{i}/K},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^9=\frac{1}{K}\sum_\omega\log|\Phi_j^n(\omega)|\mathrm{e}^{4\mathrm{\pi}\omega\mathrm{i}/K},
+\]</span></p>
+<p><span class="math display">\[
+X_{j,n}^{10}=X_9-X_8.
+\]</span></p>
+<p>其中，<span class="math inline">\(\Phi_j^n(\omega)\)</span> 表示小波包系数 <span class="math inline">\(Cp_j^n(k)\)</span> 的傅里叶变换。</p>
+<p>最终得到的特征向量组 <span class="math inline">\(\boldsymbol{V}_P\)</span> 为 <span class="math inline">\(N_s\times2\times10\)</span> 的矩阵，<span class="math inline">\(N_s\)</span> 为子带的数量。</p>
+<h3 id="分光计信号的特征提取">分光计信号的特征提取</h3>
+<p>使用 500 Hz 的采样频率，对信号进行采样。实验发现 400--900 nm 波长范围包含了大多数特征。分光器被分解为 25 各子带，每个子带包含 20 个光谱，并将其平均值当作光谱的特征值： <span class="math display">\[
+Xs_M=\frac{\sum_{m=m_1}^{m_2}x_s^m}{20}
+\]</span> 分光计的特征向量组由下式表示： <span class="math display">\[
+\boldsymbol{V}_S=[Xs_1,Xs_2,\dots,Xs_{25}]
+\]</span></p>
+<h3 id="主元素分析法进行特征选择">主元素分析法进行特征选择</h3>
+<p>通过上述过程，共有 <span class="math inline">\(N=N_s\times2\times10+25\)</span> 组特征被提取了出来。其中 <span class="math inline">\(N_s\)</span> 在 1 到 4 之间，总特征向量数在 45 到 105 之间。通过特征选择可以提升模型预测和分类的泛化能力。主元素分析法 (Primary Component Analysis, PCA) 是一种常用的特征选择方法，本文使用该方法对特征向量组中的特征进行筛选。</p>
+<p>如果每个传感器采集到的采样点数为 <span class="math inline">\(H\)</span>，那么可以对特征进行正则化，得到 <span class="math display">\[
+\hat{\boldsymbol{V}}=\frac{\boldsymbol{V}-\boldsymbol{V}_{\text{mid}}}{\frac{1}{2}(\boldsymbol{V}_{\text{max}}-\boldsymbol{V}_{\text{min}})}
+\]</span> 其中 <span class="math inline">\(\boldsymbol{V}_{\text{mid}}\)</span>，<span class="math inline">\(\boldsymbol{V}_{\text{max}}\)</span> 和 <span class="math inline">\(\boldsymbol{V}_{\text{min}}\)</span> 分别时特征数值 <span class="math inline">\(\boldsymbol{V}\)</span> 的中值、最小值和最大值。</p>
+<p>PCA 方法对特征进行如下变换： <span class="math display">\[
+\boldsymbol{S}=\boldsymbol{U}^{\mathrm{T}}\hat{\boldsymbol{V}}
+\]</span> 其中，<span class="math inline">\(\boldsymbol{U}\)</span> 是一个 <span class="math inline">\(N\times N\)</span> 的正交矩阵，他的第 <span class="math inline">\(i\)</span> 列 <span class="math inline">\(\boldsymbol{u}_i\)</span> 是样本协方差矩阵的第 <span class="math inline">\(i\)</span> 个特征向量，即 <span class="math display">\[
+\boldsymbol{C}=\frac{1}{H}\hat{\boldsymbol{V}}^{\mathrm{T}}\hat{\boldsymbol{V}}
+\]</span> 通过求解特征方程 <span class="math display">\[
+\lambda_i\boldsymbol{u}=\boldsymbol{Cu}_i\qquad i=1,2,\dots,N
+\]</span> 可以得到矩阵 <span class="math inline">\(\boldsymbol{C}\)</span> 的特征值 <span class="math inline">\(\lambda_i\)</span> 和特征向量 <span class="math inline">\(\boldsymbol{u}_i\)</span>。</p>
+<p>于是主元素 <span class="math inline">\(\boldsymbol{S}_i\)</span> 就是 <span class="math inline">\(\hat{\boldsymbol{V}}\)</span> 的正交变换，即 <span class="math display">\[
+\boldsymbol{S}_i=\boldsymbol{u}_i^{\text{T}}\hat{\boldsymbol{V}}
+\]</span></p>
+<h2 id="视觉传感器焊缝几何特征和缺陷特征提取">视觉传感器焊缝几何特征和缺陷特征提取</h2>
+<h3 id="焊缝几何特征提取">焊缝几何特征提取</h3>
+<p>使用实验室尺度的视觉传感器来提取焊缝几何特征，从而确定焊接状态。飞溅特征使用视觉相机获取。匙孔表面的细微特征需要使用辅助照明 (Auxiliary Illumination, AI) 来进行观测。匙孔长度和熔池的深度的测量则使用 X 射线视觉影像技术完成。</p>
+<p>根据图像的位置特征，可以肯容易地将飞溅特征和金属蒸汽特征分离开来，并根据运动方向（前向或后向）将飞溅进行分类。其次，匙孔尺寸和坐标信息可以通过灰度处理和二值化实现。最后，匙孔长度和熔池深度可以通过对X射线进行灰度处理来提取。使用上述三种视觉传感器中获得的图像提取了六种典型几何特征，包括前向飞溅 <span class="math inline">\(y_{sf}\)</span>，后向飞溅 <span class="math inline">\(y_{bf}\)</span>，匙孔尺寸 <span class="math inline">\(y_{ks}\)</span>，匙孔位置 <span class="math inline">\(y_{kp}\)</span>，匙孔深度 <span class="math inline">\(y_{kd}\)</span>，和熔池深度 <span class="math inline">\(y_{md}\)</span>。因此，焊接状态参量可以由下式表示： <span class="math display">\[
+Y=[y_{sf},y_{sb},y_{ks},y_{kp},y_{kd},y_{md}]
+\]</span></p>
+<h3 id="焊缝缺陷特征提取">焊缝缺陷特征提取</h3>
+<p>根据国际标准 EN ISO 13919-1，试验选择了三种代表性的焊接缺陷用于焊缝缺陷的分类参考。因此，焊接结果 <span class="math inline">\(y_{wr}\)</span> 可以被分为四类。类一代表完好焊缝，类二代表爆炸，类三代表焊瘤，类四代表下凹。</p>
+<h2 id="预测模型的建立">预测模型的建立</h2>
+<h3 id="基于前向神经网络预测进行过程监控">基于前向神经网络预测进行过程监控</h3>
+<p>在焊接过程中，超过 20 种输入特征 <span class="math inline">\(i\)</span> 以及 6 种焊接几何参数被用于拟合模型。模型使用了一个单隐层的神经网络，并使用了 sigmoid 传递函数作为隐藏层的传递函数。输出层的传递函数为线性函数。</p>
+<h1 id="弧焊过程监控研究现状">弧焊过程监控研究现状</h1>
+<blockquote>
+<p>UHRLANDT D. Diagnostics of metal inert gas and metal active gas welding processes [J]. Journal of Physics D: Applied Physics, 2016, 49(31): 313001.</p>
+</blockquote>
+<h2 id="弧焊过程中的电测量">弧焊过程中的电测量</h2>
+<p>如今，通过将电压探头、分路器或罗氏线圈（用于电流测量）与现代快速数字记录仪相连，可以很好地测量电信号的快速变化。需要特别注意的是设备的频率响应特性、接地和屏蔽以及电压探头的测量位置。电测量的一个优点是电弧特性的所有动态变化，包括电弧附着和金属转移的影响，都会在电流-电压特性中留下线索。他的缺点则是由这些有用的信息通常会和自身以及电源和噪声重叠在一起。</p>
+<p>即便如此，电压和电流测量与复杂的信号处理方法相结合，仍然是控制过程稳定性和焊接质量的最受欢迎的方法。这是因为这样可以避免额外的工作，例如使用光学传感器等。短路频率可以作为一个过程稳定的简单指标。而从电压信号中分辨出熔滴的分离则较为困难。</p>
+<p>复变分析法 (Complex Analysis) 是一种分析电压和电流信号与焊接质量之间的的关系的常用方法。其分析过程常常是基于对信号时频特性和的功率谱密度的分析之上。主要的分析方法可以包括：</p>
+<ul>
+<li>短时傅里叶变换 (Short-time Fourier Transform)</li>
+<li>电压电流信号自相关函数的傅里叶变换</li>
+<li>模糊逻辑分析</li>
+<li>神经网络</li>
+</ul>
+<p>电弧电压测量是研究电弧柱内电场和电极鞘层电压的一种方法。例如，在短路过程的实验中，通过比较已建立的电弧和短路前电弧的测量电压，以及电弧图像确定的电弧长度，可以确定电弧柱和电极鞘层区域的单独电压降。此时建议使用具有几乎恒定电压输出和低噪声的受控电源。</p>
+<p>此外，可以直接将电子探针置于等离子体中测量电弧局部的电势或热导率，这也是直接测量此类物理量的唯一方法。电子探针可以用于研究局部等离子体的各类特征。然而，探针对等离子体的局部扰动和热等离子体探针理论的局限性，特别是无碰撞鞘层方法的有效性，使得这种方法相当困难，限制了结果的准确性。霍尔传感器也可以用于测量电弧内部的电流分布。</p>
+<h2 id="研究现状分析">研究现状分析</h2>
+<p>当前工作的中心主要在两个方面：</p>
+<h3 id="电弧的物理性质和材料转移的改进诊断方法">电弧的物理性质和材料转移的改进诊断方法</h3>
+<p>包括利用电弧发射光谱对脉冲电弧等离子体内部温度等性质的二维甚至三维分布的获取等。</p>
+<h2 id="新的监控和控制方法">新的监控和控制方法</h2>
+<p>主要集中在光谱、高速摄影的应用上。类似于声音信号的其他方法收到的关注较少。</p>
+<h2 id="需要解决的问题">需要解决的问题</h2>
+<ul>
+<li>电弧非平衡区域（外部区域和靠近墙壁的区域）以及不符合 LTE 假设的时间段（点火、小电流电弧）中的等离子体特性——这一点应包括对LTE假设下获得的现有结果的进一步验证。</li>
+<li>鞘层电压和电流路径——这一点应包括对考虑电弧附着区域的 GMAW 过程功率平衡的相应更深入的研究。</li>
+<li>电弧附着的建立与熔化部分的动力学和表面特性相关——这应包括分析附加热源（如低功率激光辐射）的影响。</li>
+<li>GMAW 电弧中金属蒸气含量的验证——这应包括对金属蒸发和烟雾形成机理的进一步研究。</li>
+<li>熔池的表面特性和熔体的流动和动力学——这应包括进一步研究凝固过程对熔池的材料转移和电弧影响。</li>
+</ul>
+<p>其中一些问题可能需要新的的诊断方法，或者对现有技术（如探针测量）进行大量开发，以扩大其应用范围。</p>
+<p>为了更全面地了解不同的GMAW过程，需要对电弧诊断和材料传输的同步应用进行研究。</p>
+<p>其他要求和挑战来自于现有诊断对实际焊接条件的有限适用性。</p>
+<p>最后，应在以下两个方面开发监控方法：（a）监控缺陷；（b）主动在线控制过程，以提高稳定性和效率。更为细致的内在物理机制研究和更复杂的诊断方法的发展可以用来支持这里。举例来说，金属蒸发和由此产生的辐射与材料传输中的不规则性之间的关系，一旦得到更详细的评估，就可以为提高灵敏度的控制方法提供一个可能的方向。</p>
+<h1 id="集合经验模态分解-ensemble-empirical-mode-decomposition">集合经验模态分解 (Ensemble Empirical Mode Decomposition)</h1>
+<blockquote>
+<p>HUANG Y, WANG K, ZHOU Z, et al. Stability evaluation of short-circuiting gas metal arc welding based on ensemble empirical mode decomposition [J]. Measurement Science and Technology, 2017, 28(3): 035006.</p>
+<p><a href="https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034" class="uri">https://blog.csdn.net/liu_xiao_cheng/java/article/details/83897034</a></p>
+</blockquote>
+<p>经验模态分解 (EMD) 是一种新兴的信号分解、滤波、处理和特征提取的方法，但是它存在着两个显著的缺陷，分别是模态混合和端点效应的问题。</p>
+<h2 id="经验模态分解的模态混合问题">经验模态分解的模态混合问题</h2>
+<p>EMD 分解得到的 IMF 分量往往存在模态混合,造成 IMF 分量不精确。Huang 等认为模式混叠是极值点的选择造成信号的间歇现象。</p>
+<p>出现下列情况之一就称为模态混合:</p>
+<ol type="1">
+<li>在同一个 IMF 分量中,存在尺度分布范围很宽却又各不相同的信号</li>
+<li>在不同的 IMF 分量中,存在着尺度相近的e信号。</li>
+</ol>
+<p>模态混合使得 IMF 分量失去其具有原来单一特征尺度的特征，形成尺度混杂的振荡，因此失去其原有的物理意义。一个模拟信号例子来说明EMD的模态混叠，如图所示，<span class="math inline">\(x_1(t)\)</span> 是 10 Hz 的正弦波，<span class="math inline">\(x_2(t)\)</span> 是间歇信号。</p>
+<figure>
+<img src="/images/modeMixing1.png" alt="模态混合-1" /><figcaption aria-hidden="true">模态混合-1</figcaption>
+</figure>
+<p>对其进行 EMD 分解得到下图的结果。可以很明显地从图中看出，<span class="math inline">\(c_1\)</span> 分量中明显存在不同的频率的波形，存在模态混叠现象。</p>
+<figure>
+<img src="/images/modeMixing2.png" alt="模态混合-2" /><figcaption aria-hidden="true">模态混合-2</figcaption>
+</figure>
+<h2 id="经验模态分解中的端点效应问题">经验模态分解中的端点效应问题</h2>
+<p>端点效应由两种情形造成的:</p>
+<ol type="1">
+<li>在三次样条拟合中产生;</li>
+<li>在Hilbert变换中产生。</li>
+</ol>
+<p>端点效应直接影响经验模态分析的效果。端点处理的好,分解的效果就比较好。</p>
+<h2 id="集合经验模态分解算法">集合经验模态分解算法</h2>
+<p>集合经验模态算法使用均匀分布的高斯白噪声来解决经验模态分解的不足。在经验模态分解过程中，通过多次在信号内引入高斯白噪声，形成一些包含白噪声的内涵模态分量 (IMFs)。对这些 IMF 求取总体的平均值，得到最终的内涵模态分量。而添加的白噪声会在求平均值的过程中被去除掉。</p>
+<p>算法实现如下：</p>
+<ol type="1">
+<li><p>假设全局的 EMD 次数为 <span class="math inline">\(M\)</span>，加入的噪声幅值为 <span class="math inline">\(k\)</span>。</p></li>
+<li><p>执行第 m 次 EMD 过程：</p>
+<ol type="1">
+<li><p>将幅值为 <span class="math inline">\(k\)</span> 的白噪声 <span class="math inline">\(n_m(t)\)</span> 添加入被分析的信号 <span class="math inline">\(x(t)\)</span> 中: <span class="math display">\[
+x_m(t)=x(t)+k\cdot n_m(t)
+\]</span> 其中 <span class="math inline">\(n_m(t)\)</span> 表示第 <span class="math inline">\(m\)</span> 次添加的白噪声，<span class="math inline">\(k\)</span> 是白噪声的幅值，<span class="math inline">\(x_m(t)\)</span>是第 <span class="math inline">\(m\)</span> 个原始信号 <span class="math inline">\(x(t)\)</span> 和白噪声 <span class="math inline">\(k\cdot n_m(t)\)</span> 的和。</p></li>
+<li><p>使用 EMD 对添加噪声后的 <span class="math inline">\(x_m(t)\)</span> 进行分解，得到的 IMF 集合被命名为 <span class="math inline">\(c_{n,m}(n=1,2,3,\dots,N)\)</span>， 即第 <span class="math inline">\(m\)</span> 次分解的 <span class="math inline">\(n\)</span> 个 IMFs.</p></li>
+<li><p>如果 <span class="math inline">\(m&lt;M\)</span>，则使 <span class="math inline">\(m=m+1\)</span>，重复步骤 i 和步骤 ii，直到 <span class="math inline">\(m=M\)</span>。</p></li>
+</ol></li>
+<li><p>最终，<span class="math inline">\(m\)</span> 次 EMD 的全局平均值 <span class="math inline">\(y_n\)</span> 可以表示为： <span class="math display">\[
+y_n=\frac{\sum_{m=1}^Mc_{m,n}}{M}\quad(n=1,2,3,\dots,N\quad m=1,2,3,\dots,M)
+\]</span> 使用 <span class="math inline">\(y_n\)</span> 作为最后的分解结果。</p></li>
+</ol>
+<p>如果余项 <span class="math inline">\(r_n\)</span> 是一个无法再继续进行分解的单调函数，则整个过程的结果为：</p>
+<p><span class="math display">\[
+x(t)=\sum_{i=1}^ny_i+r_n
+\]</span></p>
+<p><span class="math inline">\(k\)</span> 通常合适的取值范围可以为 0.01--0.5。<span class="math inline">\(M\)</span> 越大，精度越高，但计算的时间越长。文中的取值为 <span class="math inline">\(k=0.2,\ M=300\)</span>。</p>
+<p>下图展示了 EMD 和 EEMD 对同一原始信号的分解效果比较。显而易见，EEMD 的分解效果更好。</p>
+<figure>
+<img src="\images\comparisonEMDEEMD.jpg" alt="EMDEEMD比较" /><figcaption aria-hidden="true">EMDEEMD比较</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>焊接信号分析</category>
+      </categories>
+      <tags>
+        <tag>焊接信号分析</tag>
+        <tag>小波包分解</tag>
+        <tag>主元素分析</tag>
+        <tag>经验模态分解</tag>
+        <tag>集合经验模态分解</tag>
       </tags>
   </entry>
   <entry>
